@@ -1,245 +1,201 @@
 const express = require("express");
 const crypto = require("crypto");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ตั้งคีย์ด้วย environment variable
-// ตัวอย่าง:
-// ENCRYPTION_KEY=my-secret-key node server.js
-const rawKey = process.env.ENCRYPTION_KEY;
+app.use(express.json());
 
-if (!rawKey) {
-    console.error("ERROR: กรุณาตั้งค่า ENCRYPTION_KEY ก่อนรันเซิร์ฟเวอร์");
-    process.exit(1);
-}
+// ===============================
+// DEMO DATABASE
+// ===============================
 
-const ENCRYPTION_KEY = crypto
-    .createHash("sha256")
-    .update(rawKey)
-    .digest();
-
-const IV_LENGTH = 16;
-
-app.use(express.json({ limit: "1mb" }));
-
-// ให้ Express เปิด index.html
-app.use(express.static(__dirname));
+const scripts = new Map();
+const users = new Map();
 
 
 // ===============================
-// ENCRYPT
-// ===============================
-
-function encrypt(text) {
-    const iv = crypto.randomBytes(IV_LENGTH);
-
-    const cipher = crypto.createCipheriv(
-        "aes-256-cbc",
-        ENCRYPTION_KEY,
-        iv
-    );
-
-    const encrypted = Buffer.concat([
-        cipher.update(text, "utf8"),
-        cipher.final()
-    ]);
-
-    return (
-        iv.toString("hex") +
-        ":" +
-        encrypted.toString("hex")
-    );
-}
-
-
-// ===============================
-// DECRYPT
-// ===============================
-
-function decrypt(text) {
-    const parts = text.split(":");
-
-    if (parts.length !== 2) {
-        throw new Error("Invalid encrypted data");
-    }
-
-    const iv = Buffer.from(parts[0], "hex");
-    const encrypted = Buffer.from(parts[1], "hex");
-
-    const decipher = crypto.createDecipheriv(
-        "aes-256-cbc",
-        ENCRYPTION_KEY,
-        iv
-    );
-
-    const decrypted = Buffer.concat([
-        decipher.update(encrypted),
-        decipher.final()
-    ]);
-
-    return decrypted.toString("utf8");
-}
-
-
-// ===============================
-// DATABASE DEMO
-// ===============================
-
-// ตอนนี้เก็บใน RAM
-// ถ้าปิด Node.js ข้อมูลจะหาย
-const database = new Map();
-
-
-// ===============================
-// HOME
-// ===============================
-
-app.get("/", (req, res) => {
-    res.sendFile(
-        path.join(__dirname, "index.html")
-    );
-});
-
-
-// ===============================
-// SAVE SCRIPT
+// CREATE SCRIPT
 // ===============================
 
 app.post("/api/save-script", (req, res) => {
 
-    try {
+    const { scriptContent } = req.body || {};
 
-        const { scriptContent } = req.body || {};
-
-        if (
-            typeof scriptContent !== "string" ||
-            !scriptContent.trim()
-        ) {
-
-            return res.status(400).json({
-                success: false,
-                error: "No script provided"
-            });
-
-        }
-
-
-        // สร้าง ID แบบสุ่ม
-        const scriptId =
-            "sec_" +
-            crypto.randomBytes(8).toString("hex");
-
-
-        // เข้ารหัสก่อนเก็บ
-        const encryptedData =
-            encrypt(scriptContent);
-
-
-        database.set(scriptId, {
-
-            encryptedData,
-
-            createdAt: Date.now()
-
-        });
-
-
-        console.log(
-            "Created script:",
-            scriptId
-        );
-
-
-        return res.json({
-
-            success: true,
-
-            scriptId
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        return res.status(500).json({
-
+    if (
+        typeof scriptContent !== "string" ||
+        !scriptContent.trim()
+    ) {
+        return res.status(400).json({
             success: false,
-
-            error: "Could not save script"
-
+            error: "No script provided"
         });
-
     }
 
+    const id =
+        "sec_" +
+        crypto.randomBytes(8).toString("hex");
+
+    scripts.set(id, {
+        scriptContent,
+        createdAt: Date.now()
+    });
+
+    res.json({
+        success: true,
+        scriptId: id
+    });
 });
 
 
 // ===============================
-// GET SCRIPT
+// SCRIPT API
 // ===============================
 
 app.get("/api/get-script/:id", (req, res) => {
 
-    const scriptId =
-        req.params.id;
-
-
     const item =
-        database.get(scriptId);
-
+        scripts.get(req.params.id);
 
     if (!item) {
-
         return res.status(404).json({
-
             status: "Error",
-
             error: "Script not found"
-
         });
-
     }
 
-
-    try {
-
-        const scriptContent =
-            decrypt(
-                item.encryptedData
-            );
+    res.json({
+        status: "Success",
+        scriptContent: item.scriptContent
+    });
+});
 
 
-        return res.json({
+// ===============================
+// ROBLOX HEARTBEAT
+// ===============================
 
-            status: "Success",
+app.post("/api/heartbeat", (req, res) => {
 
-            scriptId,
+    const {
+        userId,
+        username,
+        placeId,
+        jobId
+    } = req.body || {};
 
-            scriptContent
-
+    if (!userId) {
+        return res.status(400).json({
+            success: false,
+            error: "Missing userId"
         });
-
     }
 
-    catch (error) {
+    users.set(String(userId), {
+        username:
+            username || "Unknown",
 
-        console.error(error);
+        placeId:
+            String(placeId || ""),
 
-        return res.status(500).json({
+        jobId:
+            String(jobId || ""),
 
-            status: "Error",
+        lastSeen:
+            Date.now()
+    });
 
-            error: "Decryption failed"
+    res.json({
+        success: true
+    });
+});
 
-        });
 
+// ===============================
+// REMOVE OFFLINE USERS
+// ===============================
+
+function cleanUsers() {
+
+    const now = Date.now();
+
+    for (const [id, user] of users) {
+
+        // 30 วินาทีไม่มี heartbeat = offline
+        if (
+            now - user.lastSeen >
+            30 * 1000
+        ) {
+            users.delete(id);
+        }
     }
+}
 
+setInterval(
+    cleanUsers,
+    5000
+);
+
+
+// ===============================
+// STATS
+// ===============================
+
+app.get("/api/stats", (req, res) => {
+
+    cleanUsers();
+
+    res.json({
+
+        onlineUsers:
+            users.size,
+
+        totalScripts:
+            scripts.size,
+
+        users: [
+            ...users.values()
+        ].map(user => ({
+
+            username:
+                user.username,
+
+            placeId:
+                user.placeId,
+
+            lastSeen:
+                Math.floor(
+                    (Date.now() - user.lastSeen) / 1000
+                )
+
+        }))
+
+    });
+});
+
+
+// ===============================
+// DASHBOARD
+// ===============================
+
+app.get("/api/dashboard", (req, res) => {
+
+    cleanUsers();
+
+    res.json({
+
+        status: "ONLINE",
+
+        onlineUsers:
+            users.size,
+
+        totalScripts:
+            scripts.size,
+
+        serverTime:
+            new Date().toISOString()
+
+    });
 });
 
 
@@ -250,7 +206,7 @@ app.get("/api/get-script/:id", (req, res) => {
 app.listen(PORT, () => {
 
     console.log(
-        `Secure Script Vault running at http://localhost:${PORT}`
+        `Server running on port ${PORT}`
     );
 
 });
