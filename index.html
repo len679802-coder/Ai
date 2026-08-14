@@ -1,878 +1,1220 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Secure Script Vault</title>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
-
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
-
-
-<style>
-
-*{
-    box-sizing:border-box;
-    font-family:'Plus Jakarta Sans',sans-serif;
-}
-
-body{
-
-    margin:0;
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
-
-    color:#24163d;
-
-    background:
-
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(124,58,237,.18),
-            transparent 35%
-        ),
-
-        radial-gradient(
-            circle at 90% 90%,
-            rgba(167,139,250,.22),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #fff,
-            #f5f0ff
-        );
-
-}
-
-
-.container{
-
-    width:560px;
-
-    max-width:100%;
-
-    padding:42px;
-
-    border-radius:28px;
-
-    background:rgba(255,255,255,.92);
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid
-        rgba(124,58,237,.12);
-
-    box-shadow:
-
-        0 30px 80px
-        rgba(91,33,182,.15);
-
-}
-
-
-.header{
-
-    text-align:center;
-
-    margin-bottom:30px;
-
-}
-
-
-.icon-box{
-
-    width:74px;
-
-    height:74px;
-
-    margin:0 auto 18px;
-
-    border-radius:23px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    color:white;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #a78bfa,
-            #7c3aed,
-            #5b21b6
-        );
-
-    box-shadow:
-
-        0 14px 35px
-        rgba(124,58,237,.3);
-
-}
-
-
-.icon-box i{
-
-    font-size:32px;
-
-}
-
-
-h2{
-
-    margin:0;
-
-    font-size:27px;
-
-    font-weight:800;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            #4c1d95,
-            #7c3aed,
-            #9333ea
-        );
-
-    -webkit-background-clip:text;
-
-    -webkit-text-fill-color:transparent;
-
-}
-
-
-.subtitle{
-
-    margin:8px 0 0;
-
-    font-size:13px;
-
-    line-height:1.6;
-
-    color:#817795;
-
-}
-
-
-.group{
-
-    margin-bottom:22px;
-
-}
-
-
-label{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    margin-bottom:9px;
-
-    color:#4b3b63;
-
-    font-size:13px;
-
-    font-weight:700;
-
-}
-
-
-label i{
-
-    color:#7c3aed;
-
-}
-
-
-textarea,
-input{
-
-    width:100%;
-
-    border:1px solid #e9e2f7;
-
-    border-radius:15px;
-
-    background:#fcfaff;
-
-    color:#332047;
-
-    outline:none;
-
-}
-
-
-textarea{
-
-    height:150px;
-
-    padding:16px;
-
-    resize:vertical;
-
-    font-size:14px;
-
-}
-
-
-textarea:focus,
-input:focus{
-
-    border-color:#8b5cf6;
-
-    box-shadow:
-
-        0 0 0 4px
-        rgba(124,58,237,.1);
-
-}
-
-
-.btn-primary{
-
-    width:100%;
-
-    padding:17px;
-
-    border:0;
-
-    border-radius:15px;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-size:15px;
-
-    font-weight:700;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #a78bfa,
-            #7c3aed,
-            #6d28d9
-        );
-
-    box-shadow:
-
-        0 10px 25px
-        rgba(124,58,237,.25);
-
-}
-
-
-.btn-primary:disabled{
-
-    opacity:.6;
-
-    cursor:not-allowed;
-
-}
-
-
-#output-section{
-
-    margin-top:30px;
-
-    padding-top:27px;
-
-    border-top:
-        1px solid #eee8f7;
-
-    display:none;
-
-}
-
-
-.result{
-
-    position:relative;
-
-}
-
-
-input{
-
-    height:48px;
-
-    padding:
-        12px
-        50px
-        12px
-        14px;
-
-    font-family:monospace;
-
-    font-size:12px;
-
-    color:#6d28d9;
-
-}
-
-
-.result textarea{
-
-    height:125px;
-
-    padding:
-        14px
-        50px
-        14px
-        14px;
-
-    font-family:monospace;
-
-    font-size:12px;
-
-    color:#5b21b6;
-
-    line-height:1.6;
-
-    resize:none;
-
-}
-
-
-.copy-btn{
-
-    position:absolute;
-
-    right:9px;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    width:35px;
-
-    height:35px;
-
-    border:0;
-
-    border-radius:10px;
-
-    background:#eee8ff;
-
-    color:#7c3aed;
-
-    cursor:pointer;
-
-}
-
-
-.status{
-
-    margin-top:14px;
-
-    padding:12px;
-
-    border-radius:12px;
-
-    font-size:13px;
-
-    display:none;
-
-}
-
-
-.ok{
-
-    background:#ecfdf5;
-
-    color:#047857;
-
-}
-
-
-.err{
-
-    background:#fef2f2;
-
-    color:#b91c1c;
-
-}
-
-
-@media(max-width:600px){
-
-    .container{
-
-        padding:
-            28px 21px;
-
-        border-radius:23px;
-
-    }
-
-    h2{
-
-        font-size:23px;
-
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-    <div class="header">
-
-        <div class="icon-box">
-
-            <i class="fa-solid fa-shield-cat"></i>
-
-        </div>
-
-
-        <h2>
-            Secure Script Vault
-        </h2>
-
-
-        <p class="subtitle">
-
-            ระบบจัดการ Lua Script<br>
-
-            เชื่อมต่อ Node.js Backend โดยตรง
-
-        </p>
-
-    </div>
-
-
-
-    <div class="group">
-
-        <label>
-
-            <i class="fa-solid fa-code"></i>
-
-            วางโค้ด Lua ของคุณ
-
-        </label>
-
-
-        <textarea
-            id="luaScript"
-            placeholder="print('Hello Roblox Security!')"
-        ></textarea>
-
-    </div>
-
-
-
-    <button
-        id="generateBtn"
-        class="btn-primary"
-        onclick="autoGenerate()"
-    >
-
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-        สร้างลิงก์
-
-    </button>
-
-
-
-    <div
-        id="status"
-        class="status"
-    ></div>
-
-
-
-    <div id="output-section">
-
-
-        <div class="group">
-
-            <label>
-
-                <i class="fa-solid fa-link"></i>
-
-                ลิงก์สำหรับดึงสคริปต์
-
-            </label>
-
-
-            <div class="result">
-
-                <input
-                    id="generatedUrl"
-                    readonly
-                >
-
-
-                <button
-                    class="copy-btn"
-                    onclick="copyText('generatedUrl',this)"
-                >
-
-                    <i
-                        class="fa-regular fa-copy"
-                    ></i>
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="group">
-
-            <label>
-
-                <i class="fa-solid fa-terminal"></i>
-
-                ข้อมูลจาก Backend
-
-            </label>
-
-
-            <div class="result">
-
-                <textarea
-                    id="robloxLoader"
-                    readonly
-                ></textarea>
-
-
-                <button
-                    class="copy-btn"
-                    style="top:28px"
-                    onclick="copyText('robloxLoader',this)"
-                >
-
-                    <i
-                        class="fa-regular fa-copy"
-                    ></i>
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-</div>
-
-
-
-<script>
-
-
-function showStatus(
-    message,
-    success = false
-){
-
-    const box =
-        document.getElementById(
-            "status"
-        );
-
-
-    box.textContent =
-        message;
-
-
-    box.className =
-        "status " +
-        (
-            success
-            ? "ok"
-            : "err"
-        );
-
-
-    box.style.display =
-        "block";
-
-}
-
-
-
-async function autoGenerate(){
-
-    const script =
-        document
-        .getElementById(
-            "luaScript"
-        )
-        .value
-        .trim();
-
-
-    const button =
-        document.getElementById(
-            "generateBtn"
-        );
-
-
-    if(!script){
-
-        showStatus(
-            "กรุณาใส่โค้ด Lua ก่อน"
-        );
-
-        return;
-
-    }
-
-
-    button.disabled =
-        true;
-
-
-    button.innerHTML =
-
-        '<i class="fa-solid fa-spinner fa-spin"></i> ' +
-        'กำลังสร้าง...';
-
-
-    try{
-
-
-        /*
-         * ส่ง Lua ไปยัง Node.js
-         */
-
-        const response =
-            await fetch(
-                "/api/save-script",
-                {
-
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-                            scriptContent:
-                                script
-                        })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.success
-        ){
-
-            throw new Error(
-                data.error ||
-                "Backend error"
-            );
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>NEXUS AI · Quantum Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --theme: 0;
+            --c1: #06b6d4; --c2: #8b5cf6; --c3: #ec4899;
+            --bg-0: #05060f; --bg-1: #0a0d1f; --bg-2: #0f1430;
+            --glass: rgba(17, 22, 48, 0.55);
+            --glass-strong: rgba(10, 13, 31, 0.85);
+            --line: rgba(255,255,255,0.08);
+            --text: #e6e9ff; --muted: #8a90c0;
+        }
+        [data-theme="aurora"] { --c1:#10b981; --c2:#06b6d4; --c3:#3b82f6; --bg-0:#041014; --bg-1:#061b22; --bg-2:#082833; --glass:rgba(8,30,40,.55); --glass-strong:rgba(4,16,20,.88); }
+        [data-theme="midnight"] { --c1:#f59e0b; --c2:#ef4444; --c3:#a855f7; --bg-0:#0a0604; --bg-1:#1a0d08; --bg-2:#2a1410; --glass:rgba(35,18,12,.55); --glass-strong:rgba(15,8,5,.88); }
+
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            font-family: 'Space Grotesk', 'Noto Sans Thai', system-ui, sans-serif;
+            background: var(--bg-0); color: var(--text); overflow: hidden;
+            letter-spacing: -0.01em;
         }
 
+        /* ========== 🪐 พื้นหลังอนุภาค + แสง ========== */
+        #universe { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+        #universe canvas { width: 100%; height: 100%; display: block; }
+        .aurora {
+            position: fixed; inset: -20%; z-index: 1; pointer-events: none; filter: blur(80px); opacity: .55;
+            background:
+                radial-gradient(40% 40% at 20% 30%, var(--c1) 0%, transparent 70%),
+                radial-gradient(35% 35% at 80% 20%, var(--c2) 0%, transparent 70%),
+                radial-gradient(45% 45% at 60% 90%, var(--c3) 0%, transparent 70%);
+            animation: auroraShift 18s ease-in-out infinite alternate;
+        }
+        @keyframes auroraShift {
+            0% { transform: translate3d(0,0,0) rotate(0deg) scale(1); }
+            50% { transform: translate3d(2%, -3%, 0) rotate(5deg) scale(1.08); }
+            100% { transform: translate3d(-2%, 2%, 0) rotate(-4deg) scale(1.03); }
+        }
+        .grid-bg {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .06;
+            background-image:
+                linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+        }
+        .cursor-glow {
+            position: fixed; width: 520px; height: 520px; border-radius: 50%; pointer-events: none; z-index: 2;
+            background: radial-gradient(circle, color-mix(in srgb, var(--c1) 22%, transparent) 0%, transparent 65%);
+            transform: translate(-50%, -50%); transition: opacity .3s; mix-blend-mode: screen;
+        }
 
-        /*
-         * สร้าง URL จริง
-         */
+        /* ========== 🪟 กรอบแก้ว 3 ระดับ ========== */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(28px) saturate(180%);
+            -webkit-backdrop-filter: blur(28px) saturate(180%);
+            border: 1px solid var(--line);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,.06) inset,
+                0 30px 80px -20px rgba(0,0,0,.6);
+        }
+        .glass-strong {
+            background: var(--glass-strong);
+            backdrop-filter: blur(36px) saturate(200%);
+            -webkit-backdrop-filter: blur(36px) saturate(200%);
+            border: 1px solid var(--line);
+        }
+        .shine { position: relative; overflow: hidden; }
+        .shine::after {
+            content: ""; position: absolute; inset: -50%;
+            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
+            transform: translateX(-100%); transition: transform .8s;
+        }
+        .shine:hover::after { transform: translateX(100%); }
 
-        const url =
-            new URL(
-                "/api/get-script/" +
-                encodeURIComponent(
-                    data.scriptId
-                ),
+        /* ========== 🎛️ Sidebar ========== */
+        .app { position: relative; z-index: 10; display: flex; height: 100dvh; width: 100%; }
+        .sidebar {
+            width: 300px; flex-shrink: 0; display: flex; flex-direction: column;
+            border-right: 1px solid var(--line); position: relative;
+        }
+        .brand {
+            padding: 22px 20px 14px; display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid var(--line);
+        }
+        .logo {
+            width: 44px; height: 44px; border-radius: 14px; position: relative;
+            background: conic-gradient(from 140deg, var(--c1), var(--c2), var(--c3), var(--c1));
+            display: grid; place-items: center; font-weight: 800; color: #05060f;
+            box-shadow: 0 0 30px -5px var(--c2), 0 0 60px -20px var(--c3);
+            animation: spin 14s linear infinite;
+        }
+        .logo::after {
+            content: "N"; position: absolute; inset: 3px; border-radius: 11px;
+            background: var(--bg-1); display: grid; place-items: center;
+            background: linear-gradient(135deg, color-mix(in srgb, var(--c1) 30%, var(--bg-1)), color-mix(in srgb, var(--c2) 20%, var(--bg-0)));
+            color: white; animation: spin 14s linear infinite reverse;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .brand-text h1 {
+            font-size: 17px; font-weight: 700; letter-spacing: -.02em;
+            background: linear-gradient(135deg, var(--text), color-mix(in srgb, var(--c1) 60%, white));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .brand-text p { font-size: 10.5px; color: var(--muted); letter-spacing: .18em; text-transform: uppercase; }
 
-                window.location.origin
+        .new-btn {
+            margin: 14px; padding: 13px 16px; border-radius: 14px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-weight: 600; font-size: 14px; color: white; border: none; position: relative;
+            background: linear-gradient(135deg, var(--c1), var(--c2) 55%, var(--c3));
+            background-size: 200% 200%; animation: bgMove 6s ease infinite;
+            box-shadow: 0 10px 30px -10px var(--c2), 0 0 0 1px rgba(255,255,255,.1) inset;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .new-btn:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 18px 40px -10px var(--c2); }
+        .new-btn:active { transform: translateY(0) scale(.99); }
+        @keyframes bgMove { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-            ).href;
+        .section-title {
+            font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+            color: var(--muted); padding: 16px 18px 8px; font-weight: 700;
+        }
+        .model-list { padding: 0 10px; display: flex; flex-direction: column; gap: 4px; }
+        .model-card {
+            display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-radius: 12px;
+            cursor: pointer; transition: all .25s cubic-bezier(.2,.8,.2,1);
+            border: 1px solid transparent; color: var(--muted); position: relative;
+        }
+        .model-card:hover { background: rgba(255,255,255,.04); color: var(--text); transform: translateX(3px); }
+        .model-card.active {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--c1) 18%, transparent), color-mix(in srgb, var(--c2) 14%, transparent));
+            border-color: color-mix(in srgb, var(--c1) 40%, transparent);
+            color: white; box-shadow: 0 8px 24px -12px var(--c2);
+        }
+        .model-card .dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--muted);
+            box-shadow: 0 0 0 4px rgba(255,255,255,.03);
+        }
+        .model-card.active .dot {
+            background: var(--c1); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c1) 20%, transparent), 0 0 14px var(--c1);
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
+        .model-card .info { flex: 1; min-width: 0; }
+        .model-card .info b { display: block; font-size: 13px; color: inherit; font-weight: 600; }
+        .model-card .info span { font-size: 10.5px; color: var(--muted); }
+        .model-card.active .info span { color: color-mix(in srgb, var(--text) 60%, transparent); }
+        .tag {
+            font-size: 9px; padding: 2px 7px; border-radius: 999px; font-weight: 700; letter-spacing: .04em;
+            background: color-mix(in srgb, var(--c1) 22%, transparent); color: color-mix(in srgb, var(--c1) 90%, white);
+            border: 1px solid color-mix(in srgb, var(--c1) 30%, transparent);
+        }
 
+        .mode-row {
+            margin: 10px 14px; padding: 5px; border-radius: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+            background: rgba(255,255,255,.03); border: 1px solid var(--line);
+        }
+        .mode-row button {
+            padding: 8px 4px; border-radius: 9px; border: none; background: transparent;
+            color: var(--muted); font-size: 11.5px; font-weight: 600; cursor: pointer;
+            transition: all .2s ease;
+        }
+        .mode-row button.active {
+            background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+            color: white; box-shadow: 0 6px 16px -6px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06) inset;
+        }
 
-        document
-            .getElementById(
-                "generatedUrl"
-            )
-            .value =
-                url;
+        .history { flex: 1; overflow-y: auto; padding: 4px 10px 14px; }
+        .history-item {
+            display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 11px;
+            cursor: pointer; color: var(--muted); font-size: 13px; transition: all .2s;
+            border: 1px solid transparent;
+        }
+        .history-item:hover { background: rgba(255,255,255,.04); color: var(--text); }
+        .history-item.active { background: rgba(255,255,255,.06); color: white; border-color: var(--line); }
+        .history-item .ic { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,.05); font-size: 13px; }
+        .history-item .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .history-item .d { font-size: 10px; color: var(--muted); }
 
+        .themes { display: flex; gap: 6px; padding: 10px 14px 14px; border-top: 1px solid var(--line); }
+        .theme-dot {
+            width: 100%; flex: 1; aspect-ratio: 2.2/1; border-radius: 10px; cursor: pointer;
+            border: 2px solid transparent; position: relative; overflow: hidden; transition: all .2s;
+        }
+        .theme-dot:hover { transform: translateY(-2px); }
+        .theme-dot.active { border-color: rgba(255,255,255,.5); box-shadow: 0 8px 20px -6px rgba(0,0,0,.6); }
+        .theme-dot::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(135deg, var(--c1), var(--c2) 55%, var(--c3));
+        }
+        .theme-dot[data-t="cyber"]::before { background: linear-gradient(135deg, #06b6d4, #8b5cf6 55%, #ec4899); }
+        .theme-dot[data-t="aurora"]::before { background: linear-gradient(135deg, #10b981, #06b6d4 55%, #3b82f6); }
+        .theme-dot[data-t="midnight"]::before { background: linear-gradient(135deg, #f59e0b, #ef4444 55%, #a855f7); }
 
+        .status-card {
+            margin: 10px 14px 16px; padding: 12px; border-radius: 14px;
+            background: linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+            border: 1px solid var(--line);
+        }
+        .status-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .status-row .s { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; }
+        .live-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #64748b; position: relative;
+        }
+        .live-dot.on { background: #22c55e; box-shadow: 0 0 0 4px rgba(34,197,94,.15), 0 0 14px #22c55e; animation: pulse 1.5s infinite; }
+        .live-dot.think { background: #eab308; box-shadow: 0 0 0 4px rgba(234,179,8,.15), 0 0 14px #eab308; animation: pulse 1s infinite; }
+        .token-track {
+            height: 4px; border-radius: 999px; background: rgba(255,255,255,.06); overflow: hidden;
+        }
+        .token-fill {
+            height: 100%; width: 0%; border-radius: inherit;
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+            background-size: 200% 100%; animation: bgMove 3s linear infinite;
+            transition: width .35s ease;
+        }
+        .token-meta { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 6px; }
 
-        /*
-         * แสดงข้อมูลสำหรับตรวจสอบ
-         */
+        /* ========== 🧠 Main Area ========== */
+        .main { flex: 1; min-width: 0; display: flex; flex-direction: column; position: relative; }
+        .topbar {
+            padding: 14px 22px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--line); z-index: 20;
+        }
+        .hamburger { display: none; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); cursor: pointer; }
+        .title-wrap h2 { font-size: 15px; font-weight: 700; }
+        .title-wrap p { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+        .actions { display: flex; gap: 7px; }
+        .icon-btn {
+            width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line);
+            background: rgba(255,255,255,.03); color: var(--text); cursor: pointer;
+            display: grid; place-items: center; font-size: 15px; transition: all .2s ease; position: relative;
+        }
+        .icon-btn:hover {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--c1) 18%, rgba(255,255,255,.05)), color-mix(in srgb, var(--c2) 12%, rgba(255,255,255,.02)));
+            transform: translateY(-2px); border-color: color-mix(in srgb, var(--c1) 35%, transparent);
+            box-shadow: 0 10px 24px -10px var(--c2);
+        }
+        .icon-btn.on {
+            background: color-mix(in srgb, var(--c1) 22%, rgba(255,255,255,.05));
+            border-color: color-mix(in srgb, var(--c1) 45%, transparent); color: white;
+        }
 
-        document
-            .getElementById(
-                "robloxLoader"
-            )
-            .value =
+        /* ========== Loader ========== */
+        .loader {
+            position: absolute; inset: 0; z-index: 40; display: grid; place-items: center; padding: 30px;
+            background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bg-0) 80%, transparent), var(--bg-0));
+        }
+        .loader-inner { max-width: 460px; width: 100%; text-align: center; }
+        .orb {
+            width: 130px; height: 130px; margin: 0 auto 26px; position: relative;
+        }
+        .orb-ring {
+            position: absolute; inset: -10px; border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--c1); border-right-color: var(--c2);
+            animation: spin 2.2s cubic-bezier(.6,.2,.4,1) infinite;
+        }
+        .orb-ring.r2 { inset: -22px; animation-duration: 3.4s; animation-direction: reverse; opacity: .7; border-top-color: var(--c3); border-right-color: var(--c1); }
+        .orb-ring.r3 { inset: -34px; animation-duration: 5s; opacity: .4; border-top-color: var(--c2); border-right-color: var(--c3); }
+        .orb-core {
+            position: absolute; inset: 0; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--c1) 60%, white), var(--c2) 55%, var(--c3));
+            box-shadow:
+                0 0 60px -5px var(--c2),
+                0 0 120px -20px var(--c3),
+                inset 0 -20px 40px rgba(0,0,0,.35),
+                inset 0 20px 40px rgba(255,255,255,.25);
+            animation: breathe 4s ease-in-out infinite;
+        }
+        @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+        .loader h1 {
+            font-size: 34px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 8px;
+            background: linear-gradient(135deg, white, color-mix(in srgb, var(--c1) 70%, white));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .loader p { color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+        .progress-track {
+            height: 6px; border-radius: 999px; background: rgba(255,255,255,.06); overflow: hidden;
+            border: 1px solid var(--line);
+        }
+        .progress-fill {
+            height: 100%; width: 0%; border-radius: inherit; position: relative;
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+            background-size: 200% 100%; animation: bgMove 2s linear infinite;
+            box-shadow: 0 0 20px -4px var(--c2); transition: width .3s ease;
+        }
+        .loader-meta { display: flex; justify-content: space-between; margin-top: 10px; font-size: 11.5px; color: var(--muted); }
+        .boot-btn {
+            margin-top: 24px; width: 100%; padding: 15px; border-radius: 14px; border: none; cursor: pointer;
+            font-size: 15px; font-weight: 700; color: white;
+            background: linear-gradient(135deg, var(--c1), var(--c2) 55%, var(--c3));
+            background-size: 200% 200%; animation: bgMove 5s ease infinite;
+            box-shadow: 0 16px 40px -12px var(--c2), 0 0 0 1px rgba(255,255,255,.12) inset;
+            transition: transform .2s ease;
+        }
+        .boot-btn:hover { transform: translateY(-2px); }
+        .boot-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 
-`Script ID:
-${data.scriptId}
+        /* ========== Chat ========== */
+        .chat-wrap {
+            flex: 1; min-height: 0; overflow-y: auto; position: relative;
+            scroll-behavior: smooth;
+        }
+        .chat {
+            max-width: 920px; margin: 0 auto; padding: 28px 22px 140px;
+            display: flex; flex-direction: column; gap: 22px;
+        }
+        .welcome {
+            text-align: center; padding: 40px 10px 20px; animation: up .6s ease both;
+        }
+        @keyframes up { from { opacity: 0; transform: translateY(24px);} to { opacity: 1; transform: none;} }
+        .welcome .mini-logo {
+            width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 20px;
+            background: conic-gradient(from 90deg, var(--c1), var(--c2), var(--c3), var(--c1));
+            display: grid; place-items: center; font-weight: 900; color: #05060f; font-size: 26px;
+            animation: spin 10s linear infinite; box-shadow: 0 20px 50px -15px var(--c2);
+        }
+        .welcome h2 {
+            font-size: clamp(24px, 4vw, 36px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
+        }
+        .welcome h2 span {
+            background: linear-gradient(135deg, var(--c1), var(--c2) 55%, var(--c3));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .welcome .sub { color: var(--muted); margin-top: 10px; font-size: 14.5px; }
+        .suggest {
+            margin-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+        }
+        .sug {
+            text-align: left; padding: 14px 16px; border-radius: 16px; cursor: pointer;
+            transition: all .25s cubic-bezier(.2,.8,.2,1);
+        }
+        .sug:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -14px rgba(0,0,0,.6); border-color: color-mix(in srgb, var(--c1) 30%, transparent); }
+        .sug .ic { font-size: 20px; margin-bottom: 6px; }
+        .sug b { display: block; font-size: 13.5px; margin-bottom: 2px; }
+        .sug span { font-size: 11.5px; color: var(--muted); }
 
-API URL:
-${url}`;
+        .msg { display: flex; gap: 12px; animation: up .45s ease both; }
+        .msg.user { flex-direction: row-reverse; }
+        .avatar-s {
+            width: 36px; height: 36px; border-radius: 12px; flex-shrink: 0; display: grid; place-items: center;
+            font-weight: 700; font-size: 13px; position: relative;
+        }
+        .avatar-ai {
+            background: linear-gradient(135deg, var(--c1), var(--c2) 60%, var(--c3));
+            color: #05060f; box-shadow: 0 8px 22px -6px var(--c2);
+        }
+        .avatar-user {
+            background: linear-gradient(135deg, #1e3a8a, #4f46e5); color: white;
+            box-shadow: 0 8px 22px -6px rgba(79,70,229,.5);
+        }
+        .bubble-wrap { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+        .msg.user .bubble-wrap { align-items: flex-end; }
+        .bubble {
+            max-width: 86%; padding: 14px 17px; font-size: 15px; line-height: 1.68;
+            border-radius: 20px; position: relative; word-break: break-word;
+        }
+        .bubble b { color: white; }
+        .msg.ai .bubble {
+            border-top-left-radius: 6px;
+        }
+        .msg.user .bubble {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white; border-top-right-radius: 6px;
+            box-shadow: 0 12px 30px -10px rgba(79,70,229,.55), 0 0 0 1px rgba(255,255,255,.08) inset;
+        }
+        .msg.ai.typing .bubble { padding: 18px 17px; }
+        .dots { display: inline-flex; gap: 5px; padding: 4px 0; }
+        .dots i {
+            display: block; width: 7px; height: 7px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--c1), var(--c2));
+            animation: dot 1.2s infinite ease-in-out;
+        }
+        .dots i:nth-child(2) { animation-delay: .15s; }
+        .dots i:nth-child(3) { animation-delay: .3s; }
+        @keyframes dot { 0%,80%,100% { transform: translateY(0); opacity: .5;} 40% { transform: translateY(-7px); opacity: 1;} }
 
+        .thinking-bar {
+            display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted);
+            padding: 4px 2px 8px;
+        }
+        .thinking-bar .bar {
+            flex: 1; height: 2px; border-radius: 999px; background: rgba(255,255,255,.06); overflow: hidden;
+        }
+        .thinking-bar .bar i {
+            display: block; height: 100%; width: 30%;
+            background: linear-gradient(90deg, transparent, var(--c1), var(--c2), transparent);
+            animation: sweep 1.4s linear infinite;
+        }
+        @keyframes sweep { from { transform: translateX(-100%);} to { transform: translateX(400%);} }
 
+        .bubble code.inline {
+            padding: 2px 7px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+            background: rgba(255,255,255,.08); color: color-mix(in srgb, var(--c1) 85%, white);
+            border: 1px solid rgba(255,255,255,.08);
+        }
+        .bubble pre {
+            margin: 12px 0 4px; border-radius: 14px; overflow: hidden; position: relative;
+            border: 1px solid var(--line); background: #070a18;
+            box-shadow: 0 20px 50px -18px rgba(0,0,0,.8);
+        }
+        .bubble pre .code-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 9px 14px; font-size: 11px; font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(90deg, color-mix(in srgb, var(--c1) 14%, rgba(255,255,255,.03)), color-mix(in srgb, var(--c2) 10%, rgba(255,255,255,.02)));
+            border-bottom: 1px solid var(--line); color: var(--muted);
+        }
+        .bubble pre .code-head .win { display: flex; gap: 6px; }
+        .bubble pre .code-head .win span {
+            width: 11px; height: 11px; border-radius: 50%;
+        }
+        .bubble pre code {
+            display: block; padding: 14px 16px; overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65;
+            color: #e2e8f0;
+        }
+        .copy-code {
+            padding: 4px 10px; border-radius: 7px; border: 1px solid var(--line);
+            background: rgba(255,255,255,.05); color: var(--muted); cursor: pointer;
+            font-size: 10.5px; font-weight: 600; transition: all .2s;
+        }
+        .copy-code:hover { background: var(--c1); color: #05060f; border-color: transparent; }
 
-        document
-            .getElementById(
-                "output-section"
-            )
-            .style.display =
-                "block";
+        .bubble ul, .bubble ol { padding-left: 22px; margin: 6px 0; }
+        .bubble li { margin: 3px 0; }
+        .bubble li::marker { color: var(--c1); font-weight: 700; }
 
+        .msg-tools {
+            display: flex; gap: 5px; margin-top: 8px; opacity: 0; transform: translateY(4px);
+            transition: all .2s ease;
+        }
+        .msg:hover .msg-tools, .msg:focus-within .msg-tools { opacity: 1; transform: none; }
+        .tool {
+            padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line);
+            background: rgba(255,255,255,.03); color: var(--muted); cursor: pointer;
+            font-size: 11px; font-weight: 600; transition: all .2s;
+        }
+        .tool:hover { background: color-mix(in srgb, var(--c1) 18%, rgba(255,255,255,.05)); color: white; border-color: color-mix(in srgb, var(--c1) 35%, transparent); }
 
-        showStatus(
+        /* ========== Composer ========== */
+        .composer {
+            padding: 14px 22px 28px; position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, var(--bg-0) 40%, color-mix(in srgb, var(--bg-0) 60%, transparent) 80%, transparent);
+            z-index: 15;
+        }
+        .composer-inner { max-width: 920px; margin: 0 auto; }
+        .input-shell {
+            position: relative; border-radius: 22px; padding: 6px;
+            background: linear-gradient(135deg, color-mix(in srgb, var(--c1) 30%, transparent), color-mix(in srgb, var(--c3) 25%, transparent));
+            box-shadow: 0 30px 80px -20px rgba(0,0,0,.7);
+            transition: all .3s ease;
+        }
+        .input-shell:focus-within {
+            box-shadow:
+                0 0 0 1px color-mix(in srgb, var(--c1) 40%, transparent),
+                0 0 40px -5px color-mix(in srgb, var(--c2) 55%, transparent),
+                0 30px 80px -20px rgba(0,0,0,.7);
+        }
+        .input-core {
+            background: var(--glass-strong); border-radius: 18px; padding: 8px 8px 8px 12px;
+            display: flex; align-items: flex-end; gap: 8px;
+        }
+        .input-core textarea {
+            flex: 1; border: none; outline: none; background: transparent; color: var(--text);
+            resize: none; font-family: inherit; font-size: 15px; line-height: 1.55;
+            padding: 8px 4px; max-height: 180px; min-height: 28px;
+        }
+        .input-core textarea::placeholder { color: var(--muted); opacity: .7; }
+        .mini-btn {
+            width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line);
+            background: rgba(255,255,255,.04); color: var(--muted); cursor: pointer;
+            display: grid; place-items: center; transition: all .2s; flex-shrink: 0;
+        }
+        .mini-btn:hover { background: rgba(255,255,255,.09); color: white; transform: translateY(-1px); }
+        .mini-btn.on { background: color-mix(in srgb, var(--c1) 22%, transparent); color: white; border-color: color-mix(in srgb, var(--c1) 40%, transparent); }
+        .mini-btn.stop { background: rgba(239,68,68,.15); color: #fca5a5; border-color: rgba(239,68,68,.35); animation: pulse 1.2s infinite; }
+        .send-btn {
+            width: 44px; height: 44px; border-radius: 14px; border: none; cursor: pointer;
+            display: grid; place-items: center; color: #05060f; font-size: 17px; font-weight: 800;
+            background: linear-gradient(135deg, var(--c1), var(--c2) 55%, var(--c3));
+            background-size: 200% 200%; animation: bgMove 5s ease infinite;
+            box-shadow: 0 12px 30px -8px var(--c2), 0 0 0 1px rgba(255,255,255,.18) inset;
+            transition: all .2s ease; flex-shrink: 0;
+        }
+        .send-btn:hover:not(:disabled) { transform: translateY(-2px) scale(1.03); box-shadow: 0 18px 36px -8px var(--c2); }
+        .send-btn:active:not(:disabled) { transform: translateY(0) scale(.98); }
+        .send-btn:disabled { opacity: .45; cursor: not-allowed; filter: grayscale(.4); }
+        .hint { text-align: center; font-size: 10.5px; color: var(--muted); margin-top: 10px; }
 
-            "สร้างลิงก์สำเร็จ • " +
-            data.scriptId,
+        /* ========== Mobile ========== */
+        @media (max-width: 820px) {
+            .sidebar {
+                position: fixed; inset: 0 auto 0 0; z-index: 60; transform: translateX(-102%);
+                transition: transform .35s cubic-bezier(.2,.8,.2,1); box-shadow: 40px 0 80px rgba(0,0,0,.6);
+            }
+            .sidebar.open { transform: translateX(0); }
+            .hamburger { display: grid; }
+            .suggest { grid-template-columns: 1fr; }
+            .bubble { max-width: 94%; }
+            .topbar { padding: 12px 14px; }
+            .chat { padding: 20px 14px 130px; }
+            .composer { padding: 10px 12px 20px; }
+            .backdrop {
+                position: fixed; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(6px);
+                z-index: 55; opacity: 0; pointer-events: none; transition: opacity .3s;
+            }
+            .backdrop.show { opacity: 1; pointer-events: auto; }
+            .msg-tools { opacity: 1; transform: none; }
+            .cursor-glow { display: none; }
+        }
 
-            true
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--c1), var(--c2)); border-radius: 10px; opacity: .5;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(var(--c2), var(--c3)); }
 
-        );
+        /* Ripple */
+        .ripple { position: relative; overflow: hidden; }
+        .ripple-effect {
+            position: absolute; border-radius: 50%; transform: scale(0);
+            background: rgba(255,255,255,.35); animation: ripple .6s ease-out; pointer-events: none;
+        }
+        @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+    </style>
+</head>
+<body data-theme="cyber">
 
+<div id="universe"><canvas id="stars"></canvas></div>
+<div class="aurora"></div>
+<div class="grid-bg"></div>
+<div class="cursor-glow" id="glow"></div>
+<div class="backdrop" id="backdrop" onclick="toggleSide()"></div>
 
+<div class="app">
+    <!-- ===================== 🎛️ SIDEBAR ===================== -->
+    <aside class="sidebar glass-strong" id="sidebar">
+        <div class="brand">
+            <div class="logo"></div>
+            <div class="brand-text">
+                <h1>NEXUS AI</h1>
+                <p>Quantum · v4.0</p>
+            </div>
+        </div>
+
+        <button class="new-btn ripple shine" onclick="newChat()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            สร้างแชทใหม่
+        </button>
+
+        <div class="section-title">🧠 สมองปัญญาประดิษฐ์</div>
+        <div class="model-list" id="modelList"></div>
+
+        <div class="section-title">⚙️ รูปแบบการตอบ</div>
+        <div class="mode-row" id="modeRow">
+            <button data-m="fast">เร็ว</button>
+            <button data-m="accurate" class="active">แม่นยำ</button>
+            <button data-m="deep">ลึกซึ้ง</button>
+        </div>
+
+        <div class="section-title">📚 ประวัติล่าสุด</div>
+        <div class="history" id="history"></div>
+
+        <div class="section-title">🎨 ธีมสี</div>
+        <div class="themes">
+            <div class="theme-dot active" data-t="cyber" onclick="setTheme('cyber')"></div>
+            <div class="theme-dot" data-t="aurora" onclick="setTheme('aurora')"></div>
+            <div class="theme-dot" data-t="midnight" onclick="setTheme('midnight')"></div>
+        </div>
+
+        <div class="status-card">
+            <div class="status-row">
+                <div class="s"><span class="live-dot" id="dot"></span><span id="stText">ยังไม่เชื่อมต่อ</span></div>
+                <span id="stModel" style="font-size:10px;color:var(--muted)">—</span>
+            </div>
+            <div class="token-track"><div class="token-fill" id="tokFill"></div></div>
+            <div class="token-meta"><span>Context</span><span id="tokText">0 / —</span></div>
+        </div>
+    </aside>
+
+    <!-- ===================== 🧠 MAIN ===================== -->
+    <main class="main">
+        <header class="topbar glass">
+            <div style="display:flex;align-items:center;gap:12px">
+                <button class="hamburger" onclick="toggleSide()">☰</button>
+                <div class="title-wrap">
+                    <h2 id="chatTitle">การสนทนาใหม่</h2>
+                    <p><span class="live-dot" id="miniDot"></span><span id="miniText">เตรียมพร้อม</span></p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="icon-btn ripple" id="voiceBtn" onclick="toggleVoice()" title="เสียง">🔊</button>
+                <button class="icon-btn ripple" onclick="clearChat()" title="ล้าง">🗑️</button>
+            </div>
+        </header>
+
+        <!-- Loader -->
+        <section class="loader" id="loader">
+            <div class="loader-inner">
+                <div class="orb">
+                    <div class="orb-ring r3"></div>
+                    <div class="orb-ring r2"></div>
+                    <div class="orb-ring"></div>
+                    <div class="orb-core"></div>
+                </div>
+                <h1>กำลังปลุกสมองควอนตัม</h1>
+                <p>โมเดลใหม่ Qwen 2.5 · ตอบตรงคำถาม · ภาษาไทยแม่นยำสูง</p>
+                <div class="progress-track"><div class="progress-fill" id="pFill"></div></div>
+                <div class="loader-meta"><span id="pText">กดปุ่มเพื่อเริ่มต้น</span><span id="pPct">0%</span></div>
+                <button class="boot-btn ripple" id="bootBtn" onclick="bootAI()">🚀 เริ่มต้นระบบ NEXUS</button>
+            </div>
+        </section>
+
+        <!-- Chat -->
+        <section class="chat-wrap" id="chatWrap" style="display:none">
+            <div class="chat" id="chat"></div>
+        </section>
+
+        <!-- Composer -->
+        <div class="composer" id="composer" style="display:none">
+            <div class="composer-inner">
+                <div class="input-shell shine">
+                    <div class="input-core">
+                        <button class="mini-btn ripple" title="แนบไฟล์">📎</button>
+                        <textarea id="input" rows="1" placeholder="ถาม NEXUS AI ได้ทุกอย่าง… ยิ่งถามชัด ยิ่งตอบแม่น 💎"></textarea>
+                        <button class="mini-btn ripple" id="micBtn" onclick="toggleMic()" title="พูดสั่งงาน">🎤</button>
+                        <button class="mini-btn ripple stop" id="stopBtn" onclick="stopIt()" style="display:none" title="หยุด">⏹</button>
+                        <button class="send-btn ripple shine" id="sendBtn" onclick="send()" disabled>➤</button>
+                    </div>
+                </div>
+                <div class="hint">NEXUS AI อาจผิดพลาดได้ · ตรวจสอบข้อมูลสำคัญก่อนใช้งาน</div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+/* =========================================================
+   🌌 Particle Background
+   ========================================================= */
+(() => {
+    const c = document.getElementById('stars'), ctx = c.getContext('2d');
+    let stars = [], w, h, raf;
+    function resize() {
+        w = c.width = innerWidth * devicePixelRatio;
+        h = c.height = innerHeight * devicePixelRatio;
+        c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px';
+        const n = Math.min(140, Math.floor(innerWidth * innerHeight / 14000));
+        stars = Array.from({length: n}, () => ({
+            x: Math.random()*w, y: Math.random()*h,
+            r: (Math.random()*1.4 + .3) * devicePixelRatio,
+            vx: (Math.random()-.5) * .15 * devicePixelRatio,
+            vy: (Math.random()-.5) * .15 * devicePixelRatio,
+            a: Math.random()*.6 + .2
+        }));
     }
-
-    catch(error){
-
-        console.error(error);
-
-
-        showStatus(
-
-            "เชื่อมต่อ Backend ไม่สำเร็จ: " +
-            error.message
-
-        );
-
+    function step() {
+        ctx.clearRect(0,0,w,h);
+        for (const s of stars) {
+            s.x += s.vx; s.y += s.vy;
+            if (s.x<0) s.x+=w; if (s.x>w) s.x-=w;
+            if (s.y<0) s.y+=h; if (s.y>h) s.y-=h;
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+        }
+        // เชื่อมใกล้ๆ
+        for (let i=0;i<stars.length;i++) {
+            for (let j=i+1;j<stars.length;j++) {
+                const dx = stars[i].x-stars[j].x, dy = stars[i].y-stars[j].y;
+                const d2 = dx*dx+dy*dy, lim = 120*devicePixelRatio*120*devicePixelRatio;
+                if (d2 < lim) {
+                    ctx.strokeStyle = `rgba(148,163,184,${(1-d2/lim)*.12})`;
+                    ctx.lineWidth = devicePixelRatio * .5;
+                    ctx.beginPath(); ctx.moveTo(stars[i].x,stars[i].y); ctx.lineTo(stars[j].x,stars[j].y); ctx.stroke();
+                }
+            }
+        }
+        raf = requestAnimationFrame(step);
     }
+    addEventListener('resize', resize); resize(); step();
+})();
 
+/* =========================================================
+   ✨ Cursor Glow
+   ========================================================= */
+const glow = document.getElementById('glow');
+let mx = innerWidth/2, my = innerHeight/2, gx = mx, gy = my;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+function moveGlow() {
+    gx += (mx-gx)*.12; gy += (my-gy)*.12;
+    glow.style.left = gx+'px'; glow.style.top = gy+'px';
+    requestAnimationFrame(moveGlow);
+} moveGlow();
 
-    finally{
+/* =========================================================
+   🎨 Theme
+   ========================================================= */
+function setTheme(t) {
+    document.body.dataset.theme = t;
+    document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.t === t));
+    localStorage.setItem('nexus_theme', t);
+}
+const savedT = localStorage.getItem('nexus_theme');
+if (savedT) setTheme(savedT);
 
-        button.disabled =
-            false;
-
-
-        button.innerHTML =
-
-            '<i class="fa-solid fa-wand-magic-sparkles"></i> ' +
-            'สร้างลิงก์';
-
-    }
-
+/* =========================================================
+   🎛️ Sidebar Toggle
+   ========================================================= */
+function toggleSide() {
+    const sb = document.getElementById('sidebar');
+    const bd = document.getElementById('backdrop');
+    sb.classList.toggle('open');
+    bd.classList.toggle('show');
 }
 
+/* =========================================================
+   🧠 AI Models + กฎตอบแม่นยำ
+   ========================================================= */
+const MODELS = {
+    qwen: {
+        name: 'Qwen 2.5 Pro 3B',
+        id: 'Qwen2.5-3B-Instruct-q4f32_1-MLC',
+        tag: 'แนะนำ',
+        desc: 'ตอบตรง · ไทยแม่น · โค้ดเก่ง',
+        ram: '4 GB'
+    },
+    llama: {
+        name: 'Llama 3.2 Pro 3B',
+        id: 'Llama-3.2-3B-Instruct-q4f32_1-MLC',
+        tag: 'สมดุล',
+        desc: 'คิดได้ดี · อเนกประสงค์',
+        ram: '4 GB'
+    },
+    nano: {
+        name: 'Nano 1B Turbo',
+        id: 'Llama-3.2-1B-Instruct-q4f32_1-MLC',
+        tag: 'เร็ว',
+        desc: 'ตอบทันที · แรมน้อย',
+        ram: '2 GB'
+    }
+};
 
+const MODES = {
+    fast:     { tokens: 384,  temp: 0.75, title: 'เร็ว',      rule: 'ตอบสั้น กระชับ ทันที ตรงประเด็น' },
+    accurate: { tokens: 1536, temp: 0.35, title: 'แม่นยำ',   rule: 'ตอบตรงคำถามเป็นอันดับแรก แล้วค่อยอธิบายเสริมเท่าที่จำเป็น ใช้ข้อมูลที่ถูกต้อง ห้ามแต่งข้อมูล' },
+    deep:     { tokens: 4096, temp: 0.28, title: 'ลึกซึ้ง',   rule: 'วิเคราะห์ลึก ครบถ้วน แยกข้อ ชี้ข้อดีข้อเสีย มีเหตุผลประกอบ ทุกประโยคเกี่ยวข้องกับคำถาม' }
+};
 
-async function copyText(
-    id,
-    button
-){
+let currentModel = 'qwen';
+let currentMode = 'accurate';
 
-    const element =
-        document.getElementById(
-            id
-        );
+function renderModels() {
+    const el = document.getElementById('modelList');
+    el.innerHTML = Object.entries(MODELS).map(([k,m]) => `
+        <div class="model-card ${k===currentModel?'active':''}" onclick="pickModel('${k}')">
+            <span class="dot"></span>
+            <div class="info">
+                <b>${m.name}</b>
+                <span>${m.desc} · ${m.ram}</span>
+            </div>
+            ${m.tag?`<span class="tag">${m.tag}</span>`:''}
+        </div>
+    `).join('');
+}
+renderModels();
 
+document.getElementById('modeRow').addEventListener('click', e => {
+    const b = e.target.closest('button[data-m]'); if (!b) return;
+    currentMode = b.dataset.m;
+    document.querySelectorAll('#modeRow button').forEach(x => x.classList.toggle('active', x===b));
+    if (messages[0]?.role === 'system') messages[0].content = systemPrompt();
+});
 
-    try{
+/* =========================================================
+   ⚖️ กฎระบบ (แก้ตอบไม่ตรงคำถาม)
+   ========================================================= */
+function systemPrompt() {
+    const m = MODES[currentMode];
+    return `# บทบาท
+คือ NEXUS AI - ผู้ช่วยอัจฉริยะ ที่ได้รับการอัปเกรดให้ตอบคำถามได้**ตรงประเด็นที่สุด**
 
-        await navigator
-            .clipboard
-            .writeText(
-                element.value
-            );
+# กฎสำคัญ 10 ข้อ — ห้ามฝ่าฝืนเด็ดขาด
+1. 👉 **อ่านคำถามให้เข้าใจก่อนตอบเสมอ** ถ้าไม่เข้าใจ หรือคำถามไม่ชัดเจน → **ถามกลับ** ห้ามเดา
+2. 🎯 **ตอบตรงคำถามเป็นอันดับแรก** แล้วค่อยอธิบายหรือขยายความ ไม่พูดเรื่องอื่นปะปน
+3. ✅ **ห้ามแต่งข้อมูล ห้ามต้มตุ๋น** ถ้าไม่แน่ใจหรือไม่รู้ → บอกตรงๆ ว่า "ไม่แน่ใจ" หรือ "ไม่มีข้อมูล"
+4. 🇹🇭 **ตอบเป็นภาษาไทยทุกครั้ง** ยกเว้นผู้ใช้ขอภาษาอื่น หรือเป็นโค้ด/เทคนิค
+5. 💻 **ถ้ามีโค้ด ให้ครอบด้วย \`\`\`ภาษา ... \`\`\` เสมอ** ห้ามส่งโค้ดเปล่าๆ
+6. 📐 **ถ้าเป็นเลข/การคำนวณ** ตรวจสอบคำตอบอีกครั้งก่อนส่ง
+7. 🧠 ${m.rule}
+8. 🧭 **ใช้โครงสร้างที่อ่านง่าย**: ตัวหนา, ลิสต์, แยกข้อ เมื่อจะได้ประโยชน์
+9. ⚖️ **ยึดจริยธรรม**: ไม่ตอบเรื่องผิดกฎหมาย, อันตราย, ทำร้ายตนเอง/ผู้อื่น, ลามกอนาจาร, แบ่งแยกเชื้อชาติ/ศาสนา/เพศ
+10. ⚡ **กระชับ**: ไม่พูดซ้ำ ไม่เกริ่นนำไม่จำเป็น เช่น "แน่นอนครับ", "ขอตอบว่า" — เอาใจความมาเลย
 
+# สไตล์ภาษา
+- เป็นกันเอง แต่ไม่เกินไป ใช้ "ครับ" ปิดท้าย
+- ใช้คำที่คนไทยพูดกันทั่วไป ไม่แข็งกระด้าง
+- ถ้าคำถามย่อยหลายข้อ → ตอบทีละข้อ ให้ชัดเจน`;
+}
 
-        button.innerHTML =
+/* =========================================================
+   📊 Status
+   ========================================================= */
+function status(state, text, model) {
+    const d = document.getElementById('dot'), md = document.getElementById('miniDot');
+    const t = document.getElementById('stText'), mt = document.getElementById('miniText');
+    const ml = document.getElementById('stModel');
+    d.className = 'live-dot ' + state; md.className = 'live-dot ' + state;
+    t.textContent = text; mt.textContent = text;
+    if (model) ml.textContent = model;
+}
 
-            '<i class="fa-solid fa-check"></i>';
+/* =========================================================
+   💾 History
+   ========================================================= */
+let history = JSON.parse(localStorage.getItem('nexus_v4') || '[]');
+let chatId = Date.now().toString();
+let messages = [];
+let engine = null;
+let generating = false;
+let abort = null;
+let voiceOn = true;
 
+function renderHistory() {
+    const el = document.getElementById('history');
+    if (!history.length) {
+        el.innerHTML = `<div style="padding:18px 10px;text-align:center;font-size:11.5px;color:var(--muted)">ยังไม่มีแชทที่บันทึก</div>`;
+        return;
+    }
+    el.innerHTML = history.slice(0,20).map(h => `
+        <div class="history-item ${h.id===chatId?'active':''}" onclick="openChat('${h.id}')">
+            <div class="ic">💬</div>
+            <div class="t">${escapeHtml(h.title)}</div>
+            <div class="d">${fmt(h.updated)}</div>
+        </div>
+    `).join('');
+}
+function fmt(ts) { const d = new Date(ts); return d.toLocaleDateString('th-TH',{day:'2-digit',month:'short'}); }
+function save() {
+    const users = messages.filter(m => m.role === 'user');
+    if (!users.length) return;
+    const title = users[0].content.slice(0,32);
+    const rec = { id: chatId, title, updated: Date.now(), data: [...messages], count: messages.length };
+    const i = history.findIndex(x => x.id === chatId);
+    if (i>=0) history[i] = rec; else history.unshift(rec);
+    history = history.slice(0,50);
+    localStorage.setItem('nexus_v4', JSON.stringify(history));
+    document.getElementById('chatTitle').textContent = title;
+    renderHistory();
+}
+function openChat(id) {
+    if (generating) return;
+    const h = history.find(x => x.id === id); if (!h) return;
+    chatId = id; messages = [...h.data];
+    document.getElementById('chatTitle').textContent = h.title;
+    paintAll(); renderHistory();
+    if (innerWidth < 821) toggleSide();
+}
+function newChat() {
+    if (generating) return;
+    chatId = Date.now().toString();
+    messages = [{ role: 'system', content: systemPrompt() }];
+    document.getElementById('chatTitle').textContent = 'การสนทนาใหม่';
+    paintAll(); renderHistory();
+    if (innerWidth < 821) toggleSide();
+}
+function clearChat() {
+    if (confirm('ล้างข้อความในแชทนี้ทั้งหมด?')) newChat();
+}
 
-        setTimeout(
+/* =========================================================
+   🚀 Boot AI
+   ========================================================= */
+async function pickModel(k) {
+    if (generating) return alert('⏳ รอ AI ตอบเสร็จก่อนครับ');
+    if (k === currentModel) return;
+    if (engine && !confirm(`🔄 เปลี่ยนเป็น ${MODELS[k].name} ใช่ไหม? จะโหลดโมเดลใหม่`)) return;
+    currentModel = k; renderModels();
+    if (engine) {
+        engine = null;
+        document.getElementById('chatWrap').style.display = 'none';
+        document.getElementById('composer').style.display = 'none';
+        document.getElementById('loader').style.display = '';
+        document.getElementById('pFill').style.width = '0%';
+        document.getElementById('pPct').textContent = '0%';
+        document.getElementById('bootBtn').disabled = false;
+        document.getElementById('bootBtn').textContent = `🚀 เปิดใช้ ${MODELS[k].name}`;
+        status('offline', 'ยังไม่เชื่อมต่อ');
+    }
+}
 
-            () => {
+async function bootAI() {
+    const btn = document.getElementById('bootBtn');
+    const bar = document.getElementById('pFill');
+    const pct = document.getElementById('pPct');
+    const txt = document.getElementById('pText');
+    btn.disabled = true; btn.textContent = '⏳ กำลังโหลดสมอง…';
+    status('think', 'กำลังโหลดโมเดล', MODELS[currentModel].name);
 
-                button.innerHTML =
-
-                    '<i class="fa-regular fa-copy"></i>';
-
+    try {
+        const { CreateMLCEngine } = await import('https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.70/+esm');
+        engine = await CreateMLCEngine(MODELS[currentModel].id, {
+            initProgressCallback: p => {
+                const v = Math.round(p.progress * 100);
+                bar.style.width = v + '%'; pct.textContent = v + '%';
+                txt.textContent = p.text || `กำลังโหลดชิ้นส่วนสมอง… ${v}%`;
             },
-
-            1500
-
-        );
-
+            wasmConfig: { useSimd: true, useGpu: true }
+        });
+        messages = [{ role: 'system', content: systemPrompt() }];
+        btn.textContent = '✅ เสร็จสิ้น';
+        txt.textContent = `${MODELS[currentModel].name} พร้อมใช้งาน`;
+        status('on', 'ออนไลน์ พร้อมตอบ', MODELS[currentModel].name);
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('chatWrap').style.display = '';
+            document.getElementById('composer').style.display = '';
+            paintAll(); renderHistory();
+        }, 700);
+    } catch (e) {
+        console.error(e);
+        btn.disabled = false;
+        btn.textContent = '❌ เกิดข้อผิดพลาด · ลองใหม่';
+        txt.textContent = e.message.slice(0,80);
+        status('offline', 'โหลดไม่สำเร็จ');
     }
-
-    catch(error){
-
-        showStatus(
-            "คัดลอกไม่สำเร็จ"
-        );
-
-    }
-
 }
 
+/* =========================================================
+   💬 Rendering
+   ========================================================= */
+function escapeHtml(s) {
+    const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML;
+}
+
+function renderMD(s) {
+    if (!s) return '';
+    let t = escapeHtml(s);
+    // code block
+    t = t.replace(/```([\w+.-]*)\n?([\s\S]*?)```/g, (_, lang, code) => {
+        const l = (lang||'code').trim() || 'code';
+        return `<pre><div class="code-head">
+            <div class="win"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+            <span>${l}</span>
+            <button class="copy-code" onclick="navigator.clipboard.writeText(this.closest('pre').querySelector('code').innerText);this.textContent='✅';setTimeout(()=>this.textContent='📋 คัดลอก',1400)">📋 คัดลอก</button>
+        </div><code>${code}</code></pre>`;
+    });
+    // inline code
+    t = t.replace(/`([^`\n]+)`/g, '<code class="inline">$1</code>');
+    // bold
+    t = t.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+    // italic
+    t = t.replace(/(^|\W)\*([^*\n]+)\*(?=\W|$)/gm, '$1<em>$2</em>');
+    // lists
+    t = t.replace(/^- (.+)$/gm, '<li>$1</li>');
+    t = t.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+    // line breaks
+    t = t.replace(/\n/g, '<br>');
+    return t;
+}
+
+function paintAll() {
+    const el = document.getElementById('chat');
+    const sys = messages.findIndex(m => m.role === 'system');
+    const rest = sys >= 0 ? messages.slice(0, sys).concat(messages.slice(sys+1)) : messages;
+    if (!rest.length) {
+        el.innerHTML = welcomeHTML();
+        return;
+    }
+    el.innerHTML = '';
+    rest.forEach(m => {
+        if (m.role === 'user') el.appendChild(makeMsg('user', m.content));
+        if (m.role === 'assistant') el.appendChild(makeMsg('ai', m.content, false));
+    });
+    el.scrollTop = el.scrollHeight;
+}
+
+function welcomeHTML() {
+    const s = [
+        { ic: '💻', t: 'เขียนโค้ดเว็บสมบูรณ์', d: 'HTML + CSS + JS ใช้งานได้จริง' },
+        { ic: '🧮', t: 'แก้โจทย์ / คำนวณ', d: 'ทีละขั้นตอน ตรงคำตอบ แม่นยำ' },
+        { ic: '✍️', t: 'เขียนบทความ-อีเมล', d: 'ภาษาไทยสวย เป็นธรรมชาติ' },
+        { ic: '💡', t: 'วิเคราะห์ปัญหาให้คำแนะนำ', d: 'มีเหตุผล ชี้แจงลึกซึ้ง' }
+    ];
+    return `<div class="welcome">
+        <div class="mini-logo">N</div>
+        <h2>วันนี้อยากให้ <span>NEXUS</span> ช่วยอะไร?</h2>
+        <p class="sub">ตอบตรงคำถาม · คิดไว · ภาษาไทยแม่น · เขียนโค้ดเป็นมืออาชีพ</p>
+        <div class="suggest">
+            ${s.map(x => `
+                <div class="sug glass shine" onclick="quickAsk('${escapeAttr(x.t)}: ${escapeAttr(x.d)}')">
+                    <div class="ic">${x.ic}</div>
+                    <b>${x.t}</b>
+                    <span>${x.d}</span>
+                </div>`).join('')}
+        </div>
+    </div>`;
+}
+function escapeAttr(s) { return (s||'').replace(/'/g,"\\'").replace(/\n/g,' '); }
+function quickAsk(text) { document.getElementById('input').value = text; send(); }
+
+function makeMsg(role, text, typing=false) {
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ' + role + (typing?' typing':'');
+    const ai = role === 'ai';
+    wrap.innerHTML = `
+        <div class="avatar-s ${ai?'avatar-ai':'avatar-user'}">${ai?'N':'ME'}</div>
+        <div class="bubble-wrap">
+            ${ai && typing ? `<div class="thinking-bar"><span>🧠 NEXUS กำลังคิด</span><div class="bar"><i></i></div></div>`:''}
+            <div class="bubble glass">
+                ${typing ? '<span class="dots"><i></i><i></i><i></i></span>' : renderMD(text)}
+            </div>
+            ${ai && !typing ? `
+            <div class="msg-tools">
+                <button class="tool ripple" onclick="copyThis(this)">📋 คัดลอก</button>
+                <button class="tool ripple" onclick="retry()">🔄 สุ่มใหม่</button>
+                <button class="tool ripple" onclick="speakThis(this)">🔊 อ่าน</button>
+            </div>`:''}
+        </div>
+    `;
+    return wrap;
+}
+function copyThis(btn) {
+    const t = btn.closest('.bubble-wrap').querySelector('.bubble').innerText;
+    navigator.clipboard.writeText(t);
+    const old = btn.textContent; btn.textContent = '✅ คัดลอกแล้ว';
+    setTimeout(() => btn.textContent = old, 1200);
+}
+function speakThis(btn) {
+    const t = btn.closest('.bubble-wrap').querySelector('.bubble').innerText;
+    speakText(t);
+}
+
+/* =========================================================
+   ✉️ Send Message
+   ========================================================= */
+const input = document.getElementById('input');
+input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 180) + 'px';
+    document.getElementById('sendBtn').disabled = !input.value.trim() || !engine || generating;
+});
+input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+async function send() {
+    const text = input.value.trim();
+    if (!text || !engine || generating) return;
+    generating = true; abort = new AbortController();
+    document.getElementById('sendBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'grid';
+    document.getElementById('sendBtn').disabled = true;
+
+    // clear welcome
+    const chat = document.getElementById('chat');
+    if (messages.length <= 1) chat.innerHTML = '';
+
+    chat.appendChild(makeMsg('user', text));
+    input.value = ''; input.style.height = 'auto';
+    chat.scrollTop = chat.scrollHeight;
+    status('think', 'กำลังคิดคำตอบ…');
+
+    if (!messages.length) messages.push({ role:'system', content: systemPrompt() });
+    else if (messages[0].role === 'system') messages[0].content = systemPrompt();
+    messages.push({ role:'user', content: text });
+
+    const aiEl = makeMsg('ai', '', true);
+    chat.appendChild(aiEl);
+    chat.scrollTop = chat.scrollHeight;
+
+    const cfg = MODES[currentMode];
+    const mCfg = MODELS[currentModel];
+    const maxT = Math.min(cfg.tokens, 4096);
+
+    let full = '';
+    try {
+        const stream = await engine.chat.completions.create({
+            messages, stream: true,
+            max_tokens: maxT,
+            temperature: cfg.temp,
+            top_p: 0.9,
+            frequency_penalty: 0.05,
+            presence_penalty: 0.05
+        });
+        // replace typing with real content
+        const bubble = aiEl.querySelector('.bubble');
+        aiEl.classList.remove('typing');
+        bubble.innerHTML = '';
+        for await (const ch of stream) {
+            if (abort?.signal.aborted) break;
+            const d = ch.choices?.[0]?.delta?.content;
+            if (!d) continue;
+            full += d;
+            bubble.innerHTML = renderMD(full);
+            chat.scrollTop = chat.scrollHeight;
+            const used = Math.min(99, Math.round((full.length/3.5) / maxT * 100));
+            document.getElementById('tokFill').style.width = used + '%';
+            document.getElementById('tokText').textContent = `~${Math.round(full.length/3.5)} / ${maxT}`;
+        }
+        // append tools after done
+        if (!bubble.nextElementSibling) {
+            bubble.insertAdjacentHTML('afterend', `
+            <div class="msg-tools">
+                <button class="tool ripple" onclick="copyThis(this)">📋 คัดลอก</button>
+                <button class="tool ripple" onclick="retry()">🔄 สุ่มใหม่</button>
+                <button class="tool ripple" onclick="speakThis(this)">🔊 อ่าน</button>
+            </div>`);
+        }
+        messages.push({ role:'assistant', content: full });
+        save();
+        if (voiceOn) speakText(full);
+        status('on', 'ออนไลน์ พร้อมตอบ');
+    } catch (e) {
+        const bubble = aiEl.querySelector('.bubble');
+        if (abort?.signal.aborted) {
+            bubble.innerHTML += `<br><em style="color:var(--muted);font-size:12.5px">⏹️ หยุดสร้างแล้ว</em>`;
+        } else {
+            bubble.innerHTML = `<span style="color:#fca5a5">❌ ผิดพลาด: ${escapeHtml(e.message)}</span>`;
+            console.error(e);
+        }
+        status('on', 'ออนไลน์ พร้อมตอบ');
+    } finally {
+        generating = false; abort = null;
+        document.getElementById('stopBtn').style.display = 'none';
+        document.getElementById('sendBtn').style.display = 'grid';
+        document.getElementById('sendBtn').disabled = !input.value.trim();
+    }
+}
+
+function stopIt() { if (abort) abort.abort(); }
+
+async function retry() {
+    if (generating) return;
+    const lastIdx = [...messages].reverse().findIndex(m => m.role === 'user');
+    if (lastIdx < 0) return;
+    const realIdx = messages.length - 1 - lastIdx;
+    const q = messages[realIdx].content;
+    messages = messages.slice(0, realIdx);
+    // remove last user+ai visually
+    const chat = document.getElementById('chat');
+    [...chat.querySelectorAll('.msg')].slice(-2).forEach(n => n.remove());
+    input.value = q;
+    await send();
+}
+
+/* =========================================================
+   🔊 Voice + 🎤 Mic
+   ========================================================= */
+function toggleVoice() {
+    voiceOn = !voiceOn;
+    document.getElementById('voiceBtn').classList.toggle('on', voiceOn);
+    document.getElementById('voiceBtn').textContent = voiceOn ? '🔊' : '🔇';
+    if (!voiceOn) speechSynthesis?.cancel();
+}
+function speakText(t) {
+    if (!t || !('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const clean = t.replace(/```[\s\S]*?```/g, 'มีโค้ดแสดงอยู่').replace(/[#*_`]/g,'').slice(0,600);
+    const u = new SpeechSynthesisUtterance(clean);
+    u.lang = 'th-TH'; u.rate = 1.04; u.pitch = 1;
+    const vs = speechSynthesis.getVoices();
+    const best = vs.find(v => /th/i.test(v.lang) && /Google|Natural|Neural|Premium/i.test(v.name));
+    const th = vs.find(v => /th/i.test(v.lang));
+    if (best) u.voice = best; else if (th) u.voice = th;
+    speechSynthesis.speak(u);
+}
+if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+
+let micOn = false;
+function toggleMic() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const btn = document.getElementById('micBtn');
+    if (!SR) return alert('⚠️ ใช้ Chrome / Edge เท่านั้นสำหรับฟีเจอร์ไมค์ครับ');
+    micOn = !micOn;
+    btn.classList.toggle('on', micOn);
+    if (micOn) {
+        const r = new SR(); r.lang = 'th-TH'; r.continuous = false; r.interimResults = false;
+        r.onresult = e => { const said = e.results[0][0].transcript; if (said) { input.value = said; send(); } };
+        r.onend = () => { if (micOn) toggleMic(); };
+        r.onerror = () => toggleMic();
+        try { r.start(); } catch(e){}
+    }
+}
+
+/* =========================================================
+   🫧 Ripple Effect
+   ========================================================= */
+document.addEventListener('click', e => {
+    const b = e.target.closest('.ripple'); if (!b) return;
+    const r = document.createElement('span'); r.className = 'ripple-effect';
+    const rect = b.getBoundingClientRect();
+    const s = Math.max(rect.width, rect.height);
+    r.style.width = r.style.height = s + 'px';
+    r.style.left = (e.clientX - rect.left - s/2) + 'px';
+    r.style.top = (e.clientY - rect.top - s/2) + 'px';
+    b.appendChild(r); setTimeout(() => r.remove(), 650);
+});
+
+/* =========================================================
+   Init
+   ========================================================= */
+renderHistory();
+status('offline', 'กดปุ่มเพื่อเปิดใช้งาน AI');
 </script>
-
-
 </body>
-
 </html>
