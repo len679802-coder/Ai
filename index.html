@@ -10,8 +10,7 @@
 
 :root{
     --bg:#07111f;
-    --bg2:#0b1728;
-    --card:rgba(255,255,255,.075);
+    --card:rgba(255,255,255,.07);
     --card2:rgba(255,255,255,.045);
     --line:rgba(255,255,255,.11);
     --text:#f7faff;
@@ -21,7 +20,6 @@
     --purple:#8b6cff;
     --gold:#e4b95f;
     --green:#42d392;
-    --danger:#ff7373;
 }
 
 *{
@@ -45,8 +43,6 @@ body{
         var(--bg);
     overflow-x:hidden;
 }
-
-/* Background glow */
 
 body::before{
     content:"";
@@ -79,7 +75,7 @@ a{
     font-family:inherit;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 .header{
     position:sticky;
@@ -116,8 +112,7 @@ a{
     font-size:21px;
     font-weight:700;
     color:white;
-    background:
-        linear-gradient(135deg,var(--blue),var(--purple));
+    background:linear-gradient(135deg,var(--blue),var(--purple));
     box-shadow:
         0 8px 30px rgba(77,163,255,.24),
         inset 0 1px rgba(255,255,255,.35);
@@ -155,7 +150,7 @@ a{
     box-shadow:0 0 12px var(--green);
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 
 .container{
     max-width:1200px;
@@ -163,7 +158,7 @@ a{
     padding:35px 22px 70px;
 }
 
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
     position:relative;
@@ -260,7 +255,7 @@ a{
     line-height:1.9;
 }
 
-/* ================= QUICK INFO ================= */
+/* QUICK INFO */
 
 .quick-info{
     display:grid;
@@ -307,7 +302,7 @@ a{
     font-weight:500;
 }
 
-/* ================= SECTION ================= */
+/* SECTION */
 
 .section{
     margin-top:42px;
@@ -331,7 +326,7 @@ a{
     margin-top:2px;
 }
 
-/* ================= QUESTION GRID ================= */
+/* QUESTION */
 
 .question-grid{
     display:grid;
@@ -409,7 +404,7 @@ a{
     font-size:11px;
 }
 
-/* ================= ANSWER ================= */
+/* ANSWER */
 
 .answer-wrap{
     margin-top:18px;
@@ -478,8 +473,6 @@ a{
     margin-bottom:7px;
 }
 
-/* Detail */
-
 .detail-title{
     font-size:24px;
     font-weight:600;
@@ -529,7 +522,7 @@ a{
     text-align:right;
 }
 
-/* ================= BUTTONS ================= */
+/* BUTTONS */
 
 .actions{
     display:flex;
@@ -584,7 +577,7 @@ a{
     transform:translateY(-2px);
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 .footer{
     margin-top:50px;
@@ -619,7 +612,7 @@ a{
     font-weight:500;
 }
 
-/* ================= TOAST ================= */
+/* TOAST */
 
 .toast{
     position:fixed;
@@ -644,7 +637,7 @@ a{
     transform:translate(-50%,0);
 }
 
-/* ================= MOBILE ================= */
+/* RESPONSIVE */
 
 @media(max-width:900px){
 
@@ -655,7 +648,6 @@ a{
     .question-grid{
         grid-template-columns:repeat(2,1fr);
     }
-
 }
 
 @media(max-width:600px){
@@ -763,7 +755,6 @@ a{
         flex-direction:column;
         align-items:flex-start;
     }
-
 }
 </style>
 </head>
@@ -779,8 +770,13 @@ a{
             <div class="logo">ต</div>
 
             <div>
-                <h1>หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด</h1>
-                <p>ศูนย์ข้อมูลร้านค้าอย่างเป็นทางการ</p>
+                <h1>
+                    หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
+                </h1>
+
+                <p>
+                    ศูนย์ข้อมูลร้านค้าอย่างเป็นทางการ
+                </p>
             </div>
 
         </div>
@@ -871,92 +867,128 @@ a{
 
         <div class="question-grid">
 
-            <button class="question" onclick="showAnswer('location')">
+            <button class="question"
+                onclick="showAnswer('location')">
 
                 <div class="question-icon">📍</div>
 
                 <h3>ร้านอยู่ที่ไหน?</h3>
-                <p>ดูสถานที่ตั้งและเปิดแผนที่</p>
+
+                <p>
+                    เปิด Google Maps ค้นหาร้าน
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('products')">
+            <button class="question"
+                onclick="showAnswer('products')">
 
                 <div class="question-icon">▦</div>
 
                 <h3>ร้านขายอะไร?</h3>
-                <p>ดูประเภทสินค้าและบริการ</p>
+
+                <p>
+                    ดูประเภทสินค้าและบริการ
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('phone')">
+            <button class="question"
+                onclick="showAnswer('phone')">
 
                 <div class="question-icon">☎</div>
 
                 <h3>เบอร์โทรติดต่อ</h3>
-                <p>โทรหรือคัดลอกหมายเลข</p>
+
+                <p>
+                    โทรหรือคัดลอกหมายเลข
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('hours')">
+            <button class="question"
+                onclick="showAnswer('hours')">
 
                 <div class="question-icon">◷</div>
 
                 <h3>เปิดกี่โมง?</h3>
-                <p>ดูเวลาเปิดและปิดร้าน</p>
+
+                <p>
+                    ดูเวลาเปิดและปิดร้าน
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('delivery')">
+            <button class="question"
+                onclick="showAnswer('delivery')">
 
                 <div class="question-icon">▣</div>
 
                 <h3>มีบริการส่งไหม?</h3>
-                <p>ข้อมูลการจัดส่งสินค้า</p>
+
+                <p>
+                    ข้อมูลการจัดส่งสินค้า
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('payment')">
+            <button class="question"
+                onclick="showAnswer('payment')">
 
                 <div class="question-icon">฿</div>
 
                 <h3>ชำระเงินแบบไหน?</h3>
-                <p>ดูช่องทางการชำระเงิน</p>
+
+                <p>
+                    ดูช่องทางการชำระเงิน
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('price')">
+            <button class="question"
+                onclick="showAnswer('price')">
 
                 <div class="question-icon">◇</div>
 
                 <h3>ราคาสินค้าเท่าไหร่?</h3>
-                <p>สอบถามราคาสินค้ากับร้าน</p>
+
+                <p>
+                    สอบถามราคาสินค้ากับร้าน
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('contact')">
+            <button class="question"
+                onclick="showAnswer('contact')">
 
                 <div class="question-icon">✆</div>
 
                 <h3>ติดต่อร้าน</h3>
-                <p>ช่องทางติดต่อร้านโดยตรง</p>
+
+                <p>
+                    ช่องทางติดต่อร้านโดยตรง
+                </p>
 
             </button>
 
 
-            <button class="question" onclick="showAnswer('all')">
+            <button class="question"
+                onclick="showAnswer('all')">
 
                 <div class="question-icon">≡</div>
 
                 <h3>ข้อมูลทั้งหมด</h3>
-                <p>ดูข้อมูลร้านทั้งหมดในหน้าเดียว</p>
+
+                <p>
+                    ดูข้อมูลร้านทั้งหมด
+                </p>
 
             </button>
 
@@ -975,7 +1007,9 @@ a{
                     i
                 </div>
 
-                <strong>รายละเอียดข้อมูล</strong>
+                <strong>
+                    รายละเอียดข้อมูล
+                </strong>
 
             </div>
 
@@ -1006,7 +1040,6 @@ a{
         </div>
 
     </section>
-
 
 </main>
 
@@ -1044,535 +1077,574 @@ a{
 const SHOP_NAME =
 "หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด";
 
+const MAP_SEARCH_NAME =
+"ร้านไทเกษตรรุ่งเรืองพานิชย์";
+
 const PHONE =
 "0923628796";
 
 const PHONE_DISPLAY =
 "092 362 8796";
 
+/*
+    Google Maps จะค้นหาชื่อ
+    "ร้านไทเกษตรรุ่งเรืองพานิชย์"
+    โดยตรง
+*/
 const MAP =
-"https://www.google.com/maps/search/?api=1&query=บ้านธวัชดินแดง ร้อยเอ็ด";
+"https://www.google.com/maps/search/?api=1&query=" +
+encodeURIComponent(MAP_SEARCH_NAME);
 
 
 const answers = {
 
-location:{
-    title:"ที่ตั้งร้าน",
+    location:{
 
-    text:`
-        ร้านตั้งอยู่ที่
+        title:"ร้านอยู่ที่ไหน?",
 
-        <div class="highlight">
+        text:`
+            กดปุ่มด้านล่างเพื่อเปิด Google Maps
+            และค้นหา
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    ร้าน
-                </span>
+            <div class="highlight">
 
-                <span class="highlight-value">
-                    ${SHOP_NAME}
-                </span>
-            </div>
+                <div class="highlight-row">
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    สถานที่
-                </span>
+                    <span class="highlight-label">
+                        คำค้นหา
+                    </span>
 
-                <span class="highlight-value">
-                    บ้านธวัชดินแดง ข้าง ๆ เซเว่น
-                    จังหวัดร้อยเอ็ด
-                </span>
-            </div>
+                    <span class="highlight-value">
+                        ร้านไทเกษตรรุ่งเรืองพานิชย์
+                    </span>
 
-        </div>
-    `,
+                </div>
 
-    buttons:`
-        <div class="actions">
+                <div class="highlight-row">
 
-            <a
-                href="${MAP}"
-                target="_blank"
-                rel="noopener"
-                class="btn btn-primary">
+                    <span class="highlight-label">
+                        พื้นที่
+                    </span>
 
-                📍 เปิด Google Maps
+                    <span class="highlight-value">
+                        จังหวัดร้อยเอ็ด
+                    </span>
 
-            </a>
-
-        </div>
-    `
-},
-
-
-products:{
-    title:"สินค้าและบริการ",
-
-    text:`
-        <strong>${SHOP_NAME}</strong>
-        จำหน่าย
-
-        <div class="highlight">
-
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    ประเภทสินค้า
-                </span>
-
-                <span class="highlight-value">
-                    ปุ๋ยและสินค้าอื่น ๆ
-                </span>
-            </div>
-
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    รายละเอียด
-                </span>
-
-                <span class="highlight-value">
-                    สอบถามรายการสินค้ากับร้านโดยตรง
-                </span>
-            </div>
-
-        </div>
-    `,
-
-    buttons:`
-        <div class="actions">
-
-            <a
-                href="tel:${PHONE}"
-                class="btn btn-primary">
-
-                ☎ สอบถามสินค้า
-
-            </a>
-
-        </div>
-    `
-},
-
-
-phone:{
-    title:"เบอร์โทรติดต่อ",
-
-    text:`
-        สามารถติดต่อร้าน
-        <strong>${SHOP_NAME}</strong>
-        ได้โดยตรงที่
-
-        <div class="highlight">
-
-            <div class="highlight-row">
-
-                <span class="highlight-label">
-                    โทรศัพท์
-                </span>
-
-                <span class="highlight-value">
-                    ${PHONE_DISPLAY}
-                </span>
+                </div>
 
             </div>
+        `,
 
-        </div>
-    `,
+        buttons:`
+            <div class="actions">
 
-    buttons:`
-        <div class="actions">
+                <a
+                    href="${MAP}"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-primary">
 
-            <a
-                href="tel:${PHONE}"
-                class="btn btn-primary">
+                    📍 เปิด Google Maps
 
-                ☎ โทรหาร้าน
-
-            </a>
-
-            <button
-                onclick="copyPhone()"
-                class="btn btn-secondary">
-
-                ⧉ คัดลอกหมายเลข
-
-            </button>
-
-        </div>
-    `
-},
-
-
-hours:{
-    title:"เวลาเปิดทำการ",
-
-    text:`
-        เวลาทำการของร้าน
-
-        <div class="highlight">
-
-            <div class="highlight-row">
-
-                <span class="highlight-label">
-                    เวลาเปิด
-                </span>
-
-                <span class="highlight-value">
-                    08:00 น.
-                </span>
+                </a>
 
             </div>
-
-            <div class="highlight-row">
-
-                <span class="highlight-label">
-                    เวลาปิด
-                </span>
-
-                <span class="highlight-value">
-                    17:00 น.
-                </span>
-
-            </div>
-
-        </div>
-    `,
-
-    buttons:""
-},
+        `
+    },
 
 
-delivery:{
-    title:"บริการจัดส่ง",
+    products:{
 
-    text:`
-        <strong>${SHOP_NAME}</strong>
-        มีบริการจัดส่งสินค้า
+        title:"ร้านขายอะไร?",
 
-        <div class="highlight">
+        text:`
+            <strong>${SHOP_NAME}</strong>
+            จำหน่ายสินค้าเกี่ยวกับการเกษตร
 
-            <div class="highlight-row">
+            <div class="highlight">
 
-                <span class="highlight-label">
-                    บริการจัดส่ง
-                </span>
+                <div class="highlight-row">
 
-                <span class="highlight-value">
-                    มี
-                </span>
+                    <span class="highlight-label">
+                        สินค้าหลัก
+                    </span>
 
-            </div>
+                    <span class="highlight-value">
+                        ปุ๋ย
+                    </span>
 
-            <div class="highlight-row">
+                </div>
 
-                <span class="highlight-label">
-                    รายละเอียด
-                </span>
+                <div class="highlight-row">
 
-                <span class="highlight-value">
-                    กรุณาสอบถามร้านโดยตรง
-                </span>
+                    <span class="highlight-label">
+                        สินค้าอื่น ๆ
+                    </span>
+
+                    <span class="highlight-value">
+                        มีสินค้าอื่น ๆ ภายในร้าน
+                    </span>
+
+                </div>
 
             </div>
+        `,
 
-        </div>
-    `,
+        buttons:`
+            <div class="actions">
 
-    buttons:`
-        <div class="actions">
+                <a
+                    href="tel:${PHONE}"
+                    class="btn btn-primary">
 
-            <a
-                href="tel:${PHONE}"
-                class="btn btn-primary">
+                    ☎ สอบถามสินค้า
 
-                ☎ สอบถามการจัดส่ง
-
-            </a>
-
-        </div>
-    `
-},
-
-
-payment:{
-    title:"ช่องทางการชำระเงิน",
-
-    text:`
-        ร้านรองรับช่องทางการชำระเงินดังนี้
-
-        <div class="highlight">
-
-            <div class="highlight-row">
-
-                <span class="highlight-label">
-                    ช่องทางที่ 1
-                </span>
-
-                <span class="highlight-value">
-                    เงินสด
-                </span>
+                </a>
 
             </div>
-
-            <div class="highlight-row">
-
-                <span class="highlight-label">
-                    ช่องทางที่ 2
-                </span>
-
-                <span class="highlight-value">
-                    โอนเงิน
-                </span>
-
-            </div>
-
-        </div>
-    `,
-
-    buttons:""
-},
+        `
+    },
 
 
-price:{
-    title:"ราคาสินค้า",
+    phone:{
 
-    text:`
-        ราคาสินค้า
-        <strong>ขึ้นอยู่กับรายการสินค้า</strong>
+        title:"เบอร์โทรติดต่อ",
 
-        <div class="highlight">
+        text:`
+            สามารถติดต่อ
+            <strong>${SHOP_NAME}</strong>
+            ได้โดยตรงที่
 
-            <div class="highlight-row">
+            <div class="highlight">
 
-                <span class="highlight-label">
-                    ราคา
-                </span>
+                <div class="highlight-row">
 
-                <span class="highlight-value">
-                    แล้วแต่สินค้า
-                </span>
+                    <span class="highlight-label">
+                        โทรศัพท์
+                    </span>
+
+                    <span class="highlight-value">
+                        ${PHONE_DISPLAY}
+                    </span>
+
+                </div>
 
             </div>
+        `,
 
-            <div class="highlight-row">
+        buttons:`
+            <div class="actions">
 
-                <span class="highlight-label">
-                    สอบถามเพิ่มเติม
-                </span>
+                <a
+                    href="tel:${PHONE}"
+                    class="btn btn-primary">
 
-                <span class="highlight-value">
-                    092 362 8796
-                </span>
+                    ☎ โทรหาร้าน
 
-            </div>
+                </a>
 
-        </div>
-    `,
+                <button
+                    onclick="copyPhone()"
+                    class="btn btn-secondary">
 
-    buttons:`
-        <div class="actions">
+                    ⧉ คัดลอกหมายเลข
 
-            <a
-                href="tel:${PHONE}"
-                class="btn btn-primary">
-
-                ☎ สอบถามราคา
-
-            </a>
-
-        </div>
-    `
-},
-
-
-contact:{
-    title:"ติดต่อร้าน",
-
-    text:`
-        <strong>${SHOP_NAME}</strong>
-
-        <div class="highlight">
-
-            <div class="highlight-row">
-
-                <span class="highlight-label">
-                    โทรศัพท์
-                </span>
-
-                <span class="highlight-value">
-                    ${PHONE_DISPLAY}
-                </span>
+                </button>
 
             </div>
+        `
+    },
 
-            <div class="highlight-row">
 
-                <span class="highlight-label">
-                    ที่ตั้ง
-                </span>
+    hours:{
 
-                <span class="highlight-value">
-                    บ้านธวัชดินแดง ข้าง ๆ เซเว่น
-                    จังหวัดร้อยเอ็ด
-                </span>
+        title:"เปิดกี่โมง?",
+
+        text:`
+            เวลาทำการของร้าน
+
+            <div class="highlight">
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        เวลาเปิด
+                    </span>
+
+                    <span class="highlight-value">
+                        08:00 น.
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        เวลาปิด
+                    </span>
+
+                    <span class="highlight-value">
+                        17:00 น.
+                    </span>
+
+                </div>
 
             </div>
+        `,
 
-            <div class="highlight-row">
+        buttons:""
+    },
 
-                <span class="highlight-label">
-                    เวลา
-                </span>
 
-                <span class="highlight-value">
-                    08:00 – 17:00 น.
-                </span>
+    delivery:{
+
+        title:"มีบริการส่งไหม?",
+
+        text:`
+            <strong>${SHOP_NAME}</strong>
+            มีบริการจัดส่งสินค้า
+
+            <div class="highlight">
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        บริการจัดส่ง
+                    </span>
+
+                    <span class="highlight-value">
+                        มี
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        รายละเอียด
+                    </span>
+
+                    <span class="highlight-value">
+                        กรุณาสอบถามร้านโดยตรง
+                    </span>
+
+                </div>
 
             </div>
+        `,
 
-        </div>
-    `,
+        buttons:`
+            <div class="actions">
 
-    buttons:`
-        <div class="actions">
+                <a
+                    href="tel:${PHONE}"
+                    class="btn btn-primary">
 
-            <a
-                href="tel:${PHONE}"
-                class="btn btn-primary">
+                    ☎ สอบถามการจัดส่ง
 
-                ☎ โทรหาร้าน
+                </a>
 
-            </a>
-
-            <button
-                onclick="copyPhone()"
-                class="btn btn-secondary">
-
-                ⧉ คัดลอกเบอร์
-
-            </button>
-
-            <a
-                href="${MAP}"
-                target="_blank"
-                rel="noopener"
-                class="btn btn-gold">
-
-                📍 ดูเส้นทาง
-
-            </a>
-
-        </div>
-    `
-},
-
-
-all:{
-    title:"ข้อมูลร้านทั้งหมด",
-
-    text:`
-        <strong>${SHOP_NAME}</strong>
-
-        <div class="highlight">
-
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    ที่ตั้ง
-                </span>
-
-                <span class="highlight-value">
-                    บ้านธวัชดินแดง ข้าง ๆ เซเว่น
-                    จังหวัดร้อยเอ็ด
-                </span>
             </div>
+        `
+    },
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    สินค้า
-                </span>
 
-                <span class="highlight-value">
-                    ปุ๋ยและสินค้าอื่น ๆ
-                </span>
+    payment:{
+
+        title:"ชำระเงินแบบไหน?",
+
+        text:`
+            ร้านรองรับช่องทางการชำระเงิน
+
+            <div class="highlight">
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ช่องทางที่ 1
+                    </span>
+
+                    <span class="highlight-value">
+                        เงินสด
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ช่องทางที่ 2
+                    </span>
+
+                    <span class="highlight-value">
+                        โอนเงิน
+                    </span>
+
+                </div>
+
             </div>
+        `,
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    โทรศัพท์
-                </span>
+        buttons:""
+    },
 
-                <span class="highlight-value">
-                    ${PHONE_DISPLAY}
-                </span>
+
+    price:{
+
+        title:"ราคาสินค้าเท่าไหร่?",
+
+        text:`
+            ราคาสินค้า
+            <strong>ขึ้นอยู่กับรายการสินค้า</strong>
+
+            <div class="highlight">
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ราคา
+                    </span>
+
+                    <span class="highlight-value">
+                        แล้วแต่สินค้า
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        สอบถามราคา
+                    </span>
+
+                    <span class="highlight-value">
+                        ${PHONE_DISPLAY}
+                    </span>
+
+                </div>
+
             </div>
+        `,
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    เวลาเปิดทำการ
-                </span>
+        buttons:`
+            <div class="actions">
 
-                <span class="highlight-value">
-                    08:00 – 17:00 น.
-                </span>
+                <a
+                    href="tel:${PHONE}"
+                    class="btn btn-primary">
+
+                    ☎ สอบถามราคา
+
+                </a>
+
             </div>
+        `
+    },
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    บริการจัดส่ง
-                </span>
 
-                <span class="highlight-value">
-                    มี
-                </span>
+    contact:{
+
+        title:"ติดต่อร้าน",
+
+        text:`
+            <strong>${SHOP_NAME}</strong>
+
+            <div class="highlight">
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        โทรศัพท์
+                    </span>
+
+                    <span class="highlight-value">
+                        ${PHONE_DISPLAY}
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ชื่อร้านสำหรับค้นหา
+                    </span>
+
+                    <span class="highlight-value">
+                        ร้านไทเกษตรรุ่งเรืองพานิชย์
+                    </span>
+
+                </div>
+
             </div>
+        `,
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    การชำระเงิน
-                </span>
+        buttons:`
+            <div class="actions">
 
-                <span class="highlight-value">
-                    เงินสด / โอนเงิน
-                </span>
+                <a
+                    href="tel:${PHONE}"
+                    class="btn btn-primary">
+
+                    ☎ โทรหาร้าน
+
+                </a>
+
+                <button
+                    onclick="copyPhone()"
+                    class="btn btn-secondary">
+
+                    ⧉ คัดลอกเบอร์
+
+                </button>
+
+                <a
+                    href="${MAP}"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-gold">
+
+                    📍 ดูร้านใน Google Maps
+
+                </a>
+
             </div>
+        `
+    },
 
-            <div class="highlight-row">
-                <span class="highlight-label">
-                    ราคา
-                </span>
 
-                <span class="highlight-value">
-                    แล้วแต่สินค้า
-                </span>
+    all:{
+
+        title:"ข้อมูลทั้งหมด",
+
+        text:`
+            <strong>${SHOP_NAME}</strong>
+
+            <div class="highlight">
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ชื่อร้านสำหรับค้นหา
+                    </span>
+
+                    <span class="highlight-value">
+                        ร้านไทเกษตรรุ่งเรืองพานิชย์
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ที่ตั้ง
+                    </span>
+
+                    <span class="highlight-value">
+                        บ้านธวัชดินแดง ข้าง ๆ เซเว่น
+                        จังหวัดร้อยเอ็ด
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        สินค้า
+                    </span>
+
+                    <span class="highlight-value">
+                        ปุ๋ยและสินค้าอื่น ๆ
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        โทรศัพท์
+                    </span>
+
+                    <span class="highlight-value">
+                        ${PHONE_DISPLAY}
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        เวลาเปิด
+                    </span>
+
+                    <span class="highlight-value">
+                        08:00 – 17:00 น.
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        บริการจัดส่ง
+                    </span>
+
+                    <span class="highlight-value">
+                        มี
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        การชำระเงิน
+                    </span>
+
+                    <span class="highlight-value">
+                        เงินสด / โอนเงิน
+                    </span>
+
+                </div>
+
+                <div class="highlight-row">
+
+                    <span class="highlight-label">
+                        ราคา
+                    </span>
+
+                    <span class="highlight-value">
+                        แล้วแต่สินค้า
+                    </span>
+
+                </div>
+
             </div>
+        `,
 
-        </div>
-    `,
+        buttons:`
+            <div class="actions">
 
-    buttons:`
-        <div class="actions">
+                <a
+                    href="${MAP}"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-gold">
 
-            <a
-                href="tel:${PHONE}"
-                class="btn btn-primary">
+                    📍 ค้นหาร้านใน Google Maps
 
-                ☎ โทรหาร้าน
+                </a>
 
-            </a>
+                <a
+                    href="tel:${PHONE}"
+                    class="btn btn-primary">
 
-            <a
-                href="${MAP}"
-                target="_blank"
-                rel="noopener"
-                class="btn btn-gold">
+                    ☎ โทรหาร้าน
 
-                📍 เปิดแผนที่
+                </a>
 
-            </a>
-
-        </div>
-    `
-}
+            </div>
+        `
+    }
 
 };
 
@@ -1623,14 +1695,18 @@ function copyPhone(){
         navigator.clipboard
             .writeText(PHONE_DISPLAY)
             .then(()=>{
+
                 showToast(
                     "คัดลอกหมายเลขโทรศัพท์แล้ว"
                 );
+
             })
             .catch(()=>{
+
                 showToast(
-                    PHONE_DISPLAY
+                    "เบอร์โทร: " + PHONE_DISPLAY
                 );
+
             });
 
     }else{
