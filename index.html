@@ -1,663 +1,1005 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
->
-
-<title>RedLua Vault</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตอบ | หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap');
 
-* {
-    box-sizing: border-box;
+:root{
+    --bg:#07111f;
+    --bg2:#0b1728;
+    --card:rgba(255,255,255,.075);
+    --card2:rgba(255,255,255,.045);
+    --line:rgba(255,255,255,.11);
+    --text:#f7faff;
+    --muted:#9baabd;
+    --blue:#4da3ff;
+    --cyan:#52d8ff;
+    --purple:#8b6cff;
+    --gold:#e4b95f;
+    --green:#42d392;
+    --danger:#ff7373;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    font-family:"Prompt","Kanit",sans-serif;
+    color:var(--text);
     background:
-        radial-gradient(
-            circle at 20% 0%,
-            rgba(255, 30, 30, .15),
-            transparent 32%
-        ),
-        #070707;
-    color: #eee;
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+        radial-gradient(circle at 10% 5%,rgba(77,163,255,.18),transparent 28%),
+        radial-gradient(circle at 90% 12%,rgba(139,108,255,.17),transparent 28%),
+        radial-gradient(circle at 50% 100%,rgba(82,216,255,.08),transparent 35%),
+        var(--bg);
+    overflow-x:hidden;
+}
+
+/* Background glow */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    left:-260px;
+    top:35%;
+    border-radius:50%;
+    background:rgba(77,163,255,.08);
+    filter:blur(90px);
+    pointer-events:none;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    right:-260px;
+    top:50%;
+    border-radius:50%;
+    background:rgba(139,108,255,.08);
+    filter:blur(90px);
+    pointer-events:none;
 }
 
 button,
-input,
-textarea {
-    font: inherit;
+a{
+    font-family:inherit;
 }
 
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 235px;
-    padding: 22px;
-    background: #0c0c0c;
-    border-right: 1px solid #292929;
+/* ================= HEADER ================= */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid var(--line);
+    background:rgba(7,17,31,.72);
+    backdrop-filter:blur(25px);
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 21px;
-    font-weight: 900;
-    margin-bottom: 35px;
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.logoBox {
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    margin-right: 9px;
-    border-radius: 11px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    font-weight:700;
+    color:white;
+    background:
+        linear-gradient(135deg,var(--blue),var(--purple));
+    box-shadow:
+        0 8px 30px rgba(77,163,255,.24),
+        inset 0 1px rgba(255,255,255,.35);
+}
+
+.brand h1{
+    font-size:17px;
+    font-weight:600;
+    line-height:1.35;
+}
+
+.brand p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:2px;
+}
+
+.open-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 13px;
+    border-radius:50px;
+    background:rgba(66,211,146,.08);
+    border:1px solid rgba(66,211,146,.2);
+    color:#7ee9b7;
+    font-size:12px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+
+/* ================= MAIN ================= */
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:35px 22px 70px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:48px;
     background:
         linear-gradient(
             135deg,
-            #ff4141,
-            #800000
+            rgba(77,163,255,.13),
+            rgba(139,108,255,.08) 50%,
+            rgba(255,255,255,.035)
         );
+    box-shadow:0 25px 80px rgba(0,0,0,.18);
 }
 
-.logo span {
-    color: #ff3636;
+.hero::before{
+    content:"";
+    position:absolute;
+    width:320px;
+    height:320px;
+    right:-120px;
+    top:-170px;
+    border-radius:50%;
+    background:rgba(82,216,255,.14);
+    filter:blur(10px);
 }
 
-.sectionTitle {
-    color: #555;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    margin: 18px 8px 8px;
+.hero::after{
+    content:"";
+    position:absolute;
+    width:230px;
+    height:230px;
+    right:120px;
+    bottom:-170px;
+    border-radius:50%;
+    background:rgba(139,108,255,.15);
+    filter:blur(20px);
 }
 
-.nav {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 5px;
-    border: 0;
-    border-radius: 9px;
-    background: transparent;
-    color: #777;
-    text-align: left;
-    cursor: pointer;
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:760px;
 }
 
-.nav:hover,
-.nav.active {
-    background: #251010;
-    color: #fff;
+.hero-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 12px;
+    border-radius:50px;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--line);
+    color:#bddcff;
+    font-size:11px;
+    letter-spacing:.4px;
+    margin-bottom:18px;
 }
 
-.nav.active {
-    box-shadow: inset 3px 0 #ff3030;
+.hero-tag span{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 12px var(--cyan);
 }
 
-.server {
-    position: absolute;
-    left: 22px;
-    right: 22px;
-    bottom: 20px;
-    padding: 11px;
-    border: 1px solid #292929;
-    border-radius: 10px;
-    background: #111;
-    color: #777;
-    font-size: 10px;
+.hero h2{
+    font-size:38px;
+    line-height:1.25;
+    font-weight:600;
+    margin-bottom:13px;
 }
 
-.server b {
-    color: #36dc8b;
+.hero h2 em{
+    font-style:normal;
+    background:linear-gradient(
+        90deg,
+        var(--blue),
+        var(--cyan),
+        #b18cff
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
-.main {
-    margin-left: 235px;
-    padding: 30px;
+.hero-description{
+    color:var(--muted);
+    font-size:14px;
+    max-width:670px;
+    line-height:1.9;
 }
 
-.page {
-    display: none;
+/* ================= QUICK INFO ================= */
+
+.quick-info{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:18px;
 }
 
-.page.active {
-    display: block;
+.quick-card{
+    border:1px solid var(--line);
+    background:var(--card2);
+    backdrop-filter:blur(15px);
+    border-radius:18px;
+    padding:17px;
+    transition:.25s;
 }
 
-.title {
-    font-size: 30px;
-    font-weight: 900;
+.quick-card:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,.08);
+    border-color:rgba(77,163,255,.28);
 }
 
-.title span {
-    color: #ff3030;
+.quick-icon{
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    background:rgba(77,163,255,.1);
+    color:var(--cyan);
+    margin-bottom:10px;
 }
 
-.subtitle {
-    margin-top: 4px;
-    color: #666;
-    font-size: 12px;
+.quick-label{
+    color:var(--muted);
+    font-size:10px;
 }
 
-.header {
-    margin-bottom: 22px;
+.quick-value{
+    margin-top:2px;
+    font-size:14px;
+    font-weight:500;
 }
 
-.editors {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+/* ================= SECTION ================= */
+
+.section{
+    margin-top:42px;
 }
 
-.card {
-    overflow: hidden;
-    background: #101010;
-    border: 1px solid #292929;
-    border-radius: 14px;
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:17px;
 }
 
-.cardHeader {
-    display: flex;
-    justify-content: space-between;
-    padding: 13px 15px;
-    border-bottom: 1px solid #292929;
-    font-size: 11px;
-    font-weight: 700;
+.section-title{
+    font-size:22px;
+    font-weight:600;
 }
 
-.counter {
-    color: #555;
+.section-sub{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:2px;
 }
 
-textarea {
-    display: block;
-    width: 100%;
-    height: 400px;
-    padding: 17px;
-    resize: none;
-    outline: none;
-    border: 0;
-    background: #080808;
-    color: #ddd;
-    font-family:
-        "SFMono-Regular",
-        Consolas,
-        monospace;
-    font-size: 13px;
-    line-height: 1.65;
+/* ================= QUESTION GRID ================= */
+
+.question-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
 }
 
-textarea::placeholder {
-    color: #3b3b3b;
+.question{
+    position:relative;
+    overflow:hidden;
+    text-align:left;
+    color:var(--text);
+    border:1px solid var(--line);
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.075),
+        rgba(255,255,255,.035)
+    );
+    border-radius:19px;
+    padding:20px;
+    cursor:pointer;
+    transition:.25s;
 }
 
-.options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 15px;
+.question::after{
+    content:"→";
+    position:absolute;
+    right:17px;
+    bottom:15px;
+    color:#667b92;
+    transition:.25s;
 }
 
-.option {
-    padding: 15px;
-    background: #101010;
-    border: 1px solid #292929;
-    border-radius: 13px;
+.question:hover{
+    transform:translateY(-4px);
+    border-color:rgba(77,163,255,.42);
+    background:linear-gradient(
+        145deg,
+        rgba(77,163,255,.12),
+        rgba(139,108,255,.06)
+    );
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
 }
 
-.optionTitle {
-    margin-bottom: 10px;
-    color: #aaa;
-    font-size: 11px;
-    font-weight: 700;
+.question:hover::after{
+    color:var(--cyan);
+    transform:translateX(4px);
 }
 
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 15px;
+.question:active{
+    transform:scale(.98);
 }
 
-.btn {
-    padding: 11px 15px;
-    border: 1px solid #303030;
-    border-radius: 9px;
-    background: #171717;
-    color: #ccc;
-    cursor: pointer;
-    font-size: 11px;
+.question-icon{
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    font-size:20px;
+    background:rgba(77,163,255,.1);
+    border:1px solid rgba(77,163,255,.14);
+    margin-bottom:14px;
 }
 
-.btn:hover {
-    border-color: #555;
+.question h3{
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:3px;
 }
 
-.btn.red {
-    border-color: #ff3030;
+.question p{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* ================= ANSWER ================= */
+
+.answer-wrap{
+    margin-top:18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    background:rgba(255,255,255,.045);
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 60px rgba(0,0,0,.14);
+}
+
+.answer-head{
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    background:rgba(255,255,255,.025);
+}
+
+.answer-head-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.answer-mini{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(77,163,255,.12);
+    color:var(--cyan);
+}
+
+.answer-head strong{
+    font-size:13px;
+}
+
+.answer-head span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.answer{
+    min-height:160px;
+    padding:27px;
+}
+
+.empty{
+    min-height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.empty-icon{
+    font-size:30px;
+    opacity:.5;
+    margin-bottom:7px;
+}
+
+/* Detail */
+
+.detail-title{
+    font-size:24px;
+    font-weight:600;
+    margin-bottom:9px;
+}
+
+.detail-text{
+    color:#b6c2d0;
+    font-size:14px;
+    line-height:1.9;
+}
+
+.highlight{
+    margin-top:19px;
+    padding:18px;
+    border-radius:15px;
     background:
         linear-gradient(
             135deg,
-            #ff3838,
-            #8f0000
+            rgba(77,163,255,.09),
+            rgba(139,108,255,.06)
         );
-    color: #fff;
+    border:1px solid rgba(77,163,255,.16);
 }
 
-.result {
-    display: none;
-    margin-top: 15px;
-    padding: 15px;
-    background: #150909;
-    border: 1px solid #482222;
-    border-radius: 13px;
+.highlight-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:9px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
 
-.resultTitle {
-    margin-bottom: 8px;
-    color: #ff5050;
-    font-size: 11px;
-    font-weight: 700;
+.highlight-row:last-child{
+    border-bottom:none;
 }
 
-.resultRow {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+.highlight-label{
+    color:var(--muted);
+    font-size:12px;
 }
 
-.resultInput {
-    flex: 1;
-    min-width: 0;
-    padding: 10px;
-    outline: none;
-    border: 1px solid #382020;
-    border-radius: 8px;
-    background: #080808;
-    color: #fff;
-    font-size: 11px;
+.highlight-value{
+    color:#eef6ff;
+    font-size:13px;
+    text-align:right;
 }
 
-.vaultTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+/* ================= BUTTONS ================= */
+
+.actions{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-top:20px;
 }
 
-.search {
-    width: 230px;
-    padding: 10px;
-    outline: none;
-    border: 1px solid #292929;
-    border-radius: 9px;
-    background: #111;
-    color: #fff;
+.btn{
+    border:none;
+    text-decoration:none;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:43px;
+    padding:0 17px;
+    border-radius:11px;
+    font-size:12px;
+    font-weight:500;
+    transition:.2s;
 }
 
-.list {
-    display: grid;
-    grid-template-columns:
-        repeat(3, 1fr);
-    gap: 13px;
+.btn-primary{
+    color:white;
+    background:linear-gradient(135deg,#328de3,#5b73e8);
+    box-shadow:0 8px 25px rgba(77,163,255,.18);
 }
 
-.script {
-    padding: 15px;
-    background: #111;
-    border: 1px solid #292929;
-    border-radius: 13px;
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(77,163,255,.28);
 }
 
-.scriptName {
-    margin-bottom: 7px;
-    font-weight: 700;
-    word-break: break-word;
+.btn-secondary{
+    color:#d9e8f8;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--line);
 }
 
-.meta {
-    margin-bottom: 12px;
-    color: #555;
-    font-size: 10px;
+.btn-secondary:hover{
+    background:rgba(255,255,255,.1);
 }
 
-.scriptButtons {
-    display: flex;
-    gap: 6px;
+.btn-gold{
+    color:#151515;
+    background:linear-gradient(135deg,#e1b55b,#f0ce7b);
 }
 
-.scriptButtons button {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #292929;
-    border-radius: 7px;
-    background: #181818;
-    color: #aaa;
-    cursor: pointer;
-    font-size: 10px;
+.btn-gold:hover{
+    transform:translateY(-2px);
 }
 
-.empty {
-    grid-column: 1 / -1;
-    padding: 50px;
-    border: 1px dashed #333;
-    border-radius: 13px;
-    color: #444;
-    text-align: center;
+/* ================= FOOTER ================= */
+
+.footer{
+    margin-top:50px;
+    border-top:1px solid var(--line);
+    background:rgba(4,10,19,.65);
 }
 
-.toast {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    padding: 12px 15px;
-    border-left: 3px solid #ff3030;
-    border-radius: 9px;
-    background: #181818;
-    color: #fff;
-    font-size: 11px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: .25s;
+.footer-inner{
+    max-width:1200px;
+    margin:auto;
+    padding:27px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.toast.show {
-    opacity: 1;
-    transform: translateY(0);
+.footer-name{
+    font-size:13px;
+    font-weight:500;
 }
 
-.mobile {
-    display: none;
+.footer-desc{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
 }
 
-@media (max-width: 900px) {
+.footer-phone{
+    color:#bfe4ff;
+    font-size:14px;
+    font-weight:500;
+}
 
-    .sidebar {
-        z-index: 50;
-        transform: translateX(-100%);
-        transition: .25s;
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    z-index:999;
+    transform:translate(-50%,100px);
+    padding:12px 18px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:rgba(8,18,32,.92);
+    backdrop-filter:blur(20px);
+    color:white;
+    font-size:12px;
+    opacity:0;
+    transition:.3s;
+    box-shadow:0 15px 45px rgba(0,0,0,.3);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .quick-info{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .sidebar.open {
-        transform: translateX(0);
+    .question-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .main {
-        margin-left: 0;
-        padding: 15px;
-    }
-
-    .mobile {
-        display: block;
-        margin-bottom: 15px;
-    }
-
-    .mobile button {
-        padding: 10px 13px;
-        border: 1px solid #292929;
-        border-radius: 8px;
-        background: #111;
-        color: #fff;
-    }
-
-    .editors,
-    .options {
-        grid-template-columns: 1fr;
-    }
-
-    .list {
-        grid-template-columns: 1fr;
-    }
-
-    textarea {
-        height: 320px;
-    }
-
-    .resultRow {
-        flex-direction: column;
-    }
-
-    .vaultTop {
-        align-items: stretch;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .search {
-        width: 100%;
-    }
 }
 
+@media(max-width:600px){
+
+    .header-inner{
+        padding:12px 15px;
+    }
+
+    .brand h1{
+        font-size:14px;
+    }
+
+    .brand p{
+        font-size:9px;
+    }
+
+    .logo{
+        width:42px;
+        height:42px;
+        border-radius:12px;
+        font-size:18px;
+    }
+
+    .open-status{
+        display:none;
+    }
+
+    .container{
+        padding:20px 13px 45px;
+    }
+
+    .hero{
+        padding:29px 21px;
+        border-radius:22px;
+    }
+
+    .hero h2{
+        font-size:27px;
+    }
+
+    .hero-description{
+        font-size:12px;
+    }
+
+    .quick-info{
+        gap:8px;
+    }
+
+    .quick-card{
+        padding:13px;
+        border-radius:14px;
+    }
+
+    .quick-value{
+        font-size:12px;
+    }
+
+    .question-grid{
+        grid-template-columns:1fr;
+        gap:9px;
+    }
+
+    .question{
+        min-height:92px;
+        padding:16px;
+    }
+
+    .question-icon{
+        width:39px;
+        height:39px;
+        margin-bottom:9px;
+    }
+
+    .section{
+        margin-top:30px;
+    }
+
+    .section-title{
+        font-size:19px;
+    }
+
+    .answer{
+        padding:20px 17px;
+    }
+
+    .detail-title{
+        font-size:21px;
+    }
+
+    .detail-text{
+        font-size:13px;
+    }
+
+    .highlight-row{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:2px;
+    }
+
+    .highlight-value{
+        text-align:left;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
 </style>
-
 </head>
 
 <body>
 
-<aside class="sidebar" id="sidebar">
+<header class="header">
 
-    <div class="logo">
-        <div class="logoBox">L</div>
-        Red<span>Lua</span>
-    </div>
+    <div class="header-inner">
 
-    <div class="sectionTitle">
-        WORKSPACE
-    </div>
+        <div class="brand">
 
-    <button
-        class="nav active"
-        id="editorNav"
-        onclick="showPage('editor')"
-    >
-        Lua Script
-    </button>
+            <div class="logo">ต</div>
 
-    <button
-        class="nav"
-        id="vaultNav"
-        onclick="showPage('vault')"
-    >
-        Script Vault
-    </button>
-
-    <div class="sectionTitle">
-        SERVER
-    </div>
-
-    <button
-        class="nav"
-        onclick="checkServer()"
-    >
-        Server Status
-    </button>
-
-    <div class="server">
-        ● <b>SERVER ONLINE</b>
-        <br>
-        RedLua Vault
-    </div>
-
-</aside>
-
-<main class="main">
-
-    <div class="mobile">
-        <button onclick="toggleMenu()">
-            Menu
-        </button>
-    </div>
-
-    <section
-        class="page active"
-        id="editorPage"
-    >
-
-        <div class="header">
-
-            <div class="title">
-                Lua <span>Vault</span>
-            </div>
-
-            <div class="subtitle">
-                เก็บ Script และสร้าง URL สำหรับเรียกใช้งาน
+            <div>
+                <h1>หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด</h1>
+                <p>ศูนย์ข้อมูลร้านค้าอย่างเป็นทางการ</p>
             </div>
 
         </div>
 
-        <div class="editors">
+        <div class="open-status">
+            <span class="status-dot"></span>
+            เปิด 08:00–17:00
+        </div>
 
-            <div class="card">
+    </div>
 
-                <div class="cardHeader">
+</header>
 
-                    <span>
-                        LUA SOURCE
-                    </span>
 
-                    <span
-                        class="counter"
-                        id="inputCounter"
-                    >
-                        0 chars
-                    </span>
+<main class="container">
 
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                <span></span>
+                SHOP INFORMATION CENTER
+            </div>
+
+            <h2>
+                ยินดีต้อนรับสู่
+                <em>ศูนย์ข้อมูลร้าน</em>
+            </h2>
+
+            <p class="hero-description">
+                หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
+                เลือกหัวข้อด้านล่างเพื่อดูข้อมูลสถานที่
+                สินค้า เวลาเปิดทำการ การติดต่อ
+                การจัดส่ง และช่องทางการชำระเงิน
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="quick-info">
+
+        <div class="quick-card">
+            <div class="quick-icon">◷</div>
+            <div class="quick-label">เวลาทำการ</div>
+            <div class="quick-value">08:00 – 17:00 น.</div>
+        </div>
+
+        <div class="quick-card">
+            <div class="quick-icon">☎</div>
+            <div class="quick-label">โทรศัพท์</div>
+            <div class="quick-value">092 362 8796</div>
+        </div>
+
+        <div class="quick-card">
+            <div class="quick-icon">▣</div>
+            <div class="quick-label">บริการจัดส่ง</div>
+            <div class="quick-value">มีบริการส่ง</div>
+        </div>
+
+        <div class="quick-card">
+            <div class="quick-icon">฿</div>
+            <div class="quick-label">การชำระเงิน</div>
+            <div class="quick-value">เงินสด / โอนเงิน</div>
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <div>
+                <div class="section-title">
+                    ต้องการทราบข้อมูลอะไร?
                 </div>
 
-                <textarea
-                    id="input"
-                    spellcheck="false"
-                    placeholder="วาง Lua Script ที่นี่..."
-                ></textarea>
-
+                <div class="section-sub">
+                    เลือกหัวข้อเพื่อรับคำตอบทันที
+                </div>
             </div>
 
-            <div class="card">
+        </div>
 
-                <div class="cardHeader">
 
-                    <span>
-                        LOADER
-                    </span>
+        <div class="question-grid">
 
-                    <span
-                        class="counter"
-                    >
-                        GENERATED
-                    </span>
+            <button class="question" onclick="showAnswer('location')">
 
+                <div class="question-icon">📍</div>
+
+                <h3>ร้านอยู่ที่ไหน?</h3>
+                <p>ดูสถานที่ตั้งและเปิดแผนที่</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('products')">
+
+                <div class="question-icon">▦</div>
+
+                <h3>ร้านขายอะไร?</h3>
+                <p>ดูประเภทสินค้าและบริการ</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('phone')">
+
+                <div class="question-icon">☎</div>
+
+                <h3>เบอร์โทรติดต่อ</h3>
+                <p>โทรหรือคัดลอกหมายเลข</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('hours')">
+
+                <div class="question-icon">◷</div>
+
+                <h3>เปิดกี่โมง?</h3>
+                <p>ดูเวลาเปิดและปิดร้าน</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('delivery')">
+
+                <div class="question-icon">▣</div>
+
+                <h3>มีบริการส่งไหม?</h3>
+                <p>ข้อมูลการจัดส่งสินค้า</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('payment')">
+
+                <div class="question-icon">฿</div>
+
+                <h3>ชำระเงินแบบไหน?</h3>
+                <p>ดูช่องทางการชำระเงิน</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('price')">
+
+                <div class="question-icon">◇</div>
+
+                <h3>ราคาสินค้าเท่าไหร่?</h3>
+                <p>สอบถามราคาสินค้ากับร้าน</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('contact')">
+
+                <div class="question-icon">✆</div>
+
+                <h3>ติดต่อร้าน</h3>
+                <p>ช่องทางติดต่อร้านโดยตรง</p>
+
+            </button>
+
+
+            <button class="question" onclick="showAnswer('all')">
+
+                <div class="question-icon">≡</div>
+
+                <h3>ข้อมูลทั้งหมด</h3>
+                <p>ดูข้อมูลร้านทั้งหมดในหน้าเดียว</p>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="answer-wrap" id="answerSection">
+
+        <div class="answer-head">
+
+            <div class="answer-head-left">
+
+                <div class="answer-mini">
+                    i
                 </div>
 
-                <textarea
-                    id="loader"
-                    readonly
-                    spellcheck="false"
-                    placeholder="กด Generate URL แล้ว Loader จะปรากฏที่นี่..."
-                ></textarea>
+                <strong>รายละเอียดข้อมูล</strong>
 
             </div>
+
+            <span>
+                INFORMATION
+            </span>
 
         </div>
 
-        <div class="buttons">
 
-            <button
-                class="btn red"
-                onclick="createScript()"
-            >
-                Generate URL
-            </button>
+        <div class="answer" id="answer">
 
-            <button
-                class="btn red"
-                onclick="copyLoader()"
-            >
-                Copy Loader
-            </button>
+            <div class="empty">
 
-            <button
-                class="btn"
-                onclick="copyURL()"
-            >
-                Copy URL
-            </button>
+                <div>
 
-            <button
-                class="btn"
-                onclick="downloadLua()"
-            >
-                Download Lua
-            </button>
+                    <div class="empty-icon">
+                        ◇
+                    </div>
 
-            <button
-                class="btn"
-                onclick="clearEditor()"
-            >
-                Clear
-            </button>
+                    เลือกหัวข้อด้านบน<br>
+                    เพื่อแสดงรายละเอียดข้อมูล
 
-        </div>
-
-        <div
-            class="result"
-            id="result"
-        >
-
-            <div class="resultTitle">
-                SCRIPT URL
-            </div>
-
-            <div class="resultRow">
-
-                <input
-                    class="resultInput"
-                    id="scriptURL"
-                    readonly
-                >
-
-                <button
-                    class="btn red"
-                    onclick="copyURL()"
-                >
-                    Copy
-                </button>
-
-            </div>
-
-            <div class="resultTitle">
-                LOADER
-            </div>
-
-            <div class="resultRow">
-
-                <input
-                    class="resultInput"
-                    id="loaderInput"
-                    readonly
-                >
-
-                <button
-                    class="btn red"
-                    onclick="copyLoader()"
-                >
-                    Copy Loader
-                </button>
+                </div>
 
             </div>
 
@@ -665,567 +1007,659 @@ textarea::placeholder {
 
     </section>
 
-    <section
-        class="page"
-        id="vaultPage"
-    >
-
-        <div class="header">
-
-            <div class="title">
-                Script <span>Vault</span>
-            </div>
-
-            <div class="subtitle">
-                Scripts ที่บันทึกไว้
-            </div>
-
-        </div>
-
-        <div class="vaultTop">
-
-            <strong>
-                Saved Scripts
-            </strong>
-
-            <input
-                class="search"
-                id="search"
-                placeholder="ค้นหา..."
-                oninput="loadVault()"
-            >
-
-        </div>
-
-        <div
-            class="list"
-            id="scriptList"
-        ></div>
-
-    </section>
 
 </main>
 
-<div
-    class="toast"
-    id="toast"
-></div>
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-name">
+                หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
+            </div>
+
+            <div class="footer-desc">
+                ศูนย์ข้อมูลร้านค้า
+            </div>
+
+        </div>
+
+        <div class="footer-phone">
+            092 362 8796
+        </div>
+
+    </div>
+
+</footer>
+
+
+<div class="toast" id="toast"></div>
+
 
 <script>
 
-let currentURL = "";
-let currentLoader = "";
+const SHOP_NAME =
+"หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด";
 
-const input =
-    document.getElementById("input");
+const PHONE =
+"0923628796";
 
-input.addEventListener(
-    "input",
-    () => {
+const PHONE_DISPLAY =
+"092 362 8796";
 
-        document.getElementById(
-            "inputCounter"
-        ).textContent =
-            input.value.length.toLocaleString()
-            + " chars";
+const MAP =
+"https://www.google.com/maps/search/?api=1&query=บ้านธวัชดินแดง ร้อยเอ็ด";
+
+
+const answers = {
+
+location:{
+    title:"ที่ตั้งร้าน",
+
+    text:`
+        ร้านตั้งอยู่ที่
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    ร้าน
+                </span>
+
+                <span class="highlight-value">
+                    ${SHOP_NAME}
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    สถานที่
+                </span>
+
+                <span class="highlight-value">
+                    บ้านธวัชดินแดง ข้าง ๆ เซเว่น
+                    จังหวัดร้อยเอ็ด
+                </span>
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="${MAP}"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-primary">
+
+                📍 เปิด Google Maps
+
+            </a>
+
+        </div>
+    `
+},
+
+
+products:{
+    title:"สินค้าและบริการ",
+
+    text:`
+        <strong>${SHOP_NAME}</strong>
+        จำหน่าย
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    ประเภทสินค้า
+                </span>
+
+                <span class="highlight-value">
+                    ปุ๋ยและสินค้าอื่น ๆ
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    รายละเอียด
+                </span>
+
+                <span class="highlight-value">
+                    สอบถามรายการสินค้ากับร้านโดยตรง
+                </span>
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="tel:${PHONE}"
+                class="btn btn-primary">
+
+                ☎ สอบถามสินค้า
+
+            </a>
+
+        </div>
+    `
+},
+
+
+phone:{
+    title:"เบอร์โทรติดต่อ",
+
+    text:`
+        สามารถติดต่อร้าน
+        <strong>${SHOP_NAME}</strong>
+        ได้โดยตรงที่
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    โทรศัพท์
+                </span>
+
+                <span class="highlight-value">
+                    ${PHONE_DISPLAY}
+                </span>
+
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="tel:${PHONE}"
+                class="btn btn-primary">
+
+                ☎ โทรหาร้าน
+
+            </a>
+
+            <button
+                onclick="copyPhone()"
+                class="btn btn-secondary">
+
+                ⧉ คัดลอกหมายเลข
+
+            </button>
+
+        </div>
+    `
+},
+
+
+hours:{
+    title:"เวลาเปิดทำการ",
+
+    text:`
+        เวลาทำการของร้าน
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    เวลาเปิด
+                </span>
+
+                <span class="highlight-value">
+                    08:00 น.
+                </span>
+
+            </div>
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    เวลาปิด
+                </span>
+
+                <span class="highlight-value">
+                    17:00 น.
+                </span>
+
+            </div>
+
+        </div>
+    `,
+
+    buttons:""
+},
+
+
+delivery:{
+    title:"บริการจัดส่ง",
+
+    text:`
+        <strong>${SHOP_NAME}</strong>
+        มีบริการจัดส่งสินค้า
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    บริการจัดส่ง
+                </span>
+
+                <span class="highlight-value">
+                    มี
+                </span>
+
+            </div>
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    รายละเอียด
+                </span>
+
+                <span class="highlight-value">
+                    กรุณาสอบถามร้านโดยตรง
+                </span>
+
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="tel:${PHONE}"
+                class="btn btn-primary">
+
+                ☎ สอบถามการจัดส่ง
+
+            </a>
+
+        </div>
+    `
+},
+
+
+payment:{
+    title:"ช่องทางการชำระเงิน",
+
+    text:`
+        ร้านรองรับช่องทางการชำระเงินดังนี้
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    ช่องทางที่ 1
+                </span>
+
+                <span class="highlight-value">
+                    เงินสด
+                </span>
+
+            </div>
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    ช่องทางที่ 2
+                </span>
+
+                <span class="highlight-value">
+                    โอนเงิน
+                </span>
+
+            </div>
+
+        </div>
+    `,
+
+    buttons:""
+},
+
+
+price:{
+    title:"ราคาสินค้า",
+
+    text:`
+        ราคาสินค้า
+        <strong>ขึ้นอยู่กับรายการสินค้า</strong>
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    ราคา
+                </span>
+
+                <span class="highlight-value">
+                    แล้วแต่สินค้า
+                </span>
+
+            </div>
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    สอบถามเพิ่มเติม
+                </span>
+
+                <span class="highlight-value">
+                    092 362 8796
+                </span>
+
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="tel:${PHONE}"
+                class="btn btn-primary">
+
+                ☎ สอบถามราคา
+
+            </a>
+
+        </div>
+    `
+},
+
+
+contact:{
+    title:"ติดต่อร้าน",
+
+    text:`
+        <strong>${SHOP_NAME}</strong>
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    โทรศัพท์
+                </span>
+
+                <span class="highlight-value">
+                    ${PHONE_DISPLAY}
+                </span>
+
+            </div>
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    ที่ตั้ง
+                </span>
+
+                <span class="highlight-value">
+                    บ้านธวัชดินแดง ข้าง ๆ เซเว่น
+                    จังหวัดร้อยเอ็ด
+                </span>
+
+            </div>
+
+            <div class="highlight-row">
+
+                <span class="highlight-label">
+                    เวลา
+                </span>
+
+                <span class="highlight-value">
+                    08:00 – 17:00 น.
+                </span>
+
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="tel:${PHONE}"
+                class="btn btn-primary">
+
+                ☎ โทรหาร้าน
+
+            </a>
+
+            <button
+                onclick="copyPhone()"
+                class="btn btn-secondary">
+
+                ⧉ คัดลอกเบอร์
+
+            </button>
+
+            <a
+                href="${MAP}"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-gold">
+
+                📍 ดูเส้นทาง
+
+            </a>
+
+        </div>
+    `
+},
+
+
+all:{
+    title:"ข้อมูลร้านทั้งหมด",
+
+    text:`
+        <strong>${SHOP_NAME}</strong>
+
+        <div class="highlight">
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    ที่ตั้ง
+                </span>
+
+                <span class="highlight-value">
+                    บ้านธวัชดินแดง ข้าง ๆ เซเว่น
+                    จังหวัดร้อยเอ็ด
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    สินค้า
+                </span>
+
+                <span class="highlight-value">
+                    ปุ๋ยและสินค้าอื่น ๆ
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    โทรศัพท์
+                </span>
+
+                <span class="highlight-value">
+                    ${PHONE_DISPLAY}
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    เวลาเปิดทำการ
+                </span>
+
+                <span class="highlight-value">
+                    08:00 – 17:00 น.
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    บริการจัดส่ง
+                </span>
+
+                <span class="highlight-value">
+                    มี
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    การชำระเงิน
+                </span>
+
+                <span class="highlight-value">
+                    เงินสด / โอนเงิน
+                </span>
+            </div>
+
+            <div class="highlight-row">
+                <span class="highlight-label">
+                    ราคา
+                </span>
+
+                <span class="highlight-value">
+                    แล้วแต่สินค้า
+                </span>
+            </div>
+
+        </div>
+    `,
+
+    buttons:`
+        <div class="actions">
+
+            <a
+                href="tel:${PHONE}"
+                class="btn btn-primary">
+
+                ☎ โทรหาร้าน
+
+            </a>
+
+            <a
+                href="${MAP}"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-gold">
+
+                📍 เปิดแผนที่
+
+            </a>
+
+        </div>
+    `
+}
+
+};
+
+
+function showAnswer(type){
+
+    const data = answers[type];
+
+    if(!data) return;
+
+    const answer =
+        document.getElementById("answer");
+
+    answer.innerHTML = `
+
+        <div class="detail-title">
+            ${data.title}
+        </div>
+
+        <div class="detail-text">
+            ${data.text}
+        </div>
+
+        ${data.buttons}
+
+    `;
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("answerSection")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+    },80);
+}
+
+
+function copyPhone(){
+
+    if(
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ){
+
+        navigator.clipboard
+            .writeText(PHONE_DISPLAY)
+            .then(()=>{
+                showToast(
+                    "คัดลอกหมายเลขโทรศัพท์แล้ว"
+                );
+            })
+            .catch(()=>{
+                showToast(
+                    PHONE_DISPLAY
+                );
+            });
+
+    }else{
+
+        showToast(
+            "เบอร์โทร: " + PHONE_DISPLAY
+        );
 
     }
-);
+}
 
-function toast(message) {
 
-    const element =
+function showToast(message){
+
+    const toast =
         document.getElementById("toast");
 
-    element.textContent = message;
+    toast.textContent = message;
 
-    element.classList.add("show");
+    toast.classList.add("show");
 
     clearTimeout(window.toastTimer);
 
     window.toastTimer =
-        setTimeout(() => {
-            element.classList.remove("show");
-        }, 2200);
-}
+        setTimeout(()=>{
 
-function toggleMenu() {
+            toast.classList.remove("show");
 
-    document
-        .getElementById("sidebar")
-        .classList.toggle("open");
-}
-
-function showPage(page) {
-
-    const editor =
-        document.getElementById("editorPage");
-
-    const vault =
-        document.getElementById("vaultPage");
-
-    const editorNav =
-        document.getElementById("editorNav");
-
-    const vaultNav =
-        document.getElementById("vaultNav");
-
-    if (page === "editor") {
-
-        editor.classList.add("active");
-        vault.classList.remove("active");
-
-        editorNav.classList.add("active");
-        vaultNav.classList.remove("active");
-
-    } else {
-
-        editor.classList.remove("active");
-        vault.classList.add("active");
-
-        editorNav.classList.remove("active");
-        vaultNav.classList.add("active");
-
-        loadVault();
-    }
-
-    document
-        .getElementById("sidebar")
-        .classList.remove("open");
-}
-
-async function createScript() {
-
-    const code =
-        input.value.trim();
-
-    if (!code) {
-
-        toast(
-            "กรุณาวาง Lua Script ก่อน"
-        );
-
-        return;
-    }
-
-    const name =
-        prompt(
-            "ตั้งชื่อ Script",
-            "My Script"
-        );
-
-    if (name === null) {
-        return;
-    }
-
-    try {
-
-        toast("กำลังสร้าง URL...");
-
-        const response =
-            await fetch(
-                "/api/scripts",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        name,
-                        code
-                    })
-                }
-            );
-
-        const data =
-            await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.error ||
-                "สร้างไม่สำเร็จ"
-            );
-        }
-
-        currentURL = data.url;
-        currentLoader = data.loader;
-
-        document.getElementById(
-            "scriptURL"
-        ).value =
-            currentURL;
-
-        document.getElementById(
-            "loaderInput"
-        ).value =
-            currentLoader;
-
-        document.getElementById(
-            "loader"
-        ).value =
-            currentLoader;
-
-        document.getElementById(
-            "result"
-        ).style.display =
-            "block";
-
-        toast(
-            "สร้าง URL สำเร็จ"
-        );
-
-    } catch (error) {
-
-        toast(error.message);
-    }
-}
-
-async function copyLoader() {
-
-    if (!currentLoader) {
-
-        toast(
-            "กด Generate URL ก่อน"
-        );
-
-        return;
-    }
-
-    try {
-
-        await navigator.clipboard.writeText(
-            currentLoader
-        );
-
-        toast(
-            "คัดลอก Loader แล้ว"
-        );
-
-    } catch {
-
-        const input =
-            document.getElementById(
-                "loaderInput"
-            );
-
-        input.select();
-
-        document.execCommand("copy");
-
-        toast(
-            "คัดลอก Loader แล้ว"
-        );
-    }
-}
-
-async function copyURL() {
-
-    if (!currentURL) {
-
-        toast(
-            "ยังไม่มี URL"
-        );
-
-        return;
-    }
-
-    await navigator.clipboard.writeText(
-        currentURL
-    );
-
-    toast(
-        "คัดลอก URL แล้ว"
-    );
-}
-
-function downloadLua() {
-
-    const code =
-        input.value;
-
-    if (!code.trim()) {
-
-        toast(
-            "ไม่มี Lua ให้ดาวน์โหลด"
-        );
-
-        return;
-    }
-
-    const blob =
-        new Blob(
-            [code],
-            {
-                type:
-                    "text/plain;charset=utf-8"
-            }
-        );
-
-    const url =
-        URL.createObjectURL(blob);
-
-    const link =
-        document.createElement("a");
-
-    link.href = url;
-    link.download = "script.lua";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-    URL.revokeObjectURL(url);
-}
-
-function clearEditor() {
-
-    input.value = "";
-
-    document.getElementById(
-        "loader"
-    ).value = "";
-
-    document.getElementById(
-        "inputCounter"
-    ).textContent =
-        "0 chars";
-
-    document.getElementById(
-        "result"
-    ).style.display =
-        "none";
-
-    currentURL = "";
-    currentLoader = "";
-
-    toast(
-        "ล้างแล้ว"
-    );
-}
-
-async function loadVault() {
-
-    const list =
-        document.getElementById(
-            "scriptList"
-        );
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/scripts"
-            );
-
-        const scripts =
-            await response.json();
-
-        const search =
-            document.getElementById(
-                "search"
-            ).value
-            .toLowerCase()
-            .trim();
-
-        const filtered =
-            scripts.filter(
-                item =>
-                    item.name
-                        .toLowerCase()
-                        .includes(search)
-            );
-
-        if (!filtered.length) {
-
-            list.innerHTML =
-                `<div class="empty">
-                    ยังไม่มี Script
-                </div>`;
-
-            return;
-        }
-
-        list.innerHTML =
-            filtered.map(item => {
-
-                const date =
-                    new Date(
-                        item.createdAt
-                    ).toLocaleString(
-                        "th-TH"
-                    );
-
-                return `
-                    <div class="script">
-
-                        <div class="scriptName">
-                            ${escapeHTML(item.name)}
-                        </div>
-
-                        <div class="meta">
-                            ${date}
-                            ·
-                            ${Number(
-                                item.size
-                            ).toLocaleString()}
-                            bytes
-                        </div>
-
-                        <div class="scriptButtons">
-
-                            <button
-                                onclick="useScript('${item.url}')"
-                            >
-                                Loader
-                            </button>
-
-                            <button
-                                onclick="copySavedURL('${item.url}')"
-                            >
-                                Copy URL
-                            </button>
-
-                            <button
-                                onclick="deleteScript('${item.id}')"
-                            >
-                                Delete
-                            </button>
-
-                        </div>
-
-                    </div>
-                `;
-
-            }).join("");
-
-    } catch {
-
-        list.innerHTML =
-            `<div class="empty">
-                โหลด Vault ไม่สำเร็จ
-            </div>`;
-    }
-}
-
-function useScript(url) {
-
-    currentURL = url;
-
-    currentLoader =
-        `loadstring(game:HttpGet("${url}"))()`;
-
-    document.getElementById(
-        "scriptURL"
-    ).value = currentURL;
-
-    document.getElementById(
-        "loaderInput"
-    ).value = currentLoader;
-
-    document.getElementById(
-        "loader"
-    ).value = currentLoader;
-
-    document.getElementById(
-        "result"
-    ).style.display =
-        "block";
-
-    showPage("editor");
-
-    toast(
-        "โหลด Loader แล้ว"
-    );
-}
-
-async function copySavedURL(url) {
-
-    await navigator.clipboard.writeText(
-        url
-    );
-
-    toast(
-        "คัดลอก URL แล้ว"
-    );
-}
-
-async function deleteScript(id) {
-
-    if (
-        !confirm(
-            "ต้องการลบ Script นี้หรือไม่?"
-        )
-    ) {
-        return;
-    }
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/scripts/" +
-                encodeURIComponent(id),
-                {
-                    method: "DELETE"
-                }
-            );
-
-        if (!response.ok) {
-            throw new Error();
-        }
-
-        loadVault();
-
-        toast(
-            "ลบ Script แล้ว"
-        );
-
-    } catch {
-
-        toast(
-            "ลบ Script ไม่สำเร็จ"
-        );
-    }
-}
-
-async function checkServer() {
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/status"
-            );
-
-        const data =
-            await response.json();
-
-        toast(
-            `Server Online • ${data.scripts} Scripts`
-        );
-
-    } catch {
-
-        toast(
-            "Server Offline"
-        );
-    }
-}
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        },2200);
 }
 
 </script>
