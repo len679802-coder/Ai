@@ -3,845 +3,930 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>RiceFlow POS Pro</title>
+<title>Violet POS Pro</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{
-    margin:0;
-    font-family:'Prompt',sans-serif;
-    background:#f5f6f8;
-    color:#20242d;
+:root{
+    --purple:#7c3aed;
+    --purple-dark:#5b21b6;
+    --purple-light:#ede9fe;
+    --blue:#0ea5e9;
+    --blue-light:#e0f2fe;
+    --bg:#f7f8fc;
+    --card:#ffffff;
+    --text:#1e1b4b;
+    --muted:#7c8499;
+    --border:#e8e7f0;
+    --green:#10b981;
 }
-button,input,select{font-family:inherit}
-button{cursor:pointer}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-thumb{background:#d2d5da;border-radius:20px}
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    min-height:100%;
+}
+
+body{
+    font-family:'Prompt',sans-serif;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124,58,237,.08),
+            transparent 30%
+        ),
+        var(--bg);
+    color:var(--text);
+}
+
+button,input{
+    font-family:inherit;
+}
 
 .app{
-    height:100vh;
+    min-height:100vh;
     display:flex;
-    overflow:hidden;
 }
 
 /* SIDEBAR */
+
 .sidebar{
-    width:245px;
-    background:#17191e;
+    width:255px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    z-index:50;
+    padding:18px 14px;
     color:white;
-    padding:18px 13px;
-    display:flex;
-    flex-direction:column;
-    flex-shrink:0;
+    background:
+        linear-gradient(
+            180deg,
+            #4c1d95 0%,
+            #6d28d9 48%,
+            #2563eb 100%
+        );
+    box-shadow:8px 0 30px rgba(76,29,149,.12);
 }
+
 .logo{
     display:flex;
-    gap:11px;
     align-items:center;
-    padding:8px 10px 25px;
+    gap:12px;
+    padding:8px 8px 28px;
 }
+
 .logo-icon{
     width:44px;
     height:44px;
     border-radius:14px;
-    background:linear-gradient(135deg,#ff8a00,#ff5535);
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     font-size:22px;
+    background:
+        linear-gradient(
+            135deg,
+            #a78bfa,
+            #38bdf8
+        );
+    box-shadow:
+        0 8px 25px rgba(56,189,248,.25);
 }
-.logo-title{font-size:18px;font-weight:700}
-.logo-sub{font-size:9px;color:#858992}
+
+.logo-title{
+    font-size:20px;
+    font-weight:700;
+}
+
+.logo-sub{
+    font-size:10px;
+    color:#ddd6fe;
+}
 
 .nav{
     display:flex;
     flex-direction:column;
-    gap:6px;
+    gap:7px;
 }
+
 .nav button{
+    width:100%;
     border:0;
-    color:#a8adb6;
     background:transparent;
-    border-radius:12px;
-    padding:13px;
-    text-align:left;
+    color:#ddd6fe;
+    padding:13px 14px;
+    border-radius:13px;
     display:flex;
-    gap:12px;
     align-items:center;
+    gap:12px;
+    cursor:pointer;
+    text-align:left;
+    transition:.2s;
+    font-size:14px;
 }
-.nav button:hover{background:#25282f;color:white}
+
+.nav button:hover,
 .nav button.active{
+    background:rgba(255,255,255,.14);
     color:white;
-    background:linear-gradient(90deg,#ff7620,#ff5b36);
 }
-.sidebar-bottom{margin-top:auto}
-.status{
-    background:#22252b;
-    border:1px solid #30343b;
-    border-radius:14px;
-    padding:13px;
-    font-size:11px;
-}
-.dot{
-    display:inline-block;
-    width:8px;
-    height:8px;
-    background:#2ad17c;
-    border-radius:50%;
-    margin-right:6px;
+
+.nav button.active{
+    box-shadow:
+        inset 3px 0 #38bdf8,
+        0 5px 20px rgba(0,0,0,.08);
 }
 
 /* MAIN */
+
 .main{
-    flex:1;
-    min-width:0;
-    display:flex;
-    flex-direction:column;
+    margin-left:255px;
+    width:calc(100% - 255px);
+    min-height:100vh;
 }
+
 .topbar{
     height:72px;
-    background:white;
-    border-bottom:1px solid #e7e8eb;
+    position:sticky;
+    top:0;
+    z-index:30;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
     display:flex;
+    align-items:center;
     justify-content:space-between;
-    align-items:center;
-    padding:0 22px;
-    flex-shrink:0;
-}
-.title{font-size:21px;font-weight:700}
-.date{font-size:11px;color:#999}
-.top-buttons{display:flex;gap:8px}
-.top-btn{
-    width:42px;
-    height:42px;
-    background:white;
-    border:1px solid #e1e3e7;
-    border-radius:11px;
+    padding:0 28px;
 }
 
-/* CONTENT */
-.content{
-    flex:1;
-    min-height:0;
-    display:flex;
-    overflow:hidden;
-}
-.workspace{
-    flex:1;
-    min-width:0;
-    padding:20px;
-    overflow-y:auto;
-}
-
-/* DASHBOARD */
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin-bottom:18px;
-}
-.stat{
-    background:white;
-    border:1px solid #e6e8eb;
-    border-radius:16px;
-    padding:15px;
-}
-.stat-icon{
-    width:39px;
-    height:39px;
-    background:#fff0e7;
-    border-radius:11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:19px;
-}
-.stat-label{
-    color:#969ba4;
-    font-size:10px;
-    margin-top:8px;
-}
-.stat-value{
-    font-size:19px;
+.page-title{
+    font-size:22px;
     font-weight:700;
 }
 
-/* SEARCH */
-.toolbar{
-    display:flex;
-    gap:9px;
-    margin-bottom:14px;
-}
-.search{
-    flex:1;
-    position:relative;
-}
-.search input{
-    width:100%;
-    border:1px solid #e0e2e6;
-    border-radius:12px;
-    padding:11px 13px 11px 40px;
-    outline:none;
-    background:white;
-}
-.search input:focus{border-color:#ff6b2c}
-.search span{
-    position:absolute;
-    left:14px;
-    top:9px;
-    color:#999;
-}
-.add-btn{
-    background:#ff6b2c;
-    border:0;
-    color:white;
-    border-radius:12px;
-    padding:0 16px;
-    font-weight:600;
+.date{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:2px;
 }
 
-/* BARCODE SEARCH */
-.barcode-box{
+.online{
     display:flex;
-    gap:8px;
-    margin-bottom:15px;
-}
-.barcode-input{
-    flex:1;
-    background:white;
-    border:1px solid #e0e2e6;
-    border-radius:11px;
-    padding:10px 13px;
-    outline:none;
-}
-.barcode-add{
-    background:#191b20;
-    color:white;
-    border:0;
-    border-radius:11px;
-    padding:0 16px;
-}
-
-/* CATEGORIES */
-.categories{
-    display:flex;
+    align-items:center;
     gap:7px;
-    overflow-x:auto;
-    margin-bottom:16px;
-}
-.category{
-    white-space:nowrap;
-    background:white;
-    border:1px solid #e0e2e6;
-    border-radius:999px;
-    padding:7px 14px;
+    color:#64748b;
     font-size:12px;
 }
-.category.active{
-    background:#ff6b2c;
-    color:white;
-    border-color:#ff6b2c;
+
+.online-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#10b981;
+    box-shadow:0 0 0 4px #d1fae5;
+}
+
+.content{
+    padding:25px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.card,
+.panel{
+    background:rgba(255,255,255,.96);
+    border:1px solid var(--border);
+    border-radius:19px;
+    box-shadow:
+        0 8px 30px rgba(76,29,149,.055);
+}
+
+.card{
+    padding:20px;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 12px 35px rgba(124,58,237,.10);
+}
+
+.stat{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.stat-value{
+    margin-top:5px;
+    font-size:25px;
+    font-weight:700;
+}
+
+.stat-icon{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:var(--purple);
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple-light),
+            var(--blue-light)
+        );
+}
+
+/* POS LAYOUT */
+
+.layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 390px;
+    gap:18px;
+}
+
+.panel{
+    overflow:hidden;
+}
+
+.panel-head{
+    padding:18px 20px;
+    border-bottom:1px solid #edf0f4;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.panel-title{
+    font-weight:700;
+}
+
+.panel-sub{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:2px;
 }
 
 /* PRODUCTS */
+
 .products{
+    padding:18px;
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:13px;
-}
-.product{
-    background:white;
-    border:1px solid #e6e8eb;
-    border-radius:17px;
-    padding:11px;
-    transition:.2s;
-}
-.product:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 28px rgba(0,0,0,.07);
-}
-.product-image{
-    width:100%;
-    height:130px;
-    border-radius:13px;
-    background:#fff0e7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    margin-bottom:10px;
-}
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-.product-image span{font-size:48px}
-.product-name{
-    font-weight:600;
-    font-size:14px;
-}
-.product-desc{
-    color:#999;
-    font-size:10px;
-    min-height:18px;
-}
-.product-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:9px;
-}
-.product-price{
-    color:#ef6027;
-    font-size:16px;
-    font-weight:700;
-}
-.product-add{
-    border:0;
-    background:#fff0e7;
-    color:#ef6027;
-    width:32px;
-    height:32px;
-    border-radius:10px;
-    font-size:20px;
-}
-.product-barcode{
-    font-size:8px;
-    color:#a1a5ab;
-    margin-top:6px;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
 }
 
-/* EMPTY */
-.empty{
-    grid-column:1/-1;
-    text-align:center;
-    padding:70px 20px;
+.product{
+    overflow:hidden;
     background:white;
-    border:2px dashed #dfe1e5;
-    border-radius:20px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    cursor:pointer;
+    transition:.2s;
 }
-.empty-icon{font-size:54px}
-.empty-title{
+
+.product:hover{
+    transform:translateY(-3px);
+    border-color:#c4b5fd;
+    box-shadow:
+        0 12px 28px rgba(124,58,237,.10);
+}
+
+.product:active{
+    transform:scale(.98);
+}
+
+.product-img{
+    width:100%;
+    height:135px;
+    display:block;
+    object-fit:cover;
+    background:
+        linear-gradient(
+            135deg,
+            #f5f3ff,
+            #eff6ff
+        );
+}
+
+.product-info{
+    padding:12px;
+}
+
+.product-name{
+    font-size:14px;
     font-weight:600;
-    color:#686d76;
-    margin-top:8px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.product-price{
+    color:var(--purple);
+    font-size:15px;
+    font-weight:700;
+    margin-top:4px;
+}
+
+.product-code{
+    font-size:9px;
+    color:#9ca3af;
+    margin-top:2px;
+}
+
+/* BUTTONS */
+
+.primary{
+    width:100%;
+    border:0;
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    margin-top:12px;
+    font-weight:700;
+    cursor:pointer;
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #2563eb
+        );
+    box-shadow:
+        0 8px 22px rgba(99,102,241,.25);
+    transition:.2s;
+}
+
+.primary:hover{
+    transform:translateY(-1px);
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #1d4ed8
+        );
+}
+
+.add-btn{
+    border:0;
+    color:white;
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #0ea5e9
+        );
+    padding:10px 15px;
+    border-radius:11px;
+    cursor:pointer;
+    font-weight:600;
+    box-shadow:
+        0 6px 18px rgba(99,102,241,.18);
+}
+
+.secondary{
+    border:1px solid #ddd6fe;
+    background:white;
+    color:#5b21b6;
+    padding:9px 13px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.secondary:hover{
+    background:#f5f3ff;
 }
 
 /* CART */
+
 .cart{
-    width:390px;
-    background:white;
-    border-left:1px solid #e6e7ea;
+    height:630px;
     display:flex;
     flex-direction:column;
-    flex-shrink:0;
 }
-.cart-head{
-    padding:17px;
-    border-bottom:1px solid #e8e9ec;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.cart-title{font-weight:700;font-size:17px}
-.count{
-    background:#fff0e7;
-    color:#ef6027;
-    border-radius:20px;
-    padding:4px 9px;
-    font-size:10px;
-}
-.cart-list{
+
+.cart-items{
     flex:1;
-    overflow-y:auto;
-    padding:13px;
+    overflow:auto;
+    padding:15px;
 }
+
 .cart-empty{
     height:100%;
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
-    color:#a2a6ad;
+    justify-content:center;
+    color:#9ca3af;
+    text-align:center;
 }
-.cart-empty div:first-child{
-    font-size:50px;
-    margin-bottom:8px;
+
+.cart-empty-icon{
+    width:70px;
+    height:70px;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    background:
+        linear-gradient(
+            135deg,
+            #ede9fe,
+            #e0f2fe
+        );
+    margin-bottom:10px;
 }
+
 .cart-item{
-    border:1px solid #e9eaed;
-    border-radius:13px;
-    padding:10px;
+    border:1px solid #edf0f4;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:9px;
+    background:#fff;
+}
+
+.cart-row{
     display:flex;
-    gap:9px;
-    margin-bottom:8px;
+    justify-content:space-between;
+    gap:10px;
 }
-.cart-image{
-    width:44px;
-    height:44px;
-    border-radius:10px;
-    overflow:hidden;
-    background:#fff0e7;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-shrink:0;
+
+.cart-price{
+    color:var(--purple);
+    font-weight:700;
 }
-.cart-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-.cart-image span{font-size:23px}
-.cart-info{flex:1;min-width:0}
-.cart-name{font-size:12px;font-weight:600}
-.cart-price{font-size:10px;color:#999}
+
 .qty{
     display:flex;
     align-items:center;
-    gap:5px;
-    margin-top:6px;
+    gap:8px;
+    margin-top:9px;
 }
+
 .qty button{
-    width:25px;
-    height:25px;
-    border:1px solid #dddfe3;
-    background:white;
-    border-radius:7px;
-}
-.qty-num{
-    min-width:20px;
-    text-align:center;
-    font-size:11px;
-    font-weight:600;
-}
-.delete{
-    border:0!important;
-    background:transparent!important;
-    color:#aaa;
-}
-.item-total{
-    font-size:12px;
-    font-weight:700;
-}
-
-/* PAYMENT */
-.payment{
-    padding:15px;
-    border-top:1px solid #e5e6e9;
-    background:#fafafa;
-}
-.line{
-    display:flex;
-    justify-content:space-between;
-    font-size:12px;
-    color:#6d727a;
-    margin-bottom:7px;
-}
-.total-line{
-    border-top:1px dashed #ddd;
-    padding-top:10px;
-    margin-top:8px;
-    font-size:20px;
-    color:#20242d;
-    font-weight:700;
-}
-.discount{
-    width:100%;
-    border:1px solid #dddfe3;
-    background:white;
-    border-radius:9px;
-    padding:8px;
-    text-align:right;
-    outline:none;
-}
-.pay{
-    width:100%;
+    width:29px;
+    height:29px;
     border:0;
-    background:linear-gradient(135deg,#16ba6c,#0d9856);
-    color:white;
-    border-radius:11px;
-    padding:12px;
-    margin-top:10px;
+    border-radius:9px;
+    background:#f0edff;
+    color:#5b21b6;
     font-weight:700;
-}
-.print{
-    width:100%;
-    border:1px solid #ff6b2c;
-    background:white;
-    color:#ef6027;
-    border-radius:10px;
-    padding:10px;
-    margin-top:7px;
-    font-weight:600;
-}
-.clear{
-    width:100%;
-    border:1px solid #dddfe3;
-    background:white;
-    border-radius:10px;
-    padding:9px;
-    margin-top:7px;
+    cursor:pointer;
 }
 
-/* MODAL */
-.overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(10,12,16,.62);
-    backdrop-filter:blur(5px);
-    z-index:100;
-    justify-content:center;
-    align-items:center;
-    padding:15px;
+.qty button:hover{
+    background:#ddd6fe;
 }
-.overlay.show{display:flex}
-.modal{
-    background:white;
-    width:min(560px,100%);
-    max-height:92vh;
-    overflow-y:auto;
-    border-radius:22px;
-    padding:21px;
-    box-shadow:0 25px 90px rgba(0,0,0,.3);
+
+.cart-bottom{
+    padding:17px;
+    border-top:1px solid #edf0f4;
+    background:
+        linear-gradient(
+            180deg,
+            #fafaff,
+            #f5f7ff
+        );
 }
-.modal-head{
+
+.total-row{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    margin-bottom:18px;
-}
-.modal-title{
     font-size:19px;
     font-weight:700;
 }
+
+.total-row span:last-child{
+    color:var(--purple);
+}
+
+.cash{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:1px solid #ddd6fe;
+    border-radius:11px;
+    outline:none;
+    text-align:right;
+    font-size:17px;
+    background:white;
+}
+
+.cash:focus{
+    border-color:#8b5cf6;
+    box-shadow:
+        0 0 0 3px rgba(139,92,246,.10);
+}
+
+.change-row{
+    display:flex;
+    justify-content:space-between;
+    color:#64748b;
+    font-size:13px;
+    margin-top:9px;
+}
+
+/* TABLE */
+
+.table-wrap{
+    width:100%;
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:14px 18px;
+    border-bottom:1px solid #edf0f4;
+    text-align:left;
+    white-space:nowrap;
+}
+
+th{
+    color:#7c8499;
+    font-size:11px;
+    background:#faf9ff;
+}
+
+td{
+    font-size:13px;
+}
+
+tr:hover td{
+    background:#fafaff;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#ecfdf5;
+    color:#059669;
+    font-size:11px;
+}
+
+/* PRINTER */
+
+.settings-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.big-status{
+    text-align:center;
+    padding:30px;
+}
+
+.status-circle{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    margin:0 auto 15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:35px;
+    background:
+        linear-gradient(
+            135deg,
+            #ede9fe,
+            #e0f2fe
+        );
+    color:var(--purple);
+}
+
+.status-circle.connected{
+    background:#dcfce7;
+    color:#059669;
+}
+
+.printer-option{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1px solid #e4e8ef;
+    border-radius:15px;
+    padding:16px;
+    margin-bottom:10px;
+}
+
+.info-box{
+    margin-top:16px;
+    padding:14px;
+    border-radius:13px;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    color:#1d4ed8;
+    font-size:12px;
+}
+
+/* SETTINGS */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.field label{
+    display:block;
+    color:#747e91;
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+.field input{
+    width:100%;
+    padding:11px;
+    border:1px solid #ddd6fe;
+    border-radius:10px;
+    outline:none;
+}
+
+.field input:focus{
+    border-color:#8b5cf6;
+    box-shadow:
+        0 0 0 3px rgba(139,92,246,.08);
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(30,27,75,.45);
+    backdrop-filter:blur(8px);
+    z-index:100;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    padding:22px;
+    border-radius:20px;
+    background:white;
+    box-shadow:
+        0 25px 70px rgba(30,27,75,.20);
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
 .close{
     width:35px;
     height:35px;
     border:0;
-    background:#f0f1f3;
     border-radius:10px;
-    font-size:18px;
+    background:#f0f2f5;
+    cursor:pointer;
 }
-.field{margin-bottom:12px}
-.field label{
+
+.preview{
+    width:115px;
+    height:115px;
     display:block;
-    font-size:11px;
-    color:#6e737b;
-    margin-bottom:5px;
-}
-.field input,.field select{
-    width:100%;
-    border:1px solid #dddfe4;
-    border-radius:10px;
-    padding:10px;
-    outline:none;
-    background:white;
-}
-.image-preview{
-    width:100%;
-    height:170px;
-    background:#f4f5f6;
-    border:2px dashed #dddfe3;
-    border-radius:13px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    margin-bottom:8px;
-}
-.image-preview img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-.form-buttons{
-    display:flex;
-    gap:8px;
-    margin-top:16px;
-}
-.form-buttons button{
-    flex:1;
-    padding:11px;
-    border:0;
-    border-radius:11px;
-    font-weight:600;
-}
-.cancel{background:#f0f1f3}
-.confirm{
-    background:#ff6b2c;
-    color:white;
-}
-
-/* BARCODE */
-.barcode-preview{
-    background:white;
-    border:1px solid #e4e5e8;
-    border-radius:12px;
-    padding:10px;
-    text-align:center;
-    margin-top:10px;
-}
-.barcode-preview svg{
-    max-width:100%;
-}
-
-/* PAYMENT MODAL */
-.big-total{
-    text-align:center;
-    font-size:32px;
-    font-weight:700;
-    margin-bottom:17px;
-}
-.methods{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:7px;
-}
-.method{
-    border:1px solid #dddfe4;
-    background:white;
-    border-radius:11px;
-    padding:10px 5px;
-}
-.method.active{
-    background:#fff0e7;
-    color:#ef6027;
-    border-color:#ff6b2c;
-}
-.cash{
-    width:100%;
-    border:1px solid #dddfe4;
-    border-radius:11px;
-    padding:13px;
-    font-size:22px;
-    text-align:right;
-    margin-top:12px;
-    outline:none;
-}
-.change{
-    background:#edfff5;
-    color:#078b4e;
-    border-radius:12px;
-    padding:12px;
-    margin-top:9px;
-    display:flex;
-    justify-content:space-between;
-    font-weight:700;
-}
-
-/* HISTORY */
-.history-search{
-    width:100%;
-    border:1px solid #dddfe4;
-    padding:10px;
-    border-radius:10px;
-    margin-bottom:10px;
-}
-.history-item{
-    border:1px solid #e7e8eb;
-    border-radius:13px;
-    padding:12px;
-    margin-bottom:8px;
-}
-.history-top{
-    display:flex;
-    justify-content:space-between;
-}
-.history-id{font-weight:700;font-size:12px}
-.history-total{
-    color:#ef6027;
-    font-weight:700;
-}
-.history-date{
-    color:#999;
-    font-size:9px;
-}
-.history-actions{
-    display:flex;
-    gap:6px;
-    margin-top:8px;
-}
-.history-actions button{
-    flex:1;
-    padding:7px;
-    border:1px solid #dddfe4;
-    background:white;
-    border-radius:8px;
-    font-size:10px;
-}
-
-/* PRODUCT MANAGER */
-.manage-item{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    padding:10px 0;
-    border-bottom:1px solid #eee;
-}
-.manage-image{
-    width:48px;
-    height:48px;
-    border-radius:10px;
-    overflow:hidden;
-    background:#fff0e7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.manage-image img{
-    width:100%;
-    height:100%;
     object-fit:cover;
-}
-.manage-info{flex:1}
-.manage-name{font-size:12px;font-weight:600}
-.manage-code{font-size:9px;color:#999}
-.manage-buttons{
-    display:flex;
-    gap:5px;
-}
-.manage-buttons button{
-    width:32px;
-    height:32px;
-    border:1px solid #dddfe3;
-    background:white;
-    border-radius:8px;
+    border-radius:16px;
+    margin:14px auto;
+    background:
+        linear-gradient(
+            135deg,
+            #f5f3ff,
+            #eff6ff
+        );
 }
 
-/* BACKUP */
-.backup-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-}
-.backup-btn{
-    border:1px solid #dddfe3;
-    background:white;
-    border-radius:11px;
-    padding:14px 8px;
+.barcode-box{
+    text-align:center;
+    padding:16px;
+    margin-top:16px;
+    border:1px dashed #c4b5fd;
+    border-radius:13px;
+    background:#fafaff;
 }
 
-/* TOAST */
-.toast{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-    background:#181a20;
-    color:white;
-    padding:12px 17px;
-    border-radius:11px;
-    transform:translateY(80px);
-    opacity:0;
-    transition:.25s;
-    z-index:999;
-    font-size:12px;
-}
-.toast.show{
-    transform:translateY(0);
-    opacity:1;
+.no-data{
+    text-align:center;
+    padding:50px;
+    color:#9ca3af;
 }
 
-/* RECEIPT */
+/* MOBILE NAV */
+
+.mobile-nav{
+    display:none;
+}
+
+/* PRINT */
+
 #receipt{
     display:none;
 }
 
 @media print{
+
     body *{
-        visibility:hidden!important;
+        visibility:hidden !important;
     }
-    #receipt,#receipt *{
-        visibility:visible!important;
+
+    #receipt,
+    #receipt *{
+        visibility:visible !important;
     }
+
     #receipt{
-        display:block!important;
+        display:block !important;
         position:absolute;
         left:0;
         top:0;
         width:80mm;
         padding:4mm;
         color:#000;
-        background:#fff;
+        background:white;
         font-family:Arial,sans-serif;
-        font-size:12px;
     }
 }
 
-/* MOBILE */
+/* TABLET */
+
 @media(max-width:1100px){
-    .products{grid-template-columns:repeat(2,1fr)}
-    .cart{width:350px}
-}
-@media(max-width:850px){
-    .sidebar{display:none}
-}
-@media(max-width:650px){
 
-    .topbar{
-        height:64px;
-        padding:0 12px;
-    }
-
-    .title{font-size:17px}
-
-    .workspace{
-        padding:11px;
-        padding-bottom:70px;
-    }
-
-    .stats{
+    .cards{
         grid-template-columns:repeat(2,1fr);
-        gap:7px;
     }
 
-    .stat{
-        padding:10px;
-    }
-
-    .stat-icon{display:none}
-
-    .stat-value{font-size:15px}
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-        gap:8px;
-    }
-
-    .product-image{
-        height:100px;
+    .layout{
+        grid-template-columns:1fr;
     }
 
     .cart{
+        height:540px;
+    }
+
+    .products{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+/* PHONE / IPAD PORTRAIT */
+
+@media(max-width:700px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        width:100%;
+        margin-left:0;
+        padding-bottom:70px;
+    }
+
+    .topbar{
+        height:64px;
+        padding:0 15px;
+    }
+
+    .page-title{
+        font-size:18px;
+    }
+
+    .date,
+    .online{
+        display:none;
+    }
+
+    .content{
+        padding:13px;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .card{
+        padding:14px;
+        border-radius:15px;
+    }
+
+    .stat-value{
+        font-size:20px;
+    }
+
+    .stat-icon{
+        width:37px;
+        height:37px;
+        font-size:17px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+        padding:12px;
+    }
+
+    .product-img{
+        height:110px;
+    }
+
+    .cart{
+        height:520px;
+    }
+
+    .settings-grid,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .mobile-nav{
+        display:flex;
         position:fixed;
         left:0;
         right:0;
         bottom:0;
-        width:100%;
-        height:62vh;
-        z-index:30;
-        border-left:0;
-        border-top:1px solid #ddd;
-        transform:translateY(calc(100% - 57px));
-        transition:.3s;
-        box-shadow:0 -10px 30px rgba(0,0,0,.15);
+        height:68px;
+        z-index:80;
+        background:rgba(255,255,255,.96);
+        backdrop-filter:blur(15px);
+        border-top:1px solid #e5e7eb;
+        padding-bottom:env(safe-area-inset-bottom);
     }
 
-    .cart.open{
-        transform:translateY(0);
-    }
-
-    .cart-head{
+    .mobile-nav button{
+        flex:1;
+        border:0;
+        background:transparent;
+        color:#8b94a7;
+        font-size:10px;
         cursor:pointer;
     }
 
+    .mobile-nav button span{
+        display:block;
+        font-size:21px;
+        margin-bottom:2px;
+    }
+
+    .mobile-nav button.active{
+        color:#7c3aed;
+        font-weight:700;
+    }
+
+    th,
+    td{
+        padding:12px;
+    }
 }
 </style>
 </head>
@@ -851,94 +936,82 @@ button{cursor:pointer}
 <div class="app">
 
 <!-- SIDEBAR -->
-
 <aside class="sidebar">
 
     <div class="logo">
 
-        <div class="logo-icon">🍚</div>
+        <div class="logo-icon">
+            🍚
+        </div>
 
         <div>
-            <div class="logo-title">RiceFlow</div>
-            <div class="logo-sub">POS PRO SYSTEM</div>
+            <div class="logo-title">
+                Violet POS
+            </div>
+
+            <div class="logo-sub">
+                SMART RESTAURANT SYSTEM
+            </div>
         </div>
 
     </div>
 
-    <div class="nav">
+    <nav class="nav">
 
-        <button class="active" onclick="showPOS()">
-            🛒 <span>ขายสินค้า</span>
+        <button class="active"
+                onclick="showPage('dashboard',this)">
+            <span>📊</span>
+            <span>หน้าหลัก</span>
         </button>
 
-        <button onclick="openHistory()">
-            🧾 <span>ประวัติการขาย</span>
+        <button onclick="showPage('productsPage',this)">
+            <span>📦</span>
+            <span>สินค้า</span>
         </button>
 
-        <button onclick="openManager()">
-            📦 <span>จัดการสินค้า</span>
+        <button onclick="showPage('salesPage',this)">
+            <span>🧾</span>
+            <span>ประวัติการขาย</span>
         </button>
 
-        <button onclick="openBackup()">
-            💾 <span>สำรองข้อมูล</span>
+        <button onclick="showPage('printerPage',this)">
+            <span>🖨️</span>
+            <span>เครื่องพิมพ์</span>
         </button>
 
-        <button onclick="openSettings()">
-            ⚙️ <span>ตั้งค่าระบบ</span>
+        <button onclick="showPage('settingsPage',this)">
+            <span>⚙️</span>
+            <span>ตั้งค่าร้าน</span>
         </button>
 
-    </div>
-
-    <div class="sidebar-bottom">
-
-        <div class="status">
-
-            <div>
-                <span class="dot"></span>
-                ระบบทำงานปกติ
-            </div>
-
-            <div style="color:#858992;margin-top:4px">
-                บันทึกข้อมูลอัตโนมัติ
-            </div>
-
-        </div>
-
-    </div>
+    </nav>
 
 </aside>
 
 
 <!-- MAIN -->
-
 <main class="main">
 
 <header class="topbar">
 
     <div>
 
-        <div class="title">ขายสินค้า</div>
+        <div id="pageTitle"
+             class="page-title">
+            หน้าหลัก
+        </div>
 
-        <div
-            class="date"
-            id="date">
+        <div id="dateTime"
+             class="date">
         </div>
 
     </div>
 
-    <div class="top-buttons">
+    <div class="online">
 
-        <button
-            class="top-btn"
-            onclick="openBackup()">
-            💾
-        </button>
+        <span class="online-dot"></span>
 
-        <button
-            class="top-btn"
-            onclick="toggleDark()">
-            ◐
-        </button>
+        ระบบพร้อมใช้งาน
 
     </div>
 
@@ -947,72 +1020,114 @@ button{cursor:pointer}
 
 <div class="content">
 
-<section class="workspace">
 
-    <!-- STATS -->
+<!-- DASHBOARD -->
 
-    <div class="stats">
+<section id="dashboard"
+         class="page active">
 
-        <div class="stat">
+    <div class="cards">
 
-            <div class="stat-icon">💰</div>
+        <div class="card">
 
-            <div class="stat-label">
-                ยอดขายวันนี้
-            </div>
+            <div class="stat">
 
-            <div
-                class="stat-value"
-                id="sales">
-                ฿0.00
-            </div>
+                <div>
 
-        </div>
+                    <div class="stat-label">
+                        ยอดขายวันนี้
+                    </div>
 
-        <div class="stat">
+                    <div id="todaySales"
+                         class="stat-value">
+                        ฿0.00
+                    </div>
 
-            <div class="stat-icon">🧾</div>
+                </div>
 
-            <div class="stat-label">
-                จำนวนบิล
-            </div>
+                <div class="stat-icon">
+                    💰
+                </div>
 
-            <div
-                class="stat-value"
-                id="orders">
-                0
             </div>
 
         </div>
 
-        <div class="stat">
 
-            <div class="stat-icon">📦</div>
+        <div class="card">
 
-            <div class="stat-label">
-                สินค้า
-            </div>
+            <div class="stat">
 
-            <div
-                class="stat-value"
-                id="products-count">
-                0
+                <div>
+
+                    <div class="stat-label">
+                        จำนวนบิลวันนี้
+                    </div>
+
+                    <div id="todayBills"
+                         class="stat-value">
+                        0
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    🧾
+                </div>
+
             </div>
 
         </div>
 
-        <div class="stat">
 
-            <div class="stat-icon">📊</div>
+        <div class="card">
 
-            <div class="stat-label">
-                เฉลี่ย / บิล
+            <div class="stat">
+
+                <div>
+
+                    <div class="stat-label">
+                        สินค้าทั้งหมด
+                    </div>
+
+                    <div id="productCount"
+                         class="stat-value">
+                        0
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
             </div>
 
-            <div
-                class="stat-value"
-                id="average">
-                ฿0.00
+        </div>
+
+
+        <div class="card">
+
+            <div class="stat">
+
+                <div>
+
+                    <div class="stat-label">
+                        เครื่องพิมพ์
+                    </div>
+
+                    <div id="printerStatus"
+                         class="stat-value"
+                         style="font-size:18px">
+                        พร้อม
+                    </div>
+
+                </div>
+
+                <div class="stat-icon">
+                    🖨️
+                </div>
+
             </div>
 
         </div>
@@ -1020,176 +1135,518 @@ button{cursor:pointer}
     </div>
 
 
-    <!-- SEARCH -->
+    <div class="layout">
 
-    <div class="toolbar">
 
-        <div class="search">
+        <!-- PRODUCTS -->
 
-            <span>🔎</span>
+        <div class="panel">
 
-            <input
-                id="search"
-                placeholder="ค้นหาชื่อสินค้า หรือ Barcode..."
-                oninput="renderProducts()">
+            <div class="panel-head">
+
+                <div>
+
+                    <div class="panel-title">
+                        เมนูสินค้า
+                    </div>
+
+                    <div class="panel-sub">
+                        แตะสินค้าเพื่อเพิ่มลงรายการขาย
+                    </div>
+
+                </div>
+
+                <button class="add-btn"
+                        onclick="openProductModal()">
+                    + เพิ่มสินค้า
+                </button>
+
+            </div>
+
+            <div id="productGrid"
+                 class="products">
+            </div>
 
         </div>
 
-        <button
-            class="add-btn"
-            onclick="openProductModal()">
 
-            ＋ เพิ่มสินค้า
+        <!-- CART -->
 
-        </button>
+        <div class="panel cart">
 
-    </div>
+            <div class="panel-head">
 
+                <div>
 
-    <!-- BARCODE -->
+                    <div class="panel-title">
+                        รายการขาย
+                    </div>
 
-    <div class="barcode-box">
+                    <div class="panel-sub">
+                        ตะกร้าปัจจุบัน
+                    </div>
 
-        <input
-            id="barcode-input"
-            class="barcode-input"
-            placeholder="สแกน Barcode ที่นี่ แล้วกด Enter"
-            autocomplete="off"
-            onkeydown="barcodeEnter(event)">
+                </div>
 
-        <button
-            class="barcode-add"
-            onclick="addBarcodeProduct()">
+                <button class="secondary"
+                        onclick="clearCart()">
+                    ล้าง
+                </button>
 
-            เพิ่มจาก Barcode
-
-        </button>
-
-    </div>
+            </div>
 
 
-    <!-- CATEGORIES -->
-
-    <div
-        class="categories"
-        id="categories">
-    </div>
+            <div id="cartItems"
+                 class="cart-items">
+            </div>
 
 
-    <!-- PRODUCTS -->
+            <div class="cart-bottom">
 
-    <div
-        class="products"
-        id="products">
+                <div class="total-row">
+
+                    <span>
+                        ยอดรวม
+                    </span>
+
+                    <span id="cartTotal">
+                        ฿0.00
+                    </span>
+
+                </div>
+
+
+                <input
+                    id="cashInput"
+                    class="cash"
+                    type="number"
+                    inputmode="decimal"
+                    placeholder="ใส่จำนวนเงินที่รับ"
+                    oninput="calculateChange()"
+                >
+
+
+                <div class="change-row">
+
+                    <span>
+                        เงินทอน
+                    </span>
+
+                    <b id="change">
+                        ฿0.00
+                    </b>
+
+                </div>
+
+
+                <button class="primary"
+                        onclick="checkout()">
+
+                    ชำระเงิน
+                    <span style="opacity:.7">•</span>
+                    พิมพ์ใบเสร็จ
+
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 
 </section>
 
 
-<!-- CART -->
+<!-- PRODUCTS PAGE -->
 
-<aside
-    class="cart"
-    id="cart">
+<section id="productsPage"
+         class="page">
 
-    <div
-        class="cart-head"
-        onclick="toggleCart()">
+    <div class="panel">
 
-        <div>
+        <div class="panel-head">
 
-            <div class="cart-title">
-                รายการขาย
+            <div>
+
+                <div class="panel-title">
+                    จัดการสินค้า
+                </div>
+
+                <div class="panel-sub">
+                    รูปภาพ • ราคา • บาร์โค้ด
+                </div>
+
             </div>
 
-            <div style="font-size:9px;color:#999">
-                รายการปัจจุบัน
+            <button class="add-btn"
+                    onclick="openProductModal()">
+                + เพิ่มสินค้า
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            สินค้า
+                        </th>
+
+                        <th>
+                            ราคา
+                        </th>
+
+                        <th>
+                            บาร์โค้ด
+                        </th>
+
+                        <th>
+                            จัดการ
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="productTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SALES PAGE -->
+
+<section id="salesPage"
+         class="page">
+
+    <div class="panel">
+
+        <div class="panel-head">
+
+            <div>
+
+                <div class="panel-title">
+                    ประวัติการขาย
+                </div>
+
+                <div class="panel-sub">
+                    รายการขายทั้งหมดที่บันทึกไว้
+                </div>
+
+            </div>
+
+            <button class="secondary"
+                    onclick="clearSales()">
+                ล้างประวัติ
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>เลขที่บิล</th>
+                        <th>วันที่</th>
+                        <th>จำนวน</th>
+                        <th>ยอดรวม</th>
+                        <th>สถานะ</th>
+                        <th>ใบเสร็จ</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="salesTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRINTER PAGE -->
+
+<section id="printerPage"
+         class="page">
+
+    <div class="settings-grid">
+
+
+        <div class="panel">
+
+            <div class="panel-head">
+
+                <div>
+
+                    <div class="panel-title">
+                        เครื่องพิมพ์
+                    </div>
+
+                    <div class="panel-sub">
+                        เชื่อมต่อเครื่องพิมพ์ใบเสร็จ
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="big-status">
+
+                <div id="printerCircle"
+                     class="status-circle">
+                    🖨️
+                </div>
+
+                <div id="printerName"
+                     style="font-size:18px;font-weight:700">
+                    ยังไม่ได้เชื่อมต่อ
+                </div>
+
+                <div id="printerMessage"
+                     style="
+                        color:#8b94a7;
+                        font-size:12px;
+                        margin-top:5px;
+                     ">
+                    พร้อมสำหรับการเชื่อมต่อ
+                </div>
+
+
+                <button class="primary"
+                        onclick="connectPrinter()">
+
+                    🔗 เชื่อมต่อเครื่องพิมพ์
+
+                </button>
+
+
+                <button class="secondary"
+                        style="
+                            width:100%;
+                            margin-top:8px;
+                        "
+                        onclick="testPrint()">
+
+                    🧾 พิมพ์ทดสอบ
+
+                </button>
+
             </div>
 
         </div>
 
-        <div
-            class="count"
-            id="cart-count">
-            0 รายการ
+
+        <div class="panel">
+
+            <div class="panel-head">
+
+                <div class="panel-title">
+                    ตัวเลือกการพิมพ์
+                </div>
+
+            </div>
+
+
+            <div style="padding:18px">
+
+                <div class="printer-option">
+
+                    <div>
+
+                        <b>
+                            🖨️ Bluetooth
+                        </b>
+
+                        <div style="
+                            font-size:11px;
+                            color:#8b94a7;
+                            margin-top:3px;
+                        ">
+                            สำหรับเบราว์เซอร์ที่รองรับ
+                        </div>
+
+                    </div>
+
+                    <span class="badge">
+                        Web Bluetooth
+                    </span>
+
+                </div>
+
+
+                <div class="printer-option">
+
+                    <div>
+
+                        <b>
+                            📄 ระบบ Print
+                        </b>
+
+                        <div style="
+                            font-size:11px;
+                            color:#8b94a7;
+                            margin-top:3px;
+                        ">
+                            ใช้ระบบพิมพ์ของ iPhone/iPad/คอม
+                        </div>
+
+                    </div>
+
+                    <span class="badge">
+                        แนะนำ
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <b>
+                        หมายเหตุ
+                    </b>
+
+                    <br>
+
+                    iPhone และ iPad มีข้อจำกัดในการเชื่อมต่อ
+                    Bluetooth จากเว็บโดยตรง
+                    หากเชื่อมต่อไม่ได้ สามารถใช้
+                    AirPrint หรือระบบ Print ของอุปกรณ์ได้
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
+</section>
 
-    <div
-        class="cart-list"
-        id="cart-list">
+
+<!-- SETTINGS PAGE -->
+
+<section id="settingsPage"
+         class="page">
+
+    <div class="panel">
+
+        <div class="panel-head">
+
+            <div>
+
+                <div class="panel-title">
+                    ตั้งค่าร้าน
+                </div>
+
+                <div class="panel-sub">
+                    ข้อมูลที่จะแสดงบนใบเสร็จ
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div style="padding:20px">
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label>
+                        ชื่อร้าน
+                    </label>
+
+                    <input
+                        id="shopName"
+                        value="ร้านข้าวอร่อยเด็ด"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        เบอร์โทรศัพท์
+                    </label>
+
+                    <input
+                        id="shopPhone"
+                        placeholder="08x-xxx-xxxx"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        ที่อยู่
+                    </label>
+
+                    <input
+                        id="shopAddress"
+                        placeholder="ที่อยู่ร้าน"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        ข้อความท้ายใบเสร็จ
+                    </label>
+
+                    <input
+                        id="receiptFooter"
+                        value="ขอบคุณที่ใช้บริการ"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="primary"
+                style="max-width:260px"
+                onclick="saveSettings()">
+
+                💾 บันทึกการตั้งค่า
+
+            </button>
+
+        </div>
+
     </div>
 
+</section>
 
-    <div class="payment">
-
-        <div class="line">
-
-            <span>ยอดสินค้า</span>
-
-            <span id="subtotal">
-                ฿0.00
-            </span>
-
-        </div>
-
-        <div class="line">
-
-            <span>ส่วนลด</span>
-
-            <span id="discount-display">
-                -฿0.00
-            </span>
-
-        </div>
-
-        <input
-            class="discount"
-            id="discount"
-            type="number"
-            min="0"
-            placeholder="ใส่ส่วนลด"
-            oninput="updateTotal()">
-
-        <div class="line total-line">
-
-            <span>ยอดสุทธิ</span>
-
-            <span id="total">
-                ฿0.00
-            </span>
-
-        </div>
-
-        <button
-            class="pay"
-            onclick="openPayment()">
-
-            💳 ชำระเงิน
-
-        </button>
-
-        <button
-            class="print"
-            onclick="printLastReceipt()">
-
-            🖨️ พิมพ์ใบเสร็จ
-
-        </button>
-
-        <button
-            class="clear"
-            onclick="clearCart()">
-
-            ล้างรายการ
-
-        </button>
-
-    </div>
-
-</aside>
 
 </div>
 
@@ -1198,487 +1655,163 @@ button{cursor:pointer}
 </div>
 
 
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+    <button class="active"
+            onclick="showPage('dashboard',this)">
+
+        <span>📊</span>
+        หน้าแรก
+
+    </button>
+
+    <button onclick="showPage('productsPage',this)">
+
+        <span>📦</span>
+        สินค้า
+
+    </button>
+
+    <button onclick="showPage('salesPage',this)">
+
+        <span>🧾</span>
+        ประวัติ
+
+    </button>
+
+    <button onclick="showPage('printerPage',this)">
+
+        <span>🖨️</span>
+        ปริ้น
+
+    </button>
+
+    <button onclick="showPage('settingsPage',this)">
+
+        <span>⚙️</span>
+        ตั้งค่า
+
+    </button>
+
+</nav>
+
+
 <!-- PRODUCT MODAL -->
 
-<div
-    class="overlay"
-    id="product-modal">
+<div id="productModal"
+     class="modal">
 
-<div class="modal">
+    <div class="modal-box">
 
-    <div class="modal-head">
+        <div class="modal-head">
 
-        <div
-            class="modal-title"
-            id="product-modal-title">
-            เพิ่มสินค้า
-        </div>
+            <div>
 
-        <button
-            class="close"
-            onclick="closeModal('product-modal')">
-            ×
-        </button>
+                <div style="
+                    font-size:20px;
+                    font-weight:700;
+                ">
+                    เพิ่มสินค้า
+                </div>
 
-    </div>
+                <div style="
+                    font-size:11px;
+                    color:#8b94a7;
+                ">
+                    เพิ่มรูปภาพ ราคา และบาร์โค้ด
+                </div>
 
+            </div>
 
-    <input
-        type="hidden"
-        id="edit-id">
-
-
-    <div class="field">
-
-        <label>ชื่อสินค้า</label>
-
-        <input
-            id="product-name"
-            placeholder="เช่น ข้าวกะเพราหมู">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>ราคา</label>
-
-        <input
-            id="product-price"
-            type="number"
-            placeholder="50">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>หมวดหมู่</label>
-
-        <select id="product-category">
-
-            <option>อาหาร</option>
-            <option>อาหารจานเดียว</option>
-            <option>เครื่องดื่ม</option>
-            <option>ของทานเล่น</option>
-            <option>ของหวาน</option>
-
-        </select>
-
-    </div>
-
-
-    <div class="field">
-
-        <label>รายละเอียด</label>
-
-        <input
-            id="product-desc"
-            placeholder="รายละเอียดสินค้า">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>Barcode</label>
-
-        <input
-            id="product-barcode"
-            placeholder="ปล่อยว่างเพื่อสร้างอัตโนมัติ">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>รูปภาพสินค้า</label>
-
-        <div
-            class="image-preview"
-            id="image-preview">
-
-            <span style="font-size:45px">
-                🖼️
-            </span>
+            <button class="close"
+                    onclick="closeProductModal()">
+                ✕
+            </button>
 
         </div>
 
-        <input
-            id="product-image"
-            type="file"
-            accept="image/*"
-            onchange="previewImage(event)">
 
-    </div>
+        <div class="form-grid">
 
+            <div class="field">
 
-    <div
-        class="barcode-preview"
-        id="barcode-preview"
-        style="display:none">
+                <label>
+                    ชื่อสินค้า
+                </label>
 
-        <svg id="barcode-svg"></svg>
+                <input
+                    id="newName"
+                    placeholder="เช่น ข้าวกะเพราหมู"
+                >
 
-    </div>
+            </div>
 
 
-    <div class="form-buttons">
+            <div class="field">
 
-        <button
-            class="cancel"
-            onclick="closeModal('product-modal')">
+                <label>
+                    ราคา
+                </label>
 
-            ยกเลิก
+                <input
+                    id="newPrice"
+                    type="number"
+                    inputmode="decimal"
+                    placeholder="50"
+                >
 
-        </button>
-
-        <button
-            class="confirm"
-            onclick="saveProduct()">
-
-            บันทึกสินค้า
-
-        </button>
-
-    </div>
-
-</div>
-
-</div>
-
-
-<!-- PAYMENT MODAL -->
-
-<div
-    class="overlay"
-    id="payment-modal">
-
-<div class="modal">
-
-    <div class="modal-head">
-
-        <div class="modal-title">
-            ชำระเงิน
-        </div>
-
-        <button
-            class="close"
-            onclick="closeModal('payment-modal')">
-            ×
-        </button>
-
-    </div>
-
-
-    <div
-        class="big-total"
-        id="payment-total">
-        ฿0.00
-    </div>
-
-
-    <div class="methods">
-
-        <button
-            class="method active"
-            onclick="selectMethod(this,'cash')">
-
-            💵<br>เงินสด
-
-        </button>
-
-        <button
-            class="method"
-            onclick="selectMethod(this,'transfer')">
-
-            📱<br>โอนเงิน
-
-        </button>
-
-        <button
-            class="method"
-            onclick="selectMethod(this,'qr')">
-
-            ▦<br>QR
-
-        </button>
-
-    </div>
-
-
-    <div id="cash-area">
-
-        <input
-            class="cash"
-            id="cash"
-            type="number"
-            placeholder="จำนวนเงินที่รับ"
-            oninput="calculateChange()">
-
-        <div class="change">
-
-            <span>เงินทอน</span>
-
-            <span id="change">
-                ฿0.00
-            </span>
+            </div>
 
         </div>
 
-    </div>
 
+        <div class="field"
+             style="margin-top:15px">
 
-    <button
-        class="pay"
-        onclick="completeSale()">
+            <label>
+                รูปภาพสินค้า
+            </label>
 
-        ✓ ยืนยันการขาย
+            <input
+                id="newImage"
+                type="file"
+                accept="image/*"
+                onchange="previewImage(event)"
+            >
 
-    </button>
-
-</div>
-
-</div>
-
-
-<!-- HISTORY MODAL -->
-
-<div
-    class="overlay"
-    id="history-modal">
-
-<div class="modal">
-
-    <div class="modal-head">
-
-        <div class="modal-title">
-            ประวัติการขาย
         </div>
 
-        <button
-            class="close"
-            onclick="closeModal('history-modal')">
-            ×
-        </button>
 
-    </div>
+        <img id="imagePreview"
+             class="preview"
+             alt="">
 
 
-    <input
-        class="history-search"
-        id="history-search"
-        placeholder="ค้นหาเลขบิล..."
-        oninput="renderHistory()">
+        <div class="barcode-box">
 
+            <div style="
+                font-size:12px;
+                color:#7c8499;
+                margin-bottom:5px;
+            ">
+                บาร์โค้ดสินค้า
+            </div>
 
-    <div id="history-list"></div>
+            <svg id="newBarcode"></svg>
 
-
-    <button
-        class="clear"
-        onclick="exportCSV()">
-
-        📊 Export CSV
-
-    </button>
-
-</div>
-
-</div>
-
-
-<!-- PRODUCT MANAGER -->
-
-<div
-    class="overlay"
-    id="manager-modal">
-
-<div class="modal">
-
-    <div class="modal-head">
-
-        <div class="modal-title">
-            จัดการสินค้า
         </div>
 
-        <button
-            class="close"
-            onclick="closeModal('manager-modal')">
-            ×
-        </button>
 
-    </div>
+        <button class="primary"
+                onclick="saveProduct()">
 
-
-    <div id="manager-list"></div>
-
-</div>
-
-</div>
-
-
-<!-- BACKUP -->
-
-<div
-    class="overlay"
-    id="backup-modal">
-
-<div class="modal">
-
-    <div class="modal-head">
-
-        <div class="modal-title">
-            สำรองข้อมูลระบบ
-        </div>
-
-        <button
-            class="close"
-            onclick="closeModal('backup-modal')">
-            ×
-        </button>
-
-    </div>
-
-
-    <p style="font-size:12px;color:#777">
-
-        ข้อมูลสินค้า ประวัติการขาย และการตั้งค่าจะถูกบันทึกไว้ในเบราว์เซอร์
-        แนะนำให้ Export Backup เป็นระยะ
-
-    </p>
-
-
-    <div class="backup-grid">
-
-        <button
-            class="backup-btn"
-            onclick="backupData()">
-
-            💾<br>
-            สำรองข้อมูล
-
-        </button>
-
-        <button
-            class="backup-btn"
-            onclick="document.getElementById('restore-file').click()">
-
-            📂<br>
-            นำเข้าข้อมูล
+            💾 บันทึกสินค้า
 
         </button>
 
     </div>
-
-
-    <input
-        id="restore-file"
-        type="file"
-        accept=".json"
-        style="display:none"
-        onchange="restoreData(event)">
-
-
-    <div style="
-        margin-top:15px;
-        background:#f5f6f8;
-        padding:12px;
-        border-radius:12px;
-        font-size:11px;
-    ">
-
-        สินค้า:
-        <b id="backup-products">0</b>
-        รายการ<br>
-
-        ประวัติ:
-        <b id="backup-history">0</b>
-        บิล
-
-    </div>
-
-
-    <button
-        class="clear"
-        onclick="clearAllData()"
-        style="color:#d33">
-
-        ล้างข้อมูลทั้งหมด
-
-    </button>
-
-</div>
-
-</div>
-
-
-<!-- SETTINGS -->
-
-<div
-    class="overlay"
-    id="settings-modal">
-
-<div class="modal">
-
-    <div class="modal-head">
-
-        <div class="modal-title">
-            ตั้งค่าร้าน
-        </div>
-
-        <button
-            class="close"
-            onclick="closeModal('settings-modal')">
-            ×
-        </button>
-
-    </div>
-
-
-    <div class="field">
-
-        <label>ชื่อร้าน</label>
-
-        <input
-            id="shop-name"
-            placeholder="ชื่อร้าน">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>ข้อความท้ายใบเสร็จ</label>
-
-        <input
-            id="shop-message"
-            placeholder="ขอบคุณที่ใช้บริการ">
-
-    </div>
-
-
-    <div class="form-buttons">
-
-        <button
-            class="cancel"
-            onclick="closeModal('settings-modal')">
-
-            ยกเลิก
-
-        </button>
-
-        <button
-            class="confirm"
-            onclick="saveSettings()">
-
-            บันทึก
-
-        </button>
-
-    </div>
-
-</div>
 
 </div>
 
@@ -1689,258 +1822,246 @@ button{cursor:pointer}
 
     <div style="text-align:center">
 
-        <div
-            id="r-shop"
-            style="font-size:18px;font-weight:bold">
+        <div id="rShopName"
+             style="
+                font-size:18px;
+                font-weight:bold;
+             ">
+            ร้านข้าวอร่อยเด็ด
         </div>
 
-        <div>ใบเสร็จรับเงิน</div>
+        <div id="rAddress"
+             style="font-size:10px">
+        </div>
 
-        <div id="r-id"></div>
+        <div id="rPhone"
+             style="font-size:10px">
+        </div>
 
-        <div id="r-date"></div>
+        <div id="rDate"
+             style="
+                font-size:10px;
+                margin-top:4px;
+             ">
+        </div>
 
     </div>
 
     <hr>
 
-    <div id="r-items"></div>
+    <div id="receiptItems"></div>
 
     <hr>
-
-    <div style="display:flex;justify-content:space-between">
-        <span>ยอดสินค้า</span>
-        <span id="r-subtotal"></span>
-    </div>
-
-    <div style="display:flex;justify-content:space-between">
-        <span>ส่วนลด</span>
-        <span id="r-discount"></span>
-    </div>
 
     <div style="
         display:flex;
         justify-content:space-between;
         font-weight:bold;
-        font-size:14px
     ">
-        <span>ยอดสุทธิ</span>
-        <span id="r-total"></span>
+
+        <span>
+            รวม
+        </span>
+
+        <span id="rTotal">
+            ฿0.00
+        </span>
+
     </div>
 
-    <div style="display:flex;justify-content:space-between">
-        <span>รับเงิน</span>
-        <span id="r-cash"></span>
+
+    <div style="
+        display:flex;
+        justify-content:space-between;
+    ">
+
+        <span>
+            รับเงิน
+        </span>
+
+        <span id="rCash">
+            ฿0.00
+        </span>
+
     </div>
 
-    <div style="display:flex;justify-content:space-between">
-        <span>เงินทอน</span>
-        <span id="r-change"></span>
+
+    <div style="
+        display:flex;
+        justify-content:space-between;
+    ">
+
+        <span>
+            เงินทอน
+        </span>
+
+        <span id="rChange">
+            ฿0.00
+        </span>
+
     </div>
+
 
     <hr>
 
-    <div
-        id="r-message"
-        style="text-align:center;margin-top:8px">
+    <div id="rFooter"
+         style="
+            text-align:center;
+            font-size:11px;
+         ">
+        ขอบคุณที่ใช้บริการ
     </div>
 
-</div>
-
-
-<div
-    class="toast"
-    id="toast">
 </div>
 
 
 <script>
 
-/* =========================================================
+/* =========================
    DATABASE
-========================================================= */
+========================= */
 
 let products =
-JSON.parse(localStorage.getItem("RF_PRODUCTS") || "[]");
+    JSON.parse(
+        localStorage.getItem("violet_pos_products") || "[]"
+    );
 
 let sales =
-JSON.parse(localStorage.getItem("RF_SALES") || "[]");
+    JSON.parse(
+        localStorage.getItem("violet_pos_sales") || "[]"
+    );
 
 let settings =
-JSON.parse(localStorage.getItem("RF_SETTINGS") || "null") || {
-
-    shopName:"ร้านข้าวอร่อยเด็ด",
-
-    message:"ขอบคุณที่ใช้บริการ"
-
-};
+    JSON.parse(
+        localStorage.getItem("violet_pos_settings") || "{}"
+    );
 
 let cart=[];
 
-let currentCategory="ทั้งหมด";
-
-let selectedMethod="cash";
-
-let lastReceipt=null;
-
-let editImage="";
+let printerConnected=false;
 
 
-/* =========================================================
-   SAVE
-========================================================= */
+/* =========================
+   NAVIGATION
+========================= */
 
-function saveDB(){
+function showPage(id,button){
 
-    localStorage.setItem(
-        "RF_PRODUCTS",
-        JSON.stringify(products)
-    );
+    document.querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
 
-    localStorage.setItem(
-        "RF_SALES",
-        JSON.stringify(sales)
-    );
+    const page=document.getElementById(id);
 
-    localStorage.setItem(
-        "RF_SETTINGS",
-        JSON.stringify(settings)
-    );
+    if(page){
+        page.classList.add("active");
+    }
+
+
+    document.querySelectorAll(
+        ".nav button,.mobile-nav button"
+    ).forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+
+    if(button){
+        button.classList.add("active");
+    }
+
+
+    const titles={
+
+        dashboard:"หน้าหลัก",
+
+        productsPage:"สินค้า",
+
+        salesPage:"ประวัติการขาย",
+
+        printerPage:"เครื่องพิมพ์",
+
+        settingsPage:"ตั้งค่าร้าน"
+
+    };
+
+
+    document.getElementById("pageTitle")
+        .innerText=titles[id] || "Violet POS";
+
+
+    renderAll();
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function updateDate(){
+
+    document.getElementById("dateTime")
+        .innerText=
+        new Date().toLocaleString("th-TH");
+
+}
+
+setInterval(updateDate,1000);
+
+updateDate();
+
+
+/* =========================
+   PRODUCT MODAL
+========================= */
+
+function openProductModal(){
+
+    document.getElementById("productModal")
+        .classList.add("show");
+
+    document.getElementById("newName").value="";
+
+    document.getElementById("newPrice").value="";
+
+    document.getElementById("newImage").value="";
+
+    document.getElementById("imagePreview").src="";
+
+    document.getElementById("newBarcode")
+        .innerHTML="";
 
 }
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+function closeProductModal(){
 
-function money(n){
-
-    return "฿"+Number(n).toLocaleString(
-        "th-TH",
-        {
-            minimumFractionDigits:2,
-            maximumFractionDigits:2
-        }
-    );
-
-}
-
-function escapeHTML(str){
-
-    return String(str ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-function closeModal(id){
-
-    document
-        .getElementById(id)
+    document.getElementById("productModal")
         .classList.remove("show");
 
 }
 
 
-/* =========================================================
-   CLOCK
-========================================================= */
-
-function updateClock(){
-
-    document.getElementById("date").textContent=
-        new Date().toLocaleString(
-            "th-TH",
-            {
-                dateStyle:"medium",
-                timeStyle:"short"
-            }
-        );
-
-}
-
-setInterval(updateClock,1000);
-
-updateClock();
-
-
-/* =========================================================
-   BARCODE
-========================================================= */
-
-function generateBarcode(){
-
-    let code;
-
-    do{
-
-        code =
-            "885"+
-            Math.floor(
-                100000000+
-                Math.random()*899999999
-            );
-
-    }while(
-        products.some(p=>p.barcode===code)
-    );
-
-    return code;
-
-}
-
-function makeBarcode(code){
-
-    if(!code)return;
-
-    document.getElementById(
-        "barcode-preview"
-    ).style.display="block";
-
-    try{
-
-        JsBarcode(
-            "#barcode-svg",
-            code,
-            {
-                format:"CODE128",
-                width:2,
-                height:60,
-                displayValue:true,
-                fontSize:14,
-                margin:5
-            }
-        );
-
-    }catch(e){}
-
-}
-
-
-/* =========================================================
+/* =========================
    IMAGE
-========================================================= */
+========================= */
 
 function previewImage(event){
 
-    const file=event.target.files[0];
+    const file=
+        event.target.files[0];
 
     if(!file)return;
 
-    const reader=new FileReader();
+    const reader=
+        new FileReader();
 
-    reader.onload=function(){
-
-        editImage=reader.result;
+    reader.onload=function(e){
 
         document.getElementById(
-            "image-preview"
-        ).innerHTML=
-            `<img src="${reader.result}">`;
+            "imagePreview"
+        ).src=e.target.result;
 
     };
 
@@ -1949,102 +2070,43 @@ function previewImage(event){
 }
 
 
-/* =========================================================
-   PRODUCT MODAL
-========================================================= */
+/* =========================
+   BARCODE
+========================= */
 
-function openProductModal(id=null){
+function generateBarcode(){
 
-    document.getElementById("edit-id").value="";
-
-    document.getElementById("product-modal-title")
-        .textContent="เพิ่มสินค้า";
-
-    document.getElementById("product-name").value="";
-    document.getElementById("product-price").value="";
-    document.getElementById("product-desc").value="";
-    document.getElementById("product-barcode").value="";
-
-    document.getElementById("product-category").value="อาหาร";
-
-    document.getElementById("product-image").value="";
-
-    editImage="";
-
-    document.getElementById(
-        "image-preview"
-    ).innerHTML=
-        `<span style="font-size:45px">🖼️</span>`;
-
-    document.getElementById(
-        "barcode-preview"
-    ).style.display="none";
-
-    if(id){
-
-        const p=products.find(x=>x.id===id);
-
-        if(!p)return;
-
-        document.getElementById("product-modal-title")
-            .textContent="แก้ไขสินค้า";
-
-        document.getElementById("edit-id").value=id;
-
-        document.getElementById("product-name").value=p.name;
-        document.getElementById("product-price").value=p.price;
-        document.getElementById("product-desc").value=p.desc||"";
-        document.getElementById("product-barcode").value=p.barcode||"";
-        document.getElementById("product-category").value=p.category||"อาหาร";
-
-        editImage=p.image||"";
-
-        if(editImage){
-
-            document.getElementById(
-                "image-preview"
-            ).innerHTML=
-                `<img src="${editImage}">`;
-
-        }
-
-        if(p.barcode){
-
-            makeBarcode(p.barcode);
-
-        }
-
-    }
-
-    document
-        .getElementById("product-modal")
-        .classList.add("show");
+    return "885"+
+        Date.now()
+        .toString()
+        .slice(-9);
 
 }
 
 
+/* =========================
+   SAVE PRODUCT
+========================= */
+
 function saveProduct(){
 
-    const id=
-        document.getElementById("edit-id").value;
-
     const name=
-        document.getElementById("product-name").value.trim();
+        document.getElementById(
+            "newName"
+        ).value.trim();
 
     const price=
         Number(
-            document.getElementById("product-price").value
+            document.getElementById(
+                "newPrice"
+            ).value
         );
 
-    const category=
-        document.getElementById("product-category").value;
+    const image=
+        document.getElementById(
+            "imagePreview"
+        ).src;
 
-    const desc=
-        document.getElementById("product-desc").value.trim();
-
-    let barcode=
-        document.getElementById("product-barcode")
-        .value.trim();
 
     if(!name){
 
@@ -2054,182 +2116,139 @@ function saveProduct(){
 
     }
 
-    if(price<0 || !Number.isFinite(price)){
 
-        alert("กรุณาใส่ราคาที่ถูกต้อง");
+    if(!price || price<=0){
 
-        return;
-
-    }
-
-    if(!barcode){
-
-        barcode=generateBarcode();
-
-    }
-
-    const duplicate=
-        products.find(
-            p=>p.barcode===barcode &&
-            String(p.id)!==String(id)
-        );
-
-    if(duplicate){
-
-        alert("Barcode นี้ถูกใช้งานแล้ว");
+        alert("กรุณาใส่ราคาสินค้า");
 
         return;
 
     }
 
-    if(id){
 
-        const p=
-            products.find(
-                x=>String(x.id)===String(id)
+    const barcode=
+        generateBarcode();
+
+
+    const product={
+
+        id:Date.now(),
+
+        name:name,
+
+        price:price,
+
+        image:image || "",
+
+        barcode:barcode,
+
+        createdAt:new Date().toISOString()
+
+    };
+
+
+    products.push(product);
+
+    saveProducts();
+
+    closeProductModal();
+
+    renderAll();
+
+
+    setTimeout(()=>{
+
+        try{
+
+            JsBarcode(
+                "#newBarcode",
+                barcode,
+                {
+                    format:"CODE128",
+                    width:1.6,
+                    height:45,
+                    displayValue:true
+                }
             );
 
-        if(!p)return;
+        }catch(e){}
 
-        p.name=name;
-        p.price=price;
-        p.category=category;
-        p.desc=desc;
-        p.barcode=barcode;
-        p.image=editImage;
+    },100);
 
-        showToast("แก้ไขสินค้าแล้ว");
+}
 
-    }else{
 
-        products.push({
+function saveProducts(){
 
-            id:Date.now(),
+    localStorage.setItem(
+        "violet_pos_products",
+        JSON.stringify(products)
+    );
 
-            name:name,
+}
 
-            price:price,
 
-            category:category,
+/* =========================
+   PRODUCT DELETE
+========================= */
 
-            desc:desc,
+function deleteProduct(id){
 
-            barcode:barcode,
+    if(!confirm(
+        "ต้องการลบสินค้านี้หรือไม่?"
+    ))return;
 
-            image:editImage,
 
-            icon:"🍽️"
-
-        });
-
-        showToast(
-            "เพิ่มสินค้าแล้ว • Barcode "+barcode
+    products=
+        products.filter(
+            p=>p.id!==id
         );
 
-    }
 
-    saveDB();
-
-    closeModal("product-modal");
+    saveProducts();
 
     renderAll();
 
 }
 
 
-/* =========================================================
-   CATEGORIES
-========================================================= */
-
-function renderCategories(){
-
-    const cats=[
-        "ทั้งหมด",
-        ...new Set(
-            products.map(p=>p.category)
-        )
-    ];
-
-    document.getElementById("categories").innerHTML=
-        cats.map(c=>`
-
-            <button
-                class="category ${c===currentCategory?"active":""}"
-                onclick="setCategory('${escapeHTML(c)}')">
-
-                ${escapeHTML(c)}
-
-            </button>
-
-        `).join("");
-
-}
-
-function setCategory(c){
-
-    currentCategory=c;
-
-    renderCategories();
-
-    renderProducts();
-
-}
-
-
-/* =========================================================
-   PRODUCTS
-========================================================= */
+/* =========================
+   PRODUCT DISPLAY
+========================= */
 
 function renderProducts(){
 
-    const query=
-        document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
+    const grid=
+        document.getElementById(
+            "productGrid"
+        );
 
-    let list=products.filter(p=>{
 
-        const categoryOK=
-            currentCategory==="ทั้งหมด" ||
-            p.category===currentCategory;
+    if(products.length===0){
 
-        const queryOK=
-            !query ||
-            p.name.toLowerCase().includes(query) ||
-            String(p.barcode).includes(query);
+        grid.innerHTML=`
 
-        return categoryOK && queryOK;
+            <div class="no-data"
+                 style="grid-column:1/-1">
 
-    });
-
-    const box=
-        document.getElementById("products");
-
-    if(!products.length){
-
-        box.innerHTML=`
-
-            <div class="empty">
-
-                <div class="empty-icon">
+                <div style="
+                    font-size:45px;
+                ">
                     📦
                 </div>
 
-                <div class="empty-title">
+                <div style="
+                    margin-top:8px;
+                ">
                     ยังไม่มีสินค้า
-                </div>
-
-                <div style="font-size:11px;color:#999;margin-top:4px">
-                    เพิ่มสินค้า รูปภาพ ราคา และ Barcode ได้จากปุ่มด้านบน
                 </div>
 
                 <button
                     class="add-btn"
-                    style="padding:10px 18px;margin-top:15px"
+                    style="margin-top:12px"
                     onclick="openProductModal()">
 
-                    ＋ เพิ่มสินค้าแรก
+                    + เพิ่มสินค้า
 
                 </button>
 
@@ -2241,19 +2260,134 @@ function renderProducts(){
 
     }
 
-    if(!list.length){
 
-        box.innerHTML=`
+    grid.innerHTML="";
 
-            <div class="empty">
 
-                <div class="empty-icon">🔎</div>
+    products.forEach(product=>{
 
-                <div class="empty-title">
-                    ไม่พบสินค้า
+        const image=
+            product.image ||
+            createPlaceholder(product.name);
+
+
+        grid.innerHTML+=`
+
+            <div class="product"
+                 onclick="addToCart(${product.id})">
+
+                <img
+                    class="product-img"
+                    src="${image}"
+                    alt=""
+                >
+
+                <div class="product-info">
+
+                    <div class="product-name">
+                        ${escapeHtml(product.name)}
+                    </div>
+
+                    <div class="product-price">
+                        ฿${product.price.toFixed(2)}
+                    </div>
+
+                    <div class="product-code">
+                        ${product.barcode}
+                    </div>
+
                 </div>
 
             </div>
+
+        `;
+
+    });
+
+}
+
+
+function createPlaceholder(text){
+
+    const svg=`
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="500"
+             height="350">
+
+            <defs>
+
+                <linearGradient
+                    id="g"
+                    x1="0"
+                    x2="1">
+
+                    <stop
+                        offset="0"
+                        stop-color="#ede9fe"/>
+
+                    <stop
+                        offset="1"
+                        stop-color="#e0f2fe"/>
+
+                </linearGradient>
+
+            </defs>
+
+            <rect
+                width="100%"
+                height="100%"
+                fill="url(#g)"/>
+
+            <text
+                x="50%"
+                y="50%"
+                dominant-baseline="middle"
+                text-anchor="middle"
+                fill="#6d28d9"
+                font-size="34"
+                font-family="Arial">
+
+                ${escapeHtml(text)}
+
+            </text>
+
+        </svg>
+
+    `;
+
+    return "data:image/svg+xml;charset=UTF-8,"+
+        encodeURIComponent(svg);
+
+}
+
+
+/* =========================
+   PRODUCT TABLE
+========================= */
+
+function renderProductTable(){
+
+    const table=
+        document.getElementById(
+            "productTable"
+        );
+
+
+    if(products.length===0){
+
+        table.innerHTML=`
+
+            <tr>
+
+                <td colspan="4"
+                    class="no-data">
+
+                    ยังไม่มีสินค้า
+
+                </td>
+
+            </tr>
 
         `;
 
@@ -2261,79 +2395,128 @@ function renderProducts(){
 
     }
 
-    box.innerHTML=
-        list.map(p=>`
 
-            <div class="product">
+    table.innerHTML="";
 
-                <div
-                    class="product-image"
-                    onclick="addToCart(${p.id})">
 
-                    ${
-                        p.image
-                        ? `<img src="${p.image}">`
-                        : `<span>${escapeHTML(p.icon||"🍽️")}</span>`
-                    }
+    products.forEach(product=>{
 
-                </div>
+        table.innerHTML+=`
 
-                <div class="product-name">
+            <tr>
 
-                    ${escapeHTML(p.name)}
+                <td>
+                    <b>
+                        ${escapeHtml(product.name)}
+                    </b>
+                </td>
 
-                </div>
+                <td>
+                    ฿${product.price.toFixed(2)}
+                </td>
 
-                <div class="product-desc">
+                <td>
 
-                    ${escapeHTML(p.desc||"")}
+                    <svg
+                        id="tableBarcode-${product.id}">
+                    </svg>
 
-                </div>
-
-                <div class="product-barcode">
-
-                    BARCODE: ${escapeHTML(p.barcode)}
-
-                </div>
-
-                <div class="product-bottom">
-
-                    <div class="product-price">
-
-                        ${money(p.price)}
-
+                    <div style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    ">
+                        ${product.barcode}
                     </div>
 
-                    <button
-                        class="product-add"
-                        onclick="addToCart(${p.id})">
+                </td>
 
-                        +
+                <td>
+
+                    <button
+                        class="secondary"
+                        onclick="
+                            printBarcode(
+                                '${product.barcode}',
+                                '${escapeHtml(product.name)}'
+                            )
+                        ">
+
+                        🖨️ บาร์โค้ด
 
                     </button>
 
-                </div>
+                    <button
+                        class="secondary"
+                        onclick="
+                            deleteProduct(${product.id})
+                        ">
 
-            </div>
+                        ลบ
 
-        `).join("");
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    setTimeout(()=>{
+
+        products.forEach(product=>{
+
+            const el=
+                document.getElementById(
+                    "tableBarcode-"+product.id
+                );
+
+            if(!el)return;
+
+            try{
+
+                JsBarcode(
+                    el,
+                    product.barcode,
+                    {
+                        format:"CODE128",
+                        width:1.2,
+                        height:35,
+                        displayValue:false,
+                        margin:2
+                    }
+                );
+
+            }catch(e){}
+
+        });
+
+    },30);
 
 }
 
 
-/* =========================================================
+/* =========================
    CART
-========================================================= */
+========================= */
 
 function addToCart(id){
 
-    const p=
-        products.find(x=>x.id===id);
+    const product=
+        products.find(
+            p=>p.id===id
+        );
 
-    if(!p)return;
+    if(!product)return;
+
 
     const existing=
-        cart.find(x=>x.id===id);
+        cart.find(
+            item=>item.id===id
+        );
+
 
     if(existing){
 
@@ -2343,7 +2526,11 @@ function addToCart(id){
 
         cart.push({
 
-            ...p,
+            id:product.id,
+
+            name:product.name,
+
+            price:product.price,
 
             qty:1
 
@@ -2351,136 +2538,87 @@ function addToCart(id){
 
     }
 
+
     renderCart();
 
 }
 
-function addBarcodeProduct(){
 
-    const code=
-        document.getElementById("barcode-input")
-        .value.trim();
+function changeQty(index,delta){
 
-    if(!code)return;
+    if(!cart[index])return;
 
-    const p=
-        products.find(
-            x=>String(x.barcode)===String(code)
-        );
 
-    if(!p){
+    cart[index].qty+=delta;
 
-        showToast("ไม่พบ Barcode นี้");
 
-        return;
+    if(cart[index].qty<=0){
+
+        cart.splice(index,1);
 
     }
 
-    addToCart(p.id);
+
+    renderCart();
+
+}
+
+
+function clearCart(){
+
+    cart=[];
 
     document.getElementById(
-        "barcode-input"
+        "cashInput"
     ).value="";
 
-}
-
-function barcodeEnter(e){
-
-    if(e.key==="Enter"){
-
-        addBarcodeProduct();
-
-    }
-
-}
-
-function changeQty(id,delta){
-
-    const item=
-        cart.find(x=>x.id===id);
-
-    if(!item)return;
-
-    item.qty+=delta;
-
-    if(item.qty<=0){
-
-        cart=
-            cart.filter(x=>x.id!==id);
-
-    }
-
     renderCart();
 
 }
 
-function removeCart(id){
 
-    cart=
-        cart.filter(x=>x.id!==id);
-
-    renderCart();
-
-}
-
-function subtotal(){
+function getTotal(){
 
     return cart.reduce(
-        (sum,x)=>
-            sum+x.price*x.qty,
+        (sum,item)=>
+            sum+
+            item.price*
+            item.qty,
         0
     );
 
 }
 
-function discount(){
 
-    const d=
-        Number(
-            document.getElementById("discount").value
-        )||0;
-
-    return Math.min(
-        Math.max(d,0),
-        subtotal()
-    );
-
-}
-
-function total(){
-
-    return subtotal()-discount();
-
-}
+/* =========================
+   CART DISPLAY
+========================= */
 
 function renderCart(){
 
-    const box=
-        document.getElementById("cart-list");
-
-    const count=
-        cart.reduce(
-            (sum,x)=>sum+x.qty,
-            0
+    const container=
+        document.getElementById(
+            "cartItems"
         );
 
-    document.getElementById(
-        "cart-count"
-    ).textContent=count+" รายการ";
 
-    if(!cart.length){
+    if(cart.length===0){
 
-        box.innerHTML=`
+        container.innerHTML=`
 
             <div class="cart-empty">
 
-                <div>🛒</div>
+                <div class="cart-empty-icon">
+                    🛒
+                </div>
 
-                <b>ยังไม่มีรายการ</b>
+                <div>
+                    ยังไม่มีสินค้า
+                </div>
 
-                <span style="font-size:10px;margin-top:4px">
-                    เลือกสินค้าเพื่อเริ่มขาย
-                </span>
+                <small>
+                    แตะสินค้าเพื่อเพิ่มรายการ
+                </small>
 
             </div>
 
@@ -2488,211 +2626,184 @@ function renderCart(){
 
     }else{
 
-        box.innerHTML=
-            cart.map(x=>`
+        container.innerHTML="";
 
-                <div class="cart-item">
 
-                    <div class="cart-image">
+        cart.forEach(
+            (item,index)=>{
 
-                        ${
-                            x.image
-                            ? `<img src="${x.image}">`
-                            : `<span>${escapeHTML(x.icon||"🍽️")}</span>`
-                        }
+                const subtotal=
+                    item.price*
+                    item.qty;
 
-                    </div>
 
-                    <div class="cart-info">
+                container.innerHTML+=`
 
-                        <div class="cart-name">
-                            ${escapeHTML(x.name)}
+                    <div class="cart-item">
+
+                        <div class="cart-row">
+
+                            <div>
+
+                                <b>
+                                    ${escapeHtml(item.name)}
+                                </b>
+
+                                <div style="
+                                    font-size:11px;
+                                    color:#8b94a7;
+                                    margin-top:2px;
+                                ">
+
+                                    ฿${item.price.toFixed(2)}
+                                    / ชิ้น
+
+                                </div>
+
+                            </div>
+
+                            <div class="cart-price">
+
+                                ฿${subtotal.toFixed(2)}
+
+                            </div>
+
                         </div>
 
-                        <div class="cart-price">
-                            ${money(x.price)}
-                        </div>
 
                         <div class="qty">
 
-                            <button onclick="changeQty(${x.id},-1)">
+                            <button
+                                onclick="
+                                    changeQty(
+                                        ${index},
+                                        -1
+                                    )
+                                ">
                                 −
                             </button>
 
-                            <span class="qty-num">
-                                ${x.qty}
-                            </span>
-
-                            <button onclick="changeQty(${x.id},1)">
-                                +
-                            </button>
+                            <b>
+                                ${item.qty}
+                            </b>
 
                             <button
-                                class="delete"
-                                onclick="removeCart(${x.id})">
-
-                                🗑
-
+                                onclick="
+                                    changeQty(
+                                        ${index},
+                                        1
+                                    )
+                                ">
+                                +
                             </button>
 
                         </div>
 
                     </div>
 
-                    <div class="item-total">
+                `;
 
-                        ${money(x.price*x.qty)}
-
-                    </div>
-
-                </div>
-
-            `).join("");
+            }
+        );
 
     }
 
-    updateTotal();
 
-}
+    document.getElementById(
+        "cartTotal"
+    ).innerText=
+        "฿"+
+        getTotal().toFixed(2);
 
-function updateTotal(){
 
-    document.getElementById("subtotal")
-        .textContent=money(subtotal());
-
-    document.getElementById("discount-display")
-        .textContent="-"+money(discount());
-
-    document.getElementById("total")
-        .textContent=money(total());
-
-}
-
-function clearCart(){
-
-    if(!cart.length)return;
-
-    if(confirm("ต้องการล้างรายการหรือไม่?")){
-
-        cart=[];
-
-        document.getElementById(
-            "discount"
-        ).value="";
-
-        renderCart();
-
-    }
+    calculateChange();
 
 }
 
 
-/* =========================================================
-   PAYMENT
-========================================================= */
+/* =========================
+   CHANGE
+========================= */
 
-function openPayment(){
+function calculateChange(){
 
-    if(!cart.length){
+    const total=getTotal();
 
-        alert("กรุณาเลือกสินค้าก่อน");
+
+    const cash=
+        Number(
+            document.getElementById(
+                "cashInput"
+            ).value
+        ) || 0;
+
+
+    const change=
+        Math.max(
+            0,
+            cash-total
+        );
+
+
+    document.getElementById(
+        "change"
+    ).innerText=
+        "฿"+
+        change.toFixed(2);
+
+}
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function checkout(){
+
+    if(cart.length===0){
+
+        alert(
+            "กรุณาเพิ่มสินค้าก่อนชำระเงิน"
+        );
 
         return;
 
     }
 
-    document.getElementById(
-        "payment-total"
-    ).textContent=money(total());
 
-    document.getElementById("cash").value="";
+    const total=getTotal();
 
-    document.getElementById("change")
-        .textContent=money(0);
-
-    selectedMethod="cash";
-
-    document.getElementById("cash-area")
-        .style.display="block";
-
-    document.querySelectorAll(".method")
-        .forEach(x=>x.classList.remove("active"));
-
-    document.querySelector(".method")
-        .classList.add("active");
-
-    document.getElementById(
-        "payment-modal"
-    ).classList.add("show");
-
-}
-
-function selectMethod(btn,method){
-
-    selectedMethod=method;
-
-    document.querySelectorAll(".method")
-        .forEach(x=>x.classList.remove("active"));
-
-    btn.classList.add("active");
-
-    document.getElementById("cash-area")
-        .style.display=
-            method==="cash"
-            ?"block"
-            :"none";
-
-}
-
-function calculateChange(){
 
     const cash=
         Number(
-            document.getElementById("cash").value
-        )||0;
+            document.getElementById(
+                "cashInput"
+            ).value
+        ) || 0;
 
-    document.getElementById(
-        "change"
-    ).textContent=
-        money(Math.max(0,cash-total()));
 
-}
+    if(cash<total){
 
-function completeSale(){
+        alert(
+            "จำนวนเงินไม่เพียงพอ\n\n"+
+            "ยอดรวม: ฿"+
+            total.toFixed(2)
+        );
 
-    const t=total();
-
-    let cash=t;
-
-    if(selectedMethod==="cash"){
-
-        cash=
-            Number(
-                document.getElementById("cash").value
-            )||0;
-
-        if(cash<t){
-
-            alert("เงินที่รับมายังไม่พอ");
-
-            return;
-
-        }
+        return;
 
     }
 
+
     const change=
-        selectedMethod==="cash"
-        ?cash-t
-        :0;
+        cash-total;
+
 
     const sale={
 
         id:
-            "RF-"+
-            Date.now()
-            .toString()
-            .slice(-8),
+            "INV-"+
+            Date.now(),
 
         date:
             new Date().toISOString(),
@@ -2702,180 +2813,177 @@ function completeSale(){
                 JSON.stringify(cart)
             ),
 
-        subtotal:subtotal(),
-
-        discount:discount(),
-
-        total:t,
+        total:total,
 
         cash:cash,
 
-        change:change,
-
-        method:selectedMethod
+        change:change
 
     };
 
+
     sales.unshift(sale);
 
-    lastReceipt=sale;
 
-    saveDB();
+    localStorage.setItem(
+        "violet_pos_sales",
+        JSON.stringify(sales)
+    );
+
 
     prepareReceipt(sale);
 
+
+    setTimeout(()=>{
+
+        window.print();
+
+    },100);
+
+
     cart=[];
 
+
     document.getElementById(
-        "discount"
+        "cashInput"
     ).value="";
 
-    closeModal("payment-modal");
 
-    renderCart();
-
-    updateStats();
-
-    showToast(
-        "ขายสำเร็จ • "+sale.id
-    );
+    renderAll();
 
 }
 
 
-/* =========================================================
+/* =========================
    RECEIPT
-========================================================= */
+========================= */
 
-function prepareReceipt(s){
+function prepareReceipt(sale){
 
-    document.getElementById("r-shop")
-        .textContent=settings.shopName;
+    document.getElementById(
+        "rShopName"
+    ).innerText=
+        settings.shopName ||
+        "ร้านข้าวอร่อยเด็ด";
 
-    document.getElementById("r-id")
-        .textContent="เลขที่: "+s.id;
 
-    document.getElementById("r-date")
-        .textContent=
-            new Date(s.date)
-            .toLocaleString("th-TH");
+    document.getElementById(
+        "rAddress"
+    ).innerText=
+        settings.shopAddress ||
+        "";
 
-    document.getElementById("r-items").innerHTML=
-        s.items.map(x=>`
+
+    document.getElementById(
+        "rPhone"
+    ).innerText=
+        settings.shopPhone ||
+        "";
+
+
+    document.getElementById(
+        "rDate"
+    ).innerText=
+        new Date(
+            sale.date
+        ).toLocaleString("th-TH");
+
+
+    let html="";
+
+
+    sale.items.forEach(item=>{
+
+        html+=`
 
             <div style="
                 display:flex;
                 justify-content:space-between;
-                margin:4px 0
+                font-size:11px;
+                margin-bottom:4px;
             ">
 
                 <span>
-                    ${escapeHTML(x.name)}
-                    x${x.qty}
+                    ${escapeHtml(item.name)}
+                    x${item.qty}
                 </span>
 
                 <span>
-                    ${money(x.price*x.qty)}
+                    ฿${(
+                        item.price*
+                        item.qty
+                    ).toFixed(2)}
                 </span>
 
             </div>
 
-        `).join("");
+        `;
 
-    document.getElementById("r-subtotal")
-        .textContent=money(s.subtotal);
+    });
 
-    document.getElementById("r-discount")
-        .textContent="-"+money(s.discount);
-
-    document.getElementById("r-total")
-        .textContent=money(s.total);
-
-    document.getElementById("r-cash")
-        .textContent=money(s.cash);
-
-    document.getElementById("r-change")
-        .textContent=money(s.change);
-
-    document.getElementById("r-message")
-        .textContent=settings.message;
-
-}
-
-function printReceipt(s){
-
-    lastReceipt=s;
-
-    prepareReceipt(s);
-
-    setTimeout(
-        ()=>window.print(),
-        100
-    );
-
-}
-
-function printLastReceipt(){
-
-    if(!lastReceipt){
-
-        if(!sales.length){
-
-            alert("ยังไม่มีใบเสร็จ");
-
-            return;
-
-        }
-
-        lastReceipt=sales[0];
-
-    }
-
-    printReceipt(lastReceipt);
-
-}
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function openHistory(){
-
-    renderHistory();
 
     document.getElementById(
-        "history-modal"
-    ).classList.add("show");
+        "receiptItems"
+    ).innerHTML=html;
+
+
+    document.getElementById(
+        "rTotal"
+    ).innerText=
+        "฿"+
+        sale.total.toFixed(2);
+
+
+    document.getElementById(
+        "rCash"
+    ).innerText=
+        "฿"+
+        sale.cash.toFixed(2);
+
+
+    document.getElementById(
+        "rChange"
+    ).innerText=
+        "฿"+
+        sale.change.toFixed(2);
+
+
+    document.getElementById(
+        "rFooter"
+    ).innerText=
+        settings.receiptFooter ||
+        "ขอบคุณที่ใช้บริการ";
 
 }
 
-function renderHistory(){
 
-    const query=
+/* =========================
+   SALES
+========================= */
+
+function renderSales(){
+
+    const table=
         document.getElementById(
-            "history-search"
-        ).value.toLowerCase();
-
-    const list=
-        sales.filter(s=>
-            s.id.toLowerCase().includes(query)
+            "salesTable"
         );
 
-    const box=
-        document.getElementById("history-list");
 
-    if(!list.length){
+    if(sales.length===0){
 
-        box.innerHTML=`
+        table.innerHTML=`
 
-            <div style="
-                text-align:center;
-                padding:35px;
-                color:#999
-            ">
-                ยังไม่มีประวัติ
-            </div>
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="no-data">
+
+                    ยังไม่มีประวัติการขาย
+
+                </td>
+
+            </tr>
 
         `;
 
@@ -2883,682 +2991,515 @@ function renderHistory(){
 
     }
 
-    box.innerHTML=
-        list.slice(0,200).map(s=>`
 
-            <div class="history-item">
+    table.innerHTML="";
 
-                <div class="history-top">
 
-                    <div>
+    sales.forEach(sale=>{
 
-                        <div class="history-id">
-                            ${escapeHTML(s.id)}
-                        </div>
+        const quantity=
+            sale.items.reduce(
+                (sum,item)=>
+                    sum+item.qty,
+                0
+            );
 
-                        <div class="history-date">
 
-                            ${new Date(s.date)
-                                .toLocaleString("th-TH")}
+        table.innerHTML+=`
 
-                        </div>
+            <tr>
 
-                    </div>
+                <td>
+                    <b>${sale.id}</b>
+                </td>
 
-                    <div class="history-total">
+                <td>
+                    ${new Date(
+                        sale.date
+                    ).toLocaleString("th-TH")}
+                </td>
 
-                        ${money(s.total)}
+                <td>
+                    ${quantity}
+                </td>
 
-                    </div>
+                <td>
 
-                </div>
+                    <b style="
+                        color:#7c3aed;
+                    ">
+                        ฿${sale.total.toFixed(2)}
+                    </b>
 
-                <div style="
-                    color:#888;
-                    font-size:9px;
-                    margin-top:4px
-                ">
+                </td>
 
-                    ${s.items.length} รายการ
-                    • ${s.method}
+                <td>
 
-                </div>
+                    <span class="badge">
+                        สำเร็จ
+                    </span>
 
-                <div class="history-actions">
+                </td>
+
+                <td>
 
                     <button
-                        onclick="printReceiptById('${s.id}')">
+                        class="secondary"
+                        onclick="
+                            reprintSale(
+                                '${sale.id}'
+                            )
+                        ">
 
                         🖨️ พิมพ์
 
                     </button>
 
-                    <button
-                        onclick="deleteSale('${s.id}')">
+                </td>
 
-                        🗑 ลบ
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        `).join("");
-
-}
-
-function printReceiptById(id){
-
-    const s=
-        sales.find(x=>x.id===id);
-
-    if(s)printReceipt(s);
-
-}
-
-function deleteSale(id){
-
-    if(!confirm("ต้องการลบประวัติบิลนี้หรือไม่?"))
-        return;
-
-    sales=
-        sales.filter(x=>x.id!==id);
-
-    saveDB();
-
-    renderHistory();
-
-    updateStats();
-
-    showToast("ลบประวัติแล้ว");
-
-}
-
-
-/* =========================================================
-   PRODUCT MANAGER
-========================================================= */
-
-function openManager(){
-
-    renderManager();
-
-    document.getElementById(
-        "manager-modal"
-    ).classList.add("show");
-
-}
-
-function renderManager(){
-
-    const box=
-        document.getElementById("manager-list");
-
-    if(!products.length){
-
-        box.innerHTML=`
-
-            <div style="
-                text-align:center;
-                padding:40px;
-                color:#999
-            ">
-                ยังไม่มีสินค้า
-            </div>
+            </tr>
 
         `;
+
+    });
+
+}
+
+
+function reprintSale(id){
+
+    const sale=
+        sales.find(
+            s=>s.id===id
+        );
+
+    if(!sale)return;
+
+    prepareReceipt(sale);
+
+    window.print();
+
+}
+
+
+function clearSales(){
+
+    if(!confirm(
+        "ต้องการล้างประวัติการขายทั้งหมดหรือไม่?"
+    ))return;
+
+
+    sales=[];
+
+
+    localStorage.setItem(
+        "violet_pos_sales",
+        "[]"
+    );
+
+
+    renderAll();
+
+}
+
+
+/* =========================
+   PRINTER
+========================= */
+
+async function connectPrinter(){
+
+    if(!navigator.bluetooth){
+
+        alert(
+            "เบราว์เซอร์นี้ไม่รองรับ Web Bluetooth\n\n"+
+            "สามารถใช้ 'พิมพ์ทดสอบ' หรือ AirPrint ได้"
+        );
 
         return;
 
     }
 
-    box.innerHTML=
-        products.map(p=>`
 
-            <div class="manage-item">
+    try{
 
-                <div class="manage-image">
+        const device=
+            await navigator.bluetooth.requestDevice({
+                acceptAllDevices:true
+            });
 
-                    ${
-                        p.image
-                        ? `<img src="${p.image}">`
-                        : `<span>${escapeHTML(p.icon||"🍽️")}</span>`
-                    }
 
-                </div>
+        printerConnected=true;
 
-                <div class="manage-info">
 
-                    <div class="manage-name">
-                        ${escapeHTML(p.name)}
-                    </div>
+        document.getElementById(
+            "printerCircle"
+        ).classList.add("connected");
 
-                    <div class="manage-code">
-                        ${escapeHTML(p.barcode)}
-                        • ${money(p.price)}
-                    </div>
 
-                </div>
+        document.getElementById(
+            "printerCircle"
+        ).innerText="✓";
 
-                <div class="manage-buttons">
 
-                    <button
-                        onclick="openProductModal(${p.id})">
+        document.getElementById(
+            "printerName"
+        ).innerText=
+            device.name ||
+            "Bluetooth Printer";
 
-                        ✏️
 
-                    </button>
+        document.getElementById(
+            "printerMessage"
+        ).innerText=
+            "ตรวจพบอุปกรณ์แล้ว";
 
-                    <button
-                        onclick="deleteProduct(${p.id})">
 
-                        🗑
+        document.getElementById(
+            "printerStatus"
+        ).innerText=
+            "เชื่อมต่อแล้ว";
 
-                    </button>
 
-                </div>
+    }catch(error){
 
-            </div>
-
-        `).join("");
-
-}
-
-function deleteProduct(id){
-
-    const p=
-        products.find(x=>x.id===id);
-
-    if(!p)return;
-
-    if(!confirm(
-        "ลบสินค้า "+p.name+" ใช่หรือไม่?"
-    ))return;
-
-    products=
-        products.filter(x=>x.id!==id);
-
-    cart=
-        cart.filter(x=>x.id!==id);
-
-    saveDB();
-
-    renderAll();
-
-    renderManager();
-
-    showToast("ลบสินค้าแล้ว");
-
-}
-
-
-/* =========================================================
-   BACKUP
-========================================================= */
-
-function openBackup(){
-
-    document.getElementById(
-        "backup-products"
-    ).textContent=products.length;
-
-    document.getElementById(
-        "backup-history"
-    ).textContent=sales.length;
-
-    document.getElementById(
-        "backup-modal"
-    ).classList.add("show");
-
-}
-
-function backupData(){
-
-    const data={
-
-        version:1,
-
-        exportedAt:new Date().toISOString(),
-
-        products:products,
-
-        sales:sales,
-
-        settings:settings
-
-    };
-
-    const blob=
-        new Blob(
-            [
-                JSON.stringify(
-                    data,
-                    null,
-                    2
-                )
-            ],
-            {
-                type:"application/json"
-            }
-        );
-
-    const url=
-        URL.createObjectURL(blob);
-
-    const a=
-        document.createElement("a");
-
-    const d=
-        new Date()
-        .toISOString()
-        .slice(0,10);
-
-    a.href=url;
-
-    a.download=
-        "RiceFlow-Backup-"+d+".json";
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-    showToast("สำรองข้อมูลแล้ว");
-
-}
-
-function restoreData(event){
-
-    const file=
-        event.target.files[0];
-
-    if(!file)return;
-
-    const reader=
-        new FileReader();
-
-    reader.onload=function(){
-
-        try{
-
-            const data=
-                JSON.parse(reader.result);
-
-            if(
-                !Array.isArray(data.products) ||
-                !Array.isArray(data.sales)
-            ){
-
-                throw new Error();
-
-            }
-
-            if(!confirm(
-                "ข้อมูลปัจจุบันจะถูกแทนที่ ต้องการดำเนินการต่อหรือไม่?"
-            ))return;
-
-            products=data.products;
-
-            sales=data.sales;
-
-            settings=
-                data.settings || settings;
-
-            saveDB();
-
-            cart=[];
-
-            renderAll();
-
-            openBackup();
-
-            showToast("กู้คืนข้อมูลสำเร็จ");
-
-        }catch(e){
+        if(error.name!=="NotFoundError"){
 
             alert(
-                "ไฟล์ Backup ไม่ถูกต้อง"
+                "ไม่สามารถเชื่อมต่อได้\n\n"+
+                error.message
             );
 
         }
 
-    };
-
-    reader.readAsText(file);
-
-}
-
-function clearAllData(){
-
-    if(!confirm(
-        "คำเตือน: จะลบสินค้า ประวัติ และการตั้งค่าทั้งหมด ต้องการดำเนินการต่อหรือไม่?"
-    ))return;
-
-    if(!confirm(
-        "ยืนยันอีกครั้ง: ข้อมูลจะไม่สามารถกู้คืนได้หากไม่มี Backup"
-    ))return;
-
-    localStorage.removeItem("RF_PRODUCTS");
-    localStorage.removeItem("RF_SALES");
-    localStorage.removeItem("RF_SETTINGS");
-
-    products=[];
-    sales=[];
-    cart=[];
-
-    settings={
-        shopName:"ร้านข้าวอร่อยเด็ด",
-        message:"ขอบคุณที่ใช้บริการ"
-    };
-
-    renderAll();
-
-    closeModal("backup-modal");
-
-    showToast("ล้างข้อมูลทั้งหมดแล้ว");
-
-}
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-function openSettings(){
-
-    document.getElementById(
-        "shop-name"
-    ).value=settings.shopName;
-
-    document.getElementById(
-        "shop-message"
-    ).value=settings.message;
-
-    document.getElementById(
-        "settings-modal"
-    ).classList.add("show");
-
-}
-
-function saveSettings(){
-
-    settings.shopName=
-        document.getElementById(
-            "shop-name"
-        ).value.trim()
-        ||"ร้านข้าวอร่อยเด็ด";
-
-    settings.message=
-        document.getElementById(
-            "shop-message"
-        ).value.trim()
-        ||"ขอบคุณที่ใช้บริการ";
-
-    saveDB();
-
-    closeModal("settings-modal");
-
-    showToast("บันทึกการตั้งค่าแล้ว");
-
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function updateStats(){
-
-    const today=
-        new Date().toDateString();
-
-    const todaySales=
-        sales.filter(
-            s=>
-                new Date(s.date)
-                .toDateString()===today
-        );
-
-    const sum=
-        todaySales.reduce(
-            (a,s)=>a+s.total,
-            0
-        );
-
-    const avg=
-        todaySales.length
-        ?sum/todaySales.length
-        :0;
-
-    document.getElementById("sales")
-        .textContent=money(sum);
-
-    document.getElementById("orders")
-        .textContent=todaySales.length;
-
-    document.getElementById("products-count")
-        .textContent=products.length;
-
-    document.getElementById("average")
-        .textContent=money(avg);
-
-}
-
-
-/* =========================================================
-   UI
-========================================================= */
-
-function renderAll(){
-
-    renderCategories();
-
-    renderProducts();
-
-    renderCart();
-
-    updateStats();
-
-}
-
-function showPOS(){
-
-    document.querySelectorAll(".nav button")
-        .forEach(x=>x.classList.remove("active"));
-
-    document.querySelector(".nav button")
-        .classList.add("active");
-
-}
-
-function toggleCart(){
-
-    if(window.innerWidth<=650){
-
-        document.getElementById("cart")
-            .classList.toggle("open");
-
     }
 
 }
 
 
-/* =========================================================
-   DARK MODE
-========================================================= */
+function testPrint(){
 
-function toggleDark(){
+    const testSale={
 
-    document.body.classList.toggle("dark");
+        id:"TEST",
 
-    localStorage.setItem(
-        "RF_DARK",
-        document.body.classList.contains("dark")
-    );
+        date:
+            new Date().toISOString(),
 
-}
-
-const darkStyle=
-document.createElement("style");
-
-darkStyle.textContent=`
-
-body.dark{
-    background:#101216;
-    color:#f1f2f4;
-}
-body.dark .topbar,
-body.dark .stat,
-body.dark .product,
-body.dark .cart,
-body.dark .search input,
-body.dark .category,
-body.dark .barcode-input,
-body.dark .cart-item,
-body.dark .payment,
-body.dark .modal,
-body.dark .field input,
-body.dark .field select,
-body.dark .history-item,
-body.dark .manage-buttons button,
-body.dark .backup-btn,
-body.dark .method,
-body.dark .clear,
-body.dark .print,
-body.dark .discount,
-body.dark .top-btn{
-    background:#191c21;
-    color:#f1f2f4;
-    border-color:#30343b;
-}
-body.dark .date,
-body.dark .product-desc,
-body.dark .product-barcode,
-body.dark .cart-price,
-body.dark .stat-label{
-    color:#8e939c;
-}
-body.dark .payment{
-    background:#15181d;
-}
-body.dark .category.active{
-    background:#ff6b2c;
-}
-`;
-
-document.head.appendChild(darkStyle);
-
-if(
-    localStorage.getItem("RF_DARK")==="true"
-){
-    document.body.classList.add("dark");
-}
-
-
-/* =========================================================
-   CLOSE MODAL ON BACKDROP
-========================================================= */
-
-document.querySelectorAll(".overlay")
-.forEach(el=>{
-
-    el.addEventListener(
-        "click",
-        e=>{
-
-            if(e.target===el){
-
-                el.classList.remove("show");
-
+        items:[
+            {
+                name:"ใบเสร็จทดสอบ",
+                price:0,
+                qty:1
             }
+        ],
 
+        total:0,
+
+        cash:0,
+
+        change:0
+
+    };
+
+
+    prepareReceipt(testSale);
+
+    window.print();
+
+}
+
+
+/* =========================
+   BARCODE PRINT
+========================= */
+
+function printBarcode(code,name){
+
+    const svg=
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+        );
+
+
+    JsBarcode(
+        svg,
+        code,
+        {
+            format:"CODE128",
+            width:2,
+            height:60,
+            displayValue:true
         }
     );
 
-});
+
+    const win=
+        window.open(
+            "",
+            "_blank"
+        );
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+    if(!win){
 
-function showToast(text){
-
-    const t=
-        document.getElementById("toast");
-
-    t.textContent=text;
-
-    t.classList.add("show");
-
-    setTimeout(
-        ()=>t.classList.remove("show"),
-        2300
-    );
-
-}
-
-
-/* =========================================================
-   CSV
-========================================================= */
-
-function exportCSV(){
-
-    if(!sales.length){
-
-        alert("ยังไม่มีข้อมูลการขาย");
+        alert(
+            "เบราว์เซอร์บล็อกหน้าต่างใหม่"
+        );
 
         return;
 
     }
 
-    let csv=
-        "เลขบิล,วันที่,ยอดสินค้า,ส่วนลด,ยอดสุทธิ,วิธีชำระ\n";
 
-    sales.forEach(s=>{
+    win.document.write(`
 
-        csv+=
-            `"${s.id}",`+
-            `"${new Date(s.date).toLocaleString("th-TH")}",`+
-            `${s.subtotal},`+
-            `${s.discount},`+
-            `${s.total},`+
-            `"${s.method}"\n`;
+        <!DOCTYPE html>
 
-    });
+        <html>
 
-    const blob=
-        new Blob(
-            ["\uFEFF"+csv],
-            {
-                type:"text/csv;charset=utf-8"
-            }
-        );
+        <head>
 
-    const url=
-        URL.createObjectURL(blob);
+            <title>
+                Barcode
+            </title>
 
-    const a=
-        document.createElement("a");
+            <style>
 
-    a.href=url;
+                body{
+                    text-align:center;
+                    font-family:Arial;
+                    padding:25px;
+                }
 
-    a.download=
-        "RiceFlow-Sales.csv";
+            </style>
 
-    a.click();
+        </head>
 
-    URL.revokeObjectURL(url);
+        <body>
 
-    showToast("Export CSV แล้ว");
+            <h3>
+                ${escapeHtml(name)}
+            </h3>
+
+            ${svg.outerHTML}
+
+            <script>
+
+                window.onload=function(){
+
+                    window.print();
+
+                }
+
+            <\/script>
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    win.document.close();
 
 }
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* =========================
+   SETTINGS
+========================= */
+
+function loadSettings(){
+
+    document.getElementById(
+        "shopName"
+    ).value=
+        settings.shopName ||
+        "ร้านข้าวอร่อยเด็ด";
+
+
+    document.getElementById(
+        "shopPhone"
+    ).value=
+        settings.shopPhone ||
+        "";
+
+
+    document.getElementById(
+        "shopAddress"
+    ).value=
+        settings.shopAddress ||
+        "";
+
+
+    document.getElementById(
+        "receiptFooter"
+    ).value=
+        settings.receiptFooter ||
+        "ขอบคุณที่ใช้บริการ";
+
+}
+
+
+function saveSettings(){
+
+    settings={
+
+        shopName:
+            document.getElementById(
+                "shopName"
+            ).value,
+
+        shopPhone:
+            document.getElementById(
+                "shopPhone"
+            ).value,
+
+        shopAddress:
+            document.getElementById(
+                "shopAddress"
+            ).value,
+
+        receiptFooter:
+            document.getElementById(
+                "receiptFooter"
+            ).value
+
+    };
+
+
+    localStorage.setItem(
+        "violet_pos_settings",
+        JSON.stringify(settings)
+    );
+
+
+    alert(
+        "บันทึกการตั้งค่าแล้ว"
+    );
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+    const today=
+        new Date().toDateString();
+
+
+    const todaySales=
+        sales.filter(
+            sale=>
+                new Date(
+                    sale.date
+                ).toDateString()
+                ===today
+        );
+
+
+    const total=
+        todaySales.reduce(
+            (sum,sale)=>
+                sum+sale.total,
+            0
+        );
+
+
+    document.getElementById(
+        "todaySales"
+    ).innerText=
+        "฿"+
+        total.toFixed(2);
+
+
+    document.getElementById(
+        "todayBills"
+    ).innerText=
+        todaySales.length;
+
+
+    document.getElementById(
+        "productCount"
+    ).innerText=
+        products.length;
+
+
+    document.getElementById(
+        "printerStatus"
+    ).innerText=
+        printerConnected
+        ? "เชื่อมต่อแล้ว"
+        : "พร้อม";
+
+}
+
+
+/* =========================
+   UTIL
+========================= */
+
+function escapeHtml(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+    renderProducts();
+
+    renderProductTable();
+
+    renderCart();
+
+    renderSales();
+
+    renderDashboard();
+
+    loadSettings();
+
+}
+
+
+/* =========================
+   START
+========================= */
 
 renderAll();
 
