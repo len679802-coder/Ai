@@ -9,465 +9,438 @@
     content="width=device-width,initial-scale=1"
 >
 
-<title>RedLua</title>
+<title>RedLua Vault</title>
 
 <style>
 
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    min-height:100vh;
+body {
+    margin: 0;
+    min-height: 100vh;
     background:
         radial-gradient(
             circle at 20% 0%,
-            rgba(255,0,0,.14),
-            transparent 30%
+            rgba(255, 30, 30, .15),
+            transparent 32%
         ),
         #070707;
-    color:#eee;
+    color: #eee;
     font-family:
         Inter,
         system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
         sans-serif;
 }
 
 button,
 input,
-textarea{
-    font:inherit;
+textarea {
+    font: inherit;
 }
 
-.sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    bottom:0;
-    width:235px;
-    background:#0c0c0c;
-    border-right:1px solid #242424;
-    padding:22px;
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 235px;
+    padding: 22px;
+    background: #0c0c0c;
+    border-right: 1px solid #292929;
 }
 
-.logo{
-    font-size:22px;
-    font-weight:900;
-    margin-bottom:35px;
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 21px;
+    font-weight: 900;
+    margin-bottom: 35px;
 }
 
-.logo span{
-    color:#ff2929;
-}
-
-.logo-box{
-    display:inline-grid;
-    place-items:center;
-    width:40px;
-    height:40px;
-    margin-right:9px;
-    border-radius:11px;
+.logoBox {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 9px;
+    border-radius: 11px;
     background:
         linear-gradient(
             135deg,
-            #ff3333,
-            #850000
+            #ff4141,
+            #800000
         );
 }
 
-.nav-title{
-    color:#555;
-    font-size:10px;
-    letter-spacing:1.5px;
-    margin:20px 8px 8px;
+.logo span {
+    color: #ff3636;
 }
 
-.nav{
-    width:100%;
-    padding:12px;
-    border:0;
-    border-radius:9px;
-    background:transparent;
-    color:#777;
-    text-align:left;
-    cursor:pointer;
-    margin-bottom:5px;
+.sectionTitle {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin: 18px 8px 8px;
+}
+
+.nav {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: #777;
+    text-align: left;
+    cursor: pointer;
 }
 
 .nav:hover,
-.nav.active{
-    background:#241010;
-    color:white;
+.nav.active {
+    background: #251010;
+    color: #fff;
 }
 
-.nav.active{
-    box-shadow:inset 3px 0 #ff3030;
+.nav.active {
+    box-shadow: inset 3px 0 #ff3030;
 }
 
-.server{
-    position:absolute;
-    bottom:20px;
-    left:22px;
-    right:22px;
-    padding:11px;
-    border:1px solid #292929;
-    background:#111;
-    border-radius:10px;
-    color:#666;
-    font-size:10px;
+.server {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+    padding: 11px;
+    border: 1px solid #292929;
+    border-radius: 10px;
+    background: #111;
+    color: #777;
+    font-size: 10px;
 }
 
-.server b{
-    color:#35d98a;
+.server b {
+    color: #36dc8b;
 }
 
-.main{
-    margin-left:235px;
-    padding:30px;
+.main {
+    margin-left: 235px;
+    padding: 30px;
 }
 
-.page{
-    display:none;
+.page {
+    display: none;
 }
 
-.page.active{
-    display:block;
+.page.active {
+    display: block;
 }
 
-.title{
-    font-size:30px;
-    font-weight:900;
+.title {
+    font-size: 30px;
+    font-weight: 900;
 }
 
-.title span{
-    color:#ff3030;
+.title span {
+    color: #ff3030;
 }
 
-.sub{
-    color:#666;
-    font-size:12px;
-    margin-top:4px;
+.subtitle {
+    margin-top: 4px;
+    color: #666;
+    font-size: 12px;
 }
 
-.header{
-    margin-bottom:22px;
+.header {
+    margin-bottom: 22px;
 }
 
-.editors{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+.editors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
 }
 
-.card{
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:14px;
-    overflow:hidden;
+.card {
+    overflow: hidden;
+    background: #101010;
+    border: 1px solid #292929;
+    border-radius: 14px;
 }
 
-.card-head{
-    display:flex;
-    justify-content:space-between;
-    padding:13px 15px;
-    border-bottom:1px solid #292929;
-    font-size:11px;
-    font-weight:700;
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 15px;
+    border-bottom: 1px solid #292929;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.counter{
-    color:#555;
+.counter {
+    color: #555;
 }
 
-textarea{
-    display:block;
-    width:100%;
-    height:430px;
-    resize:none;
-    border:0;
-    outline:0;
-    background:#080808;
-    color:#ddd;
-    padding:17px;
+textarea {
+    display: block;
+    width: 100%;
+    height: 400px;
+    padding: 17px;
+    resize: none;
+    outline: none;
+    border: 0;
+    background: #080808;
+    color: #ddd;
     font-family:
         "SFMono-Regular",
         Consolas,
         monospace;
-    font-size:13px;
-    line-height:1.65;
+    font-size: 13px;
+    line-height: 1.65;
 }
 
-textarea::placeholder{
-    color:#3b3b3b;
+textarea::placeholder {
+    color: #3b3b3b;
 }
 
-.options{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    margin-top:15px;
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
 }
 
-.option{
-    background:#101010;
-    border:1px solid #292929;
-    border-radius:13px;
-    padding:15px;
+.option {
+    padding: 15px;
+    background: #101010;
+    border: 1px solid #292929;
+    border-radius: 13px;
 }
 
-.option-title{
-    color:#aaa;
-    font-size:11px;
-    font-weight:700;
-    margin-bottom:10px;
+.optionTitle {
+    margin-bottom: 10px;
+    color: #aaa;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.levels{
-    display:flex;
-    gap:7px;
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
 }
 
-.level{
-    flex:1;
-    padding:9px 5px;
-    border:1px solid #303030;
-    border-radius:8px;
-    background:#181818;
-    color:#666;
-    cursor:pointer;
-    font-size:10px;
+.btn {
+    padding: 11px 15px;
+    border: 1px solid #303030;
+    border-radius: 9px;
+    background: #171717;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 11px;
 }
 
-.level.active{
-    color:white;
-    border-color:#ff3030;
-    background:#291010;
+.btn:hover {
+    border-color: #555;
 }
 
-.checks{
-    display:flex;
-    flex-wrap:wrap;
-    gap:13px;
-}
-
-.check{
-    color:#888;
-    font-size:11px;
-}
-
-.check input{
-    accent-color:#ff3030;
-}
-
-.actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:15px;
-}
-
-.btn{
-    border:1px solid #303030;
-    background:#171717;
-    color:#ccc;
-    padding:11px 15px;
-    border-radius:9px;
-    cursor:pointer;
-    font-size:11px;
-}
-
-.btn:hover{
-    border-color:#555;
-}
-
-.btn.red{
-    color:white;
-    border-color:#ff3030;
+.btn.red {
+    border-color: #ff3030;
     background:
         linear-gradient(
             135deg,
             #ff3838,
-            #990000
+            #8f0000
         );
+    color: #fff;
 }
 
-.btn.green{
-    color:white;
-    border-color:#28b875;
-    background:#095c38;
+.result {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: #150909;
+    border: 1px solid #482222;
+    border-radius: 13px;
 }
 
-.url-box{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    background:#160909;
-    border:1px solid #482222;
-    border-radius:13px;
+.resultTitle {
+    margin-bottom: 8px;
+    color: #ff5050;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.url-title{
-    color:#ff5050;
-    font-size:11px;
-    font-weight:700;
-    margin-bottom:8px;
+.resultRow {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
-.url-row{
-    display:flex;
-    gap:8px;
+.resultInput {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #382020;
+    border-radius: 8px;
+    background: #080808;
+    color: #fff;
+    font-size: 11px;
 }
 
-.url{
-    flex:1;
-    min-width:0;
-    background:#080808;
-    color:#fff;
-    border:1px solid #382020;
-    border-radius:8px;
-    padding:10px;
-    outline:0;
-    font-size:11px;
+.vaultTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.toolbar{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:15px;
+.search {
+    width: 230px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #292929;
+    border-radius: 9px;
+    background: #111;
+    color: #fff;
 }
 
-.search{
-    width:230px;
-    background:#111;
-    border:1px solid #292929;
-    color:#fff;
-    padding:10px;
-    border-radius:9px;
-    outline:0;
-}
-
-.list{
-    display:grid;
+.list {
+    display: grid;
     grid-template-columns:
-        repeat(3,1fr);
-    gap:13px;
+        repeat(3, 1fr);
+    gap: 13px;
 }
 
-.script{
-    background:#111;
-    border:1px solid #292929;
-    border-radius:13px;
-    padding:15px;
+.script {
+    padding: 15px;
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 13px;
 }
 
-.script-name{
-    font-weight:700;
-    margin-bottom:7px;
-    word-break:break-word;
+.scriptName {
+    margin-bottom: 7px;
+    font-weight: 700;
+    word-break: break-word;
 }
 
-.meta{
-    color:#555;
-    font-size:10px;
-    margin-bottom:12px;
+.meta {
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 10px;
 }
 
-.script-actions{
-    display:flex;
-    gap:6px;
+.scriptButtons {
+    display: flex;
+    gap: 6px;
 }
 
-.script-actions button{
-    flex:1;
-    border:1px solid #292929;
-    background:#181818;
-    color:#aaa;
-    padding:8px;
-    border-radius:7px;
-    cursor:pointer;
-    font-size:10px;
+.scriptButtons button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #292929;
+    border-radius: 7px;
+    background: #181818;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 10px;
 }
 
-.empty{
-    grid-column:1/-1;
-    text-align:center;
-    padding:50px;
-    border:1px dashed #333;
-    border-radius:13px;
-    color:#444;
+.empty {
+    grid-column: 1 / -1;
+    padding: 50px;
+    border: 1px dashed #333;
+    border-radius: 13px;
+    color: #444;
+    text-align: center;
 }
 
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    padding:12px 15px;
-    background:#181818;
-    border:1px solid #393939;
-    border-left:3px solid #ff3030;
-    border-radius:9px;
-    font-size:11px;
-    opacity:0;
-    transform:translateY(60px);
-    transition:.25s;
-    z-index:100;
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 12px 15px;
+    border-left: 3px solid #ff3030;
+    border-radius: 9px;
+    background: #181818;
+    color: #fff;
+    font-size: 11px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: .25s;
 }
 
-.toast.show{
-    opacity:1;
-    transform:translateY(0);
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.mobile-menu{
-    display:none;
+.mobile {
+    display: none;
 }
 
-@media(max-width:900px){
+@media (max-width: 900px) {
 
-    .sidebar{
-        transform:translateX(-100%);
-        transition:.25s;
-        z-index:50;
+    .sidebar {
+        z-index: 50;
+        transform: translateX(-100%);
+        transition: .25s;
     }
 
-    .sidebar.open{
-        transform:translateX(0);
+    .sidebar.open {
+        transform: translateX(0);
     }
 
-    .main{
-        margin-left:0;
-        padding:15px;
+    .main {
+        margin-left: 0;
+        padding: 15px;
     }
 
-    .mobile-menu{
-        display:block;
-        margin-bottom:15px;
+    .mobile {
+        display: block;
+        margin-bottom: 15px;
     }
 
-    .mobile-menu button{
-        background:#111;
-        color:white;
-        border:1px solid #292929;
-        padding:10px 13px;
-        border-radius:8px;
+    .mobile button {
+        padding: 10px 13px;
+        border: 1px solid #292929;
+        border-radius: 8px;
+        background: #111;
+        color: #fff;
     }
 
     .editors,
-    .options{
-        grid-template-columns:1fr;
+    .options {
+        grid-template-columns: 1fr;
     }
 
-    .list{
-        grid-template-columns:1fr;
+    .list {
+        grid-template-columns: 1fr;
     }
 
-    textarea{
-        height:330px;
+    textarea {
+        height: 320px;
     }
 
-    .url-row{
-        flex-direction:column;
+    .resultRow {
+        flex-direction: column;
+    }
+
+    .vaultTop {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search {
+        width: 100%;
     }
 }
 
@@ -480,70 +453,70 @@ textarea::placeholder{
 <aside class="sidebar" id="sidebar">
 
     <div class="logo">
-        <span class="logo-box">L</span>
+        <div class="logoBox">L</div>
         Red<span>Lua</span>
     </div>
 
-    <div class="nav-title">
+    <div class="sectionTitle">
         WORKSPACE
     </div>
 
     <button
         class="nav active"
         id="editorNav"
-        onclick="page('editor')"
+        onclick="showPage('editor')"
     >
-        ⚡ Obfuscator
+        Lua Script
     </button>
 
     <button
         class="nav"
         id="vaultNav"
-        onclick="page('vault')"
+        onclick="showPage('vault')"
     >
-        ▣ Script Vault
+        Script Vault
     </button>
 
-    <div class="nav-title">
-        TOOLS
+    <div class="sectionTitle">
+        SERVER
     </div>
 
     <button
         class="nav"
-        onclick="clearAll()"
+        onclick="checkServer()"
     >
-        Clear Editor
+        Server Status
     </button>
 
     <div class="server">
         ● <b>SERVER ONLINE</b>
         <br>
-        RedLua Local Server
+        RedLua Vault
     </div>
 
 </aside>
 
 <main class="main">
 
-    <div class="mobile-menu">
-        <button onclick="menu()">
-            ☰ Menu
+    <div class="mobile">
+        <button onclick="toggleMenu()">
+            Menu
         </button>
     </div>
 
     <section
-        id="editorPage"
         class="page active"
+        id="editorPage"
     >
 
         <div class="header">
 
             <div class="title">
-                Lua <span>Obfuscator</span>
+                Lua <span>Vault</span>
             </div>
 
-            <div class="sub">
-                Minify • Obfuscate • Copy • Generate URL
+            <div class="subtitle">
+                เก็บ Script และสร้าง URL สำหรับเรียกใช้งาน
             </div>
 
         </div>
@@ -552,174 +525,89 @@ textarea::placeholder{
 
             <div class="card">
 
-                <div class="card-head">
-                    <span>SOURCE LUA</span>
+                <div class="cardHeader">
+
+                    <span>
+                        LUA SOURCE
+                    </span>
 
                     <span
                         class="counter"
-                        id="inputCount"
+                        id="inputCounter"
                     >
                         0 chars
                     </span>
+
                 </div>
 
                 <textarea
                     id="input"
                     spellcheck="false"
-                    placeholder="วาง Lua Script ของคุณที่นี่..."
+                    placeholder="วาง Lua Script ที่นี่..."
                 ></textarea>
 
             </div>
 
             <div class="card">
 
-                <div class="card-head">
-                    <span>OBFUSCATED OUTPUT</span>
+                <div class="cardHeader">
+
+                    <span>
+                        LOADER
+                    </span>
 
                     <span
                         class="counter"
-                        id="outputCount"
                     >
-                        0 chars
+                        GENERATED
                     </span>
+
                 </div>
 
                 <textarea
-                    id="output"
+                    id="loader"
                     readonly
                     spellcheck="false"
-                    placeholder="ผลลัพธ์จะปรากฏที่นี่..."
+                    placeholder="กด Generate URL แล้ว Loader จะปรากฏที่นี่..."
                 ></textarea>
 
             </div>
 
         </div>
 
-        <div class="options">
-
-            <div class="option">
-
-                <div class="option-title">
-                    OBFUSCATION LEVEL
-                </div>
-
-                <div class="levels">
-
-                    <button
-                        class="level"
-                        data-level="1"
-                    >
-                        LIGHT
-                    </button>
-
-                    <button
-                        class="level active"
-                        data-level="2"
-                    >
-                        MEDIUM
-                    </button>
-
-                    <button
-                        class="level"
-                        data-level="3"
-                    >
-                        HARD
-                    </button>
-
-                    <button
-                        class="level"
-                        data-level="4"
-                    >
-                        EXTREME
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="option">
-
-                <div class="option-title">
-                    PROTECTION
-                </div>
-
-                <div class="checks">
-
-                    <label class="check">
-                        <input
-                            id="comments"
-                            type="checkbox"
-                            checked
-                        >
-                        Remove comments
-                    </label>
-
-                    <label class="check">
-                        <input
-                            id="locals"
-                            type="checkbox"
-                            checked
-                        >
-                        Rename locals
-                    </label>
-
-                    <label class="check">
-                        <input
-                            id="strings"
-                            type="checkbox"
-                            checked
-                        >
-                        Protect strings
-                    </label>
-
-                    <label class="check">
-                        <input
-                            id="minify"
-                            type="checkbox"
-                            checked
-                        >
-                        Minify
-                    </label>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="actions">
+        <div class="buttons">
 
             <button
                 class="btn red"
-                onclick="obfuscate()"
+                onclick="createScript()"
             >
-                ⚡ Obfuscate
+                Generate URL
             </button>
 
             <button
                 class="btn red"
-                onclick="copyObfuscated()"
+                onclick="copyLoader()"
             >
-                🔒 Copy Minified + Obfuscated
+                Copy Loader
             </button>
 
             <button
-                class="btn green"
-                onclick="generateURL()"
+                class="btn"
+                onclick="copyURL()"
             >
-                🔗 Generate URL
+                Copy URL
             </button>
 
             <button
                 class="btn"
                 onclick="downloadLua()"
             >
-                Download .lua
+                Download Lua
             </button>
 
             <button
                 class="btn"
-                onclick="clearAll()"
+                onclick="clearEditor()"
             >
                 Clear
             </button>
@@ -727,19 +615,19 @@ textarea::placeholder{
         </div>
 
         <div
-            class="url-box"
-            id="urlBox"
+            class="result"
+            id="result"
         >
 
-            <div class="url-title">
-                GENERATED URL
+            <div class="resultTitle">
+                SCRIPT URL
             </div>
 
-            <div class="url-row">
+            <div class="resultRow">
 
                 <input
-                    class="url"
-                    id="generatedURL"
+                    class="resultInput"
+                    id="scriptURL"
                     readonly
                 >
 
@@ -747,7 +635,28 @@ textarea::placeholder{
                     class="btn red"
                     onclick="copyURL()"
                 >
-                    Copy URL
+                    Copy
+                </button>
+
+            </div>
+
+            <div class="resultTitle">
+                LOADER
+            </div>
+
+            <div class="resultRow">
+
+                <input
+                    class="resultInput"
+                    id="loaderInput"
+                    readonly
+                >
+
+                <button
+                    class="btn red"
+                    onclick="copyLoader()"
+                >
+                    Copy Loader
                 </button>
 
             </div>
@@ -757,8 +666,8 @@ textarea::placeholder{
     </section>
 
     <section
-        id="vaultPage"
         class="page"
+        id="vaultPage"
     >
 
         <div class="header">
@@ -767,22 +676,22 @@ textarea::placeholder{
                 Script <span>Vault</span>
             </div>
 
-            <div class="sub">
-                Scripts ที่บันทึกไว้บน Server
+            <div class="subtitle">
+                Scripts ที่บันทึกไว้
             </div>
 
         </div>
 
-        <div class="toolbar">
+        <div class="vaultTop">
 
             <strong>
                 Saved Scripts
             </strong>
 
             <input
-                id="search"
                 class="search"
-                placeholder="ค้นหา Script..."
+                id="search"
+                placeholder="ค้นหา..."
                 oninput="loadVault()"
             >
 
@@ -804,102 +713,64 @@ textarea::placeholder{
 
 <script>
 
+let currentURL = "";
+let currentLoader = "";
+
 const input =
     document.getElementById("input");
-
-const output =
-    document.getElementById("output");
-
-let level = 2;
-
-/* Counter */
 
 input.addEventListener(
     "input",
     () => {
 
         document.getElementById(
-            "inputCount"
+            "inputCounter"
         ).textContent =
             input.value.length.toLocaleString()
             + " chars";
+
     }
 );
 
-/* Level */
+function toast(message) {
 
-document
-.querySelectorAll(".level")
-.forEach(button => {
-
-    button.onclick = () => {
-
-        document
-        .querySelectorAll(".level")
-        .forEach(x =>
-            x.classList.remove("active")
-        );
-
-        button.classList.add("active");
-
-        level =
-            Number(button.dataset.level);
-    };
-});
-
-/* Toast */
-
-function toast(text){
-
-    const box =
+    const element =
         document.getElementById("toast");
 
-    box.textContent = text;
+    element.textContent = message;
 
-    box.classList.add("show");
+    element.classList.add("show");
 
     clearTimeout(window.toastTimer);
 
     window.toastTimer =
         setTimeout(() => {
-            box.classList.remove("show");
+            element.classList.remove("show");
         }, 2200);
 }
 
-/* Menu */
-
-function menu(){
+function toggleMenu() {
 
     document
-    .getElementById("sidebar")
-    .classList.toggle("open");
+        .getElementById("sidebar")
+        .classList.toggle("open");
 }
 
-/* Page */
-
-function page(name){
+function showPage(page) {
 
     const editor =
-        document.getElementById(
-            "editorPage"
-        );
+        document.getElementById("editorPage");
 
     const vault =
-        document.getElementById(
-            "vaultPage"
-        );
+        document.getElementById("vaultPage");
 
     const editorNav =
-        document.getElementById(
-            "editorNav"
-        );
+        document.getElementById("editorNav");
 
     const vaultNav =
-        document.getElementById(
-            "vaultNav"
-        );
+        document.getElementById("vaultNav");
 
-    if(name === "editor"){
+    if (page === "editor") {
 
         editor.classList.add("active");
         vault.classList.remove("active");
@@ -907,7 +778,7 @@ function page(name){
         editorNav.classList.add("active");
         vaultNav.classList.remove("active");
 
-    }else{
+    } else {
 
         editor.classList.remove("active");
         vault.classList.add("active");
@@ -919,345 +790,50 @@ function page(name){
     }
 
     document
-    .getElementById("sidebar")
-    .classList.remove("open");
+        .getElementById("sidebar")
+        .classList.remove("open");
 }
 
-/* Remove Lua comments */
+async function createScript() {
 
-function removeComments(code){
-
-    let result = "";
-    let string = false;
-    let quote = "";
-
-    for(
-        let i = 0;
-        i < code.length;
-        i++
-    ){
-
-        const c = code[i];
-        const n = code[i + 1];
-
-        if(
-            !string &&
-            (c === '"' || c === "'")
-        ){
-
-            string = true;
-            quote = c;
-            result += c;
-            continue;
-        }
-
-        if(string){
-
-            result += c;
-
-            if(
-                c === "\\" &&
-                i + 1 < code.length
-            ){
-                result += code[++i];
-                continue;
-            }
-
-            if(c === quote){
-                string = false;
-            }
-
-            continue;
-        }
-
-        if(c === "-" && n === "-"){
-
-            while(
-                i < code.length &&
-                code[i] !== "\n"
-            ){
-                i++;
-            }
-
-            result += "\n";
-            continue;
-        }
-
-        result += c;
-    }
-
-    return result;
-}
-
-/* Random name */
-
-function randomName(){
-
-    const chars =
-        "abcdefghijklmnopqrstuvwxyz";
-
-    let name = "_";
-
-    const length =
-        Math.min(4 + level, 8);
-
-    for(
-        let i = 0;
-        i < length;
-        i++
-    ){
-
-        name +=
-            chars[
-                Math.floor(
-                    Math.random() *
-                    chars.length
-                )
-            ];
-    }
-
-    return name;
-}
-
-/* Rename local variables */
-
-function renameLocals(code){
-
-    const map = {};
-
-    const regex =
-        /\blocal\s+([A-Za-z_][A-Za-z0-9_]*)/g;
-
-    let match;
-
-    while(
-        (match = regex.exec(code))
-    ){
-
-        const name = match[1];
-
-        if(!map[name]){
-            map[name] = randomName();
-        }
-    }
-
-    for(
-        const oldName of Object.keys(map)
-    ){
-
-        const escaped =
-            oldName.replace(
-                /[.*+?^${}()|[\]\\]/g,
-                "\\$&"
-            );
-
-        code =
-            code.replace(
-                new RegExp(
-                    "\\b" +
-                    escaped +
-                    "\\b",
-                    "g"
-                ),
-                map[oldName]
-            );
-    }
-
-    return code;
-}
-
-/* String protection */
-
-function protectStrings(code){
-
-    return code.replace(
-        /(["'])(.*?)\1/g,
-        (match, quote, value) => {
-
-            let hex = "";
-
-            for(
-                let i = 0;
-                i < value.length;
-                i++
-            ){
-
-                hex +=
-                    value
-                    .charCodeAt(i)
-                    .toString(16)
-                    .padStart(2,"0");
-            }
-
-            return `(function()local h="${hex}"local s=""for i=1,#h,2 do s=s..string.char(tonumber(h:sub(i,i+1),16))end return s end)()`;
-        }
-    );
-}
-
-/* Minify */
-
-function minify(code){
-
-    return code
-        .replace(
-            /[ \t]+/g,
-            " "
-        )
-        .replace(
-            /\n\s*\n/g,
-            "\n"
-        )
-        .replace(
-            /\s*([(),{}\[\]])\s*/g,
-            "$1"
-        )
-        .trim();
-}
-
-/* Obfuscate */
-
-function obfuscate(){
-
-    let code =
+    const code =
         input.value.trim();
 
-    if(!code){
+    if (!code) {
 
         toast(
-            "กรุณาใส่ Lua Script ก่อน"
+            "กรุณาวาง Lua Script ก่อน"
         );
 
-        return "";
-    }
-
-    if(
-        document.getElementById(
-            "comments"
-        ).checked
-    ){
-        code =
-            removeComments(code);
-    }
-
-    if(
-        document.getElementById(
-            "locals"
-        ).checked
-    ){
-        code =
-            renameLocals(code);
-    }
-
-    if(
-        document.getElementById(
-            "strings"
-        ).checked
-    ){
-        code =
-            protectStrings(code);
-    }
-
-    if(
-        document.getElementById(
-            "minify"
-        ).checked
-    ){
-        code =
-            minify(code);
-    }
-
-    if(level >= 3){
-
-        code =
-            "local " +
-            randomName() +
-            "=function(...)return ... end;" +
-            code;
-    }
-
-    if(level >= 4){
-
-        code =
-            "local " +
-            randomName() +
-            "=true;" +
-            code;
-    }
-
-    output.value = code;
-
-    document.getElementById(
-        "outputCount"
-    ).textContent =
-        code.length.toLocaleString()
-        + " chars";
-
-    return code;
-}
-
-/* Copy */
-
-async function copyObfuscated(){
-
-    const code =
-        obfuscate();
-
-    if(!code)
         return;
-
-    try{
-
-        await navigator.clipboard.writeText(
-            code
-        );
-
-        toast(
-            "คัดลอกโค้ดที่ย่อ + Obfuscate แล้ว"
-        );
-
-    }catch{
-
-        output.select();
-
-        document.execCommand("copy");
-
-        toast("คัดลอกแล้ว");
     }
-}
-
-/* Generate URL */
-
-async function generateURL(){
-
-    const code =
-        obfuscate();
-
-    if(!code)
-        return;
 
     const name =
         prompt(
-            "ชื่อ Script:",
-            "My Lua Script"
+            "ตั้งชื่อ Script",
+            "My Script"
         );
 
-    if(name === null)
+    if (name === null) {
         return;
+    }
 
-    try{
+    try {
+
+        toast("กำลังสร้าง URL...");
 
         const response =
             await fetch(
                 "/api/scripts",
                 {
-                    method:"POST",
+                    method: "POST",
 
-                    headers:{
+                    headers: {
                         "Content-Type":
                             "application/json"
                     },
 
-                    body:JSON.stringify({
+                    body: JSON.stringify({
                         name,
                         code
                     })
@@ -1267,21 +843,34 @@ async function generateURL(){
         const data =
             await response.json();
 
-        if(!response.ok){
+        if (!response.ok) {
 
             throw new Error(
                 data.error ||
-                "สร้าง URL ไม่สำเร็จ"
+                "สร้างไม่สำเร็จ"
             );
         }
 
-        document.getElementById(
-            "generatedURL"
-        ).value =
-            data.url;
+        currentURL = data.url;
+        currentLoader = data.loader;
 
         document.getElementById(
-            "urlBox"
+            "scriptURL"
+        ).value =
+            currentURL;
+
+        document.getElementById(
+            "loaderInput"
+        ).value =
+            currentLoader;
+
+        document.getElementById(
+            "loader"
+        ).value =
+            currentLoader;
+
+        document.getElementById(
+            "result"
         ).style.display =
             "block";
 
@@ -1289,105 +878,145 @@ async function generateURL(){
             "สร้าง URL สำเร็จ"
         );
 
-    }catch(error){
+    } catch (error) {
 
         toast(error.message);
     }
 }
 
-/* Copy URL */
+async function copyLoader() {
 
-async function copyURL(){
+    if (!currentLoader) {
 
-    const url =
-        document.getElementById(
-            "generatedURL"
-        ).value;
+        toast(
+            "กด Generate URL ก่อน"
+        );
 
-    if(!url)
         return;
+    }
 
-    await navigator.clipboard.writeText(url);
+    try {
+
+        await navigator.clipboard.writeText(
+            currentLoader
+        );
+
+        toast(
+            "คัดลอก Loader แล้ว"
+        );
+
+    } catch {
+
+        const input =
+            document.getElementById(
+                "loaderInput"
+            );
+
+        input.select();
+
+        document.execCommand("copy");
+
+        toast(
+            "คัดลอก Loader แล้ว"
+        );
+    }
+}
+
+async function copyURL() {
+
+    if (!currentURL) {
+
+        toast(
+            "ยังไม่มี URL"
+        );
+
+        return;
+    }
+
+    await navigator.clipboard.writeText(
+        currentURL
+    );
 
     toast(
         "คัดลอก URL แล้ว"
     );
 }
 
-/* Download */
-
-function downloadLua(){
+function downloadLua() {
 
     const code =
-        output.value ||
-        obfuscate();
+        input.value;
 
-    if(!code)
+    if (!code.trim()) {
+
+        toast(
+            "ไม่มี Lua ให้ดาวน์โหลด"
+        );
+
         return;
+    }
 
     const blob =
         new Blob(
             [code],
             {
-                type:"text/plain"
+                type:
+                    "text/plain;charset=utf-8"
             }
         );
 
     const url =
         URL.createObjectURL(blob);
 
-    const a =
+    const link =
         document.createElement("a");
 
-    a.href = url;
-    a.download = "obfuscated.lua";
+    link.href = url;
+    link.download = "script.lua";
 
-    a.click();
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
 
     URL.revokeObjectURL(url);
-
-    toast(
-        "ดาวน์โหลดแล้ว"
-    );
 }
 
-/* Clear */
-
-function clearAll(){
+function clearEditor() {
 
     input.value = "";
-    output.value = "";
 
     document.getElementById(
-        "inputCount"
+        "loader"
+    ).value = "";
+
+    document.getElementById(
+        "inputCounter"
     ).textContent =
         "0 chars";
 
     document.getElementById(
-        "outputCount"
-    ).textContent =
-        "0 chars";
-
-    document.getElementById(
-        "urlBox"
+        "result"
     ).style.display =
         "none";
 
+    currentURL = "";
+    currentLoader = "";
+
     toast(
-        "ล้าง Editor แล้ว"
+        "ล้างแล้ว"
     );
 }
 
-/* Vault */
-
-async function loadVault(){
+async function loadVault() {
 
     const list =
         document.getElementById(
             "scriptList"
         );
 
-    try{
+    try {
 
         const response =
             await fetch(
@@ -1406,13 +1035,13 @@ async function loadVault(){
 
         const filtered =
             scripts.filter(
-                x =>
-                    x.name
-                    .toLowerCase()
-                    .includes(search)
+                item =>
+                    item.name
+                        .toLowerCase()
+                        .includes(search)
             );
 
-        if(!filtered.length){
+        if (!filtered.length) {
 
             list.innerHTML =
                 `<div class="empty">
@@ -1423,26 +1052,20 @@ async function loadVault(){
         }
 
         list.innerHTML =
-            filtered.map(
-                item => {
+            filtered.map(item => {
 
-                    const name =
-                        escapeHTML(
-                            item.name
-                        );
+                const date =
+                    new Date(
+                        item.createdAt
+                    ).toLocaleString(
+                        "th-TH"
+                    );
 
-                    const date =
-                        new Date(
-                            item.createdAt
-                        ).toLocaleString(
-                            "th-TH"
-                        );
-
-                    return `
+                return `
                     <div class="script">
 
-                        <div class="script-name">
-                            ${name}
+                        <div class="scriptName">
+                            ${escapeHTML(item.name)}
                         </div>
 
                         <div class="meta">
@@ -1454,22 +1077,22 @@ async function loadVault(){
                             bytes
                         </div>
 
-                        <div class="script-actions">
+                        <div class="scriptButtons">
 
                             <button
-                                onclick="copySaved('${encodeURIComponent(item.url)}')"
+                                onclick="useScript('${item.url}')"
                             >
-                                Copy
+                                Loader
                             </button>
 
                             <button
-                                onclick="window.open('${encodeURIComponent(item.url)}','_blank')"
+                                onclick="copySavedURL('${item.url}')"
                             >
-                                Open
+                                Copy URL
                             </button>
 
                             <button
-                                onclick="deleteScript('${encodeURIComponent(item.id)}')"
+                                onclick="deleteScript('${item.id}')"
                             >
                                 Delete
                             </button>
@@ -1477,61 +1100,85 @@ async function loadVault(){
                         </div>
 
                     </div>
-                    `;
-                }
-            ).join("");
+                `;
 
-    }catch{
+            }).join("");
+
+    } catch {
 
         list.innerHTML =
             `<div class="empty">
-                ไม่สามารถโหลด Vault ได้
+                โหลด Vault ไม่สำเร็จ
             </div>`;
     }
 }
 
-/* Copy saved */
+function useScript(url) {
 
-async function copySaved(encoded){
+    currentURL = url;
 
-    const url =
-        decodeURIComponent(encoded);
+    currentLoader =
+        `loadstring(game:HttpGet("${url}"))()`;
 
-    await navigator.clipboard.writeText(url);
+    document.getElementById(
+        "scriptURL"
+    ).value = currentURL;
+
+    document.getElementById(
+        "loaderInput"
+    ).value = currentLoader;
+
+    document.getElementById(
+        "loader"
+    ).value = currentLoader;
+
+    document.getElementById(
+        "result"
+    ).style.display =
+        "block";
+
+    showPage("editor");
+
+    toast(
+        "โหลด Loader แล้ว"
+    );
+}
+
+async function copySavedURL(url) {
+
+    await navigator.clipboard.writeText(
+        url
+    );
 
     toast(
         "คัดลอก URL แล้ว"
     );
 }
 
-/* Delete */
+async function deleteScript(id) {
 
-async function deleteScript(encoded){
-
-    const id =
-        decodeURIComponent(encoded);
-
-    if(
+    if (
         !confirm(
             "ต้องการลบ Script นี้หรือไม่?"
         )
-    ){
+    ) {
         return;
     }
 
-    try{
+    try {
 
         const response =
             await fetch(
                 "/api/scripts/" +
                 encodeURIComponent(id),
                 {
-                    method:"DELETE"
+                    method: "DELETE"
                 }
             );
 
-        if(!response.ok)
+        if (!response.ok) {
             throw new Error();
+        }
 
         loadVault();
 
@@ -1539,24 +1186,46 @@ async function deleteScript(encoded){
             "ลบ Script แล้ว"
         );
 
-    }catch{
+    } catch {
 
         toast(
-            "ลบไม่สำเร็จ"
+            "ลบ Script ไม่สำเร็จ"
         );
     }
 }
 
-/* Escape */
+async function checkServer() {
 
-function escapeHTML(value){
+    try {
+
+        const response =
+            await fetch(
+                "/api/status"
+            );
+
+        const data =
+            await response.json();
+
+        toast(
+            `Server Online • ${data.scripts} Scripts`
+        );
+
+    } catch {
+
+        toast(
+            "Server Offline"
+        );
+    }
+}
+
+function escapeHTML(value) {
 
     return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 </script>
