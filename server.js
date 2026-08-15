@@ -20,29 +20,14 @@ if (!fs.existsSync(DB_FILE)) {
 
 app.use(express.json({ limit: "5mb" }));
 
-/*
-    index.html อยู่ข้าง server.js
-*/
-app.get("/", (req, res) => {
-    res.sendFile(path.join(ROOT, "index.html"));
-});
-
-/*
-    อ่านฐานข้อมูล
-*/
 function readDB() {
     try {
-        return JSON.parse(
-            fs.readFileSync(DB_FILE, "utf8")
-        );
+        return JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
     } catch {
         return [];
     }
 }
 
-/*
-    เขียนฐานข้อมูล
-*/
 function writeDB(data) {
     fs.writeFileSync(
         DB_FILE,
@@ -51,18 +36,10 @@ function writeDB(data) {
     );
 }
 
-/*
-    สร้าง ID
-*/
 function createID() {
-    return crypto
-        .randomBytes(12)
-        .toString("base64url");
+    return crypto.randomBytes(10).toString("hex");
 }
 
-/*
-    ทำความสะอาดชื่อ
-*/
 function cleanName(name) {
     return String(name || "Untitled")
         .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
@@ -70,29 +47,25 @@ function cleanName(name) {
         .slice(0, 80) || "Untitled";
 }
 
-/*
-    สร้าง Script
-*/
+/* หน้าเว็บ */
+app.get("/", (req, res) => {
+    res.sendFile(path.join(ROOT, "index.html"));
+});
+
+/* สร้าง Script */
 app.post("/api/scripts", (req, res) => {
-
     try {
-
         const name = cleanName(req.body.name);
-        const code = req.body.code;
+        const code = String(req.body.code || "");
 
-        if (
-            typeof code !== "string" ||
-            !code.trim()
-        ) {
+        if (!code.trim()) {
             return res.status(400).json({
-                success: false,
-                error: "ไม่พบ Lua code"
+                error: "กรุณาใส่ Lua Script"
             });
         }
 
-        if (code.length > 2000000) {
+        if (code.length > 5_000_000) {
             return res.status(413).json({
-                success: false,
                 error: "Script ใหญ่เกินไป"
             });
         }
@@ -103,21 +76,21 @@ app.post("/api/scripts", (req, res) => {
 
         do {
             id = createID();
-        } while (
-            db.some(item => item.id === id)
-        );
+        } while (db.some(x => x.id === id));
 
         const filename = `${id}.lua`;
-        const filepath = path.join(
-            SCRIPT_DIR,
-            filename
-        );
+        const filepath = path.join(SCRIPT_DIR, filename);
 
-        fs.writeFileSync(
-            filepath,
-            code,
-            "utf8"
-        );
+        fs.writeFileSync(filepath, code, "utf8");
+
+        const baseURL =
+            `${req.protocol}://${req.get("host")}`;
+
+        const scriptURL =
+            `${baseURL}/scripts/${filename}`;
+
+        const loader =
+            `loadstring(game:HttpGet("${scriptURL}"))()`;
 
         const item = {
             id,
@@ -130,34 +103,25 @@ app.post("/api/scripts", (req, res) => {
         db.push(item);
         writeDB(db);
 
-        const baseURL =
-            `${req.protocol}://${req.get("host")}`;
-
         res.json({
             success: true,
             id,
             name,
-            size: item.size,
-            createdAt: item.createdAt,
-            url: `${baseURL}/scripts/${filename}`
+            url: scriptURL,
+            loader
         });
 
     } catch (error) {
-
         console.error(error);
 
         res.status(500).json({
-            success: false,
-            error: "Server error"
+            error: "เกิดข้อผิดพลาดบน Server"
         });
     }
 });
 
-/*
-    รายการ Script
-*/
+/* รายการ Script */
 app.get("/api/scripts", (req, res) => {
-
     const db = readDB();
 
     const baseURL =
@@ -172,9 +136,7 @@ app.get("/api/scripts", (req, res) => {
     );
 });
 
-/*
-    เปิด Lua Script
-*/
+/* Lua endpoint */
 app.get("/scripts/:filename", (req, res) => {
 
     const filename =
@@ -182,7 +144,7 @@ app.get("/scripts/:filename", (req, res) => {
 
     if (!filename.endsWith(".lua")) {
         return res.status(400).send(
-            "-- Invalid script"
+            "-- Invalid Lua file"
         );
     }
 
@@ -195,7 +157,10 @@ app.get("/scripts/:filename", (req, res) => {
         );
     }
 
-    res.type("text/plain");
+    res.setHeader(
+        "Content-Type",
+        "text/plain; charset=utf-8"
+    );
 
     res.setHeader(
         "Cache-Control",
@@ -207,13 +172,10 @@ app.get("/scripts/:filename", (req, res) => {
     );
 });
 
-/*
-    ลบ Script
-*/
+/* ลบ Script */
 app.delete("/api/scripts/:id", (req, res) => {
 
     const id = String(req.params.id);
-
     const db = readDB();
 
     const item =
@@ -221,7 +183,6 @@ app.delete("/api/scripts/:id", (req, res) => {
 
     if (!item) {
         return res.status(404).json({
-            success: false,
             error: "ไม่พบ Script"
         });
     }
@@ -242,11 +203,8 @@ app.delete("/api/scripts/:id", (req, res) => {
     });
 });
 
-/*
-    Server Status
-*/
+/* Server status */
 app.get("/api/status", (req, res) => {
-
     res.json({
         online: true,
         scripts: readDB().length,
@@ -255,14 +213,11 @@ app.get("/api/status", (req, res) => {
 });
 
 app.listen(PORT, () => {
-
     console.log("");
     console.log("================================");
-    console.log("          REDLUA SERVER");
+    console.log("           REDLUA VAULT");
     console.log("================================");
     console.log("");
-    console.log(
-        `http://localhost:${PORT}`
-    );
+    console.log(`Server: http://localhost:${PORT}`);
     console.log("");
 });
