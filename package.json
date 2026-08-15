@@ -1,7 +1,6 @@
 {
-  "name": "redlua",
+  "name": "redlua-vault",
   "version": "1.0.0",
-  "description": "RedLua Lua Script Obfuscator",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
