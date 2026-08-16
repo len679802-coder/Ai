@@ -2,24 +2,27 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ตอบ | หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#07101d">
+<title>AI Smart Store Pro | ไทเกษตรรุ่งเรืองพานิชย์</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap');
 
 :root{
-    --bg:#07111f;
-    --card:rgba(255,255,255,.07);
-    --card2:rgba(255,255,255,.045);
-    --line:rgba(255,255,255,.11);
-    --text:#f7faff;
-    --muted:#9baabd;
-    --blue:#4da3ff;
-    --cyan:#52d8ff;
-    --purple:#8b6cff;
-    --gold:#e4b95f;
-    --green:#42d392;
+    --bg:#050914;
+    --bg2:#091322;
+    --panel:rgba(255,255,255,.055);
+    --panel2:rgba(255,255,255,.035);
+    --line:rgba(255,255,255,.095);
+    --text:#f5f8fc;
+    --muted:#8b98aa;
+    --blue:#49a9ff;
+    --cyan:#54e7ff;
+    --purple:#8b72ff;
+    --green:#46dc9d;
+    --red:#ff697e;
+    --yellow:#eacb72;
 }
 
 *{
@@ -28,588 +31,835 @@
     padding:0;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
     min-height:100vh;
-    font-family:"Prompt","Kanit",sans-serif;
     color:var(--text);
+    font-family:"Prompt","Kanit",sans-serif;
     background:
-        radial-gradient(circle at 10% 5%,rgba(77,163,255,.18),transparent 28%),
-        radial-gradient(circle at 90% 12%,rgba(139,108,255,.17),transparent 28%),
-        radial-gradient(circle at 50% 100%,rgba(82,216,255,.08),transparent 35%),
-        var(--bg);
-    overflow-x:hidden;
+        radial-gradient(circle at 15% 0%,rgba(73,169,255,.14),transparent 28%),
+        radial-gradient(circle at 90% 10%,rgba(139,114,255,.13),transparent 28%),
+        linear-gradient(135deg,var(--bg),var(--bg2));
 }
 
-body::before{
-    content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    left:-260px;
-    top:35%;
-    border-radius:50%;
-    background:rgba(77,163,255,.08);
-    filter:blur(90px);
-    pointer-events:none;
-}
-
-body::after{
-    content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    right:-260px;
-    top:50%;
-    border-radius:50%;
-    background:rgba(139,108,255,.08);
-    filter:blur(90px);
-    pointer-events:none;
-}
-
-button,
-a{
+button,input{
     font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* BACKGROUND */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.22;
+}
+
+.orb.one{
+    width:400px;
+    height:400px;
+    background:#1479df;
+    left:-220px;
+    top:20%;
+}
+
+.orb.two{
+    width:380px;
+    height:380px;
+    background:#663cdf;
+    right:-220px;
+    bottom:5%;
 }
 
 /* HEADER */
 
 .header{
-    position:sticky;
+    position:fixed;
     top:0;
+    left:0;
+    right:0;
+    height:70px;
     z-index:100;
+    background:rgba(5,9,20,.78);
     border-bottom:1px solid var(--line);
-    background:rgba(7,17,31,.72);
     backdrop-filter:blur(25px);
 }
 
 .header-inner{
-    max-width:1200px;
+    max-width:1350px;
+    height:100%;
     margin:auto;
-    padding:15px 22px;
+    padding:0 20px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:20px;
+    align-items:center;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:13px;
+    gap:11px;
 }
 
 .logo{
-    width:48px;
-    height:48px;
-    border-radius:15px;
+    width:41px;
+    height:41px;
+    border-radius:13px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:21px;
     font-weight:700;
-    color:white;
     background:linear-gradient(135deg,var(--blue),var(--purple));
-    box-shadow:
-        0 8px 30px rgba(77,163,255,.24),
-        inset 0 1px rgba(255,255,255,.35);
+    box-shadow:0 10px 35px rgba(73,169,255,.2);
 }
 
-.brand h1{
-    font-size:17px;
+.brand-name{
+    font-size:12px;
     font-weight:600;
-    line-height:1.35;
 }
 
-.brand p{
+.brand-sub{
+    font-size:7px;
     color:var(--muted);
-    font-size:11px;
-    margin-top:2px;
+    margin-top:1px;
 }
 
-.open-status{
+.system-status{
     display:flex;
     align-items:center;
-    gap:8px;
-    padding:8px 13px;
-    border-radius:50px;
-    background:rgba(66,211,146,.08);
-    border:1px solid rgba(66,211,146,.2);
-    color:#7ee9b7;
-    font-size:12px;
+    gap:7px;
+    font-size:8px;
+    color:#75e1ae;
 }
 
-.status-dot{
+.system-dot{
     width:7px;
     height:7px;
     border-radius:50%;
     background:var(--green);
-    box-shadow:0 0 12px var(--green);
+    box-shadow:0 0 15px var(--green);
 }
 
-/* MAIN */
+/* SIDEBAR */
 
-.container{
-    max-width:1200px;
+.sidebar{
+    position:fixed;
+    left:0;
+    top:70px;
+    bottom:0;
+    width:230px;
+    padding:22px 14px;
+    background:rgba(4,8,16,.55);
+    border-right:1px solid var(--line);
+    z-index:50;
+}
+
+.nav-title{
+    font-size:7px;
+    color:#566479;
+    letter-spacing:1.6px;
+    padding:0 12px 10px;
+}
+
+.nav{
+    width:100%;
+    border:1px solid transparent;
+    border-radius:13px;
+    background:transparent;
+    color:#7f8da1;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:9px;
+    margin-bottom:4px;
+    text-align:left;
+    transition:.2s;
+}
+
+.nav:hover{
+    color:white;
+    background:rgba(255,255,255,.04);
+}
+
+.nav.active{
+    color:white;
+    border-color:rgba(73,169,255,.16);
+    background:linear-gradient(
+        135deg,
+        rgba(73,169,255,.13),
+        rgba(139,114,255,.09)
+    );
+}
+
+.nav-icon{
+    width:29px;
+    height:29px;
+    border-radius:9px;
+    background:rgba(255,255,255,.045);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:230px;
+    padding-top:70px;
+    min-height:100vh;
+}
+
+.page{
+    display:none;
+    max-width:1120px;
     margin:auto;
-    padding:35px 22px 70px;
+    padding:45px 30px 100px;
+    animation:pageIn .3s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
 }
 
 /* HERO */
 
 .hero{
+    min-height:620px;
+    display:flex;
+    align-items:center;
     position:relative;
-    overflow:hidden;
-    border:1px solid var(--line);
-    border-radius:28px;
-    padding:48px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(77,163,255,.13),
-            rgba(139,108,255,.08) 50%,
-            rgba(255,255,255,.035)
-        );
-    box-shadow:0 25px 80px rgba(0,0,0,.18);
-}
-
-.hero::before{
-    content:"";
-    position:absolute;
-    width:320px;
-    height:320px;
-    right:-120px;
-    top:-170px;
-    border-radius:50%;
-    background:rgba(82,216,255,.14);
-    filter:blur(10px);
-}
-
-.hero::after{
-    content:"";
-    position:absolute;
-    width:230px;
-    height:230px;
-    right:120px;
-    bottom:-170px;
-    border-radius:50%;
-    background:rgba(139,108,255,.15);
-    filter:blur(20px);
 }
 
 .hero-content{
-    position:relative;
-    z-index:2;
-    max-width:760px;
+    max-width:730px;
 }
 
-.hero-tag{
+.pill{
     display:inline-flex;
     align-items:center;
     gap:8px;
     padding:7px 12px;
     border-radius:50px;
-    background:rgba(255,255,255,.06);
-    border:1px solid var(--line);
-    color:#bddcff;
-    font-size:11px;
-    letter-spacing:.4px;
-    margin-bottom:18px;
+    border:1px solid rgba(84,231,255,.16);
+    background:rgba(84,231,255,.04);
+    color:#9beaff;
+    font-size:8px;
 }
 
-.hero-tag span{
+.pill-dot{
     width:6px;
     height:6px;
     border-radius:50%;
     background:var(--cyan);
-    box-shadow:0 0 12px var(--cyan);
+    box-shadow:0 0 13px var(--cyan);
 }
 
-.hero h2{
-    font-size:38px;
-    line-height:1.25;
+.hero h1{
+    font-size:clamp(42px,6vw,76px);
+    line-height:1.03;
+    letter-spacing:-2.5px;
+    margin-top:20px;
     font-weight:600;
-    margin-bottom:13px;
 }
 
-.hero h2 em{
-    font-style:normal;
+.gradient{
     background:linear-gradient(
         90deg,
-        var(--blue),
-        var(--cyan),
-        #b18cff
+        #fff,
+        #65caff,
+        #957dff
     );
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
 }
 
-.hero-description{
-    color:var(--muted);
-    font-size:14px;
-    max-width:670px;
-    line-height:1.9;
-}
-
-/* QUICK INFO */
-
-.quick-info{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin-top:18px;
-}
-
-.quick-card{
-    border:1px solid var(--line);
-    background:var(--card2);
-    backdrop-filter:blur(15px);
-    border-radius:18px;
-    padding:17px;
-    transition:.25s;
-}
-
-.quick-card:hover{
-    transform:translateY(-3px);
-    background:rgba(255,255,255,.08);
-    border-color:rgba(77,163,255,.28);
-}
-
-.quick-icon{
-    width:36px;
-    height:36px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:11px;
-    background:rgba(77,163,255,.1);
-    color:var(--cyan);
-    margin-bottom:10px;
-}
-
-.quick-label{
-    color:var(--muted);
-    font-size:10px;
-}
-
-.quick-value{
-    margin-top:2px;
-    font-size:14px;
-    font-weight:500;
-}
-
-/* SECTION */
-
-.section{
-    margin-top:42px;
-}
-
-.section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    margin-bottom:17px;
-}
-
-.section-title{
-    font-size:22px;
-    font-weight:600;
-}
-
-.section-sub{
-    color:var(--muted);
-    font-size:12px;
-    margin-top:2px;
-}
-
-/* QUESTION */
-
-.question-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:13px;
-}
-
-.question{
-    position:relative;
-    overflow:hidden;
-    text-align:left;
-    color:var(--text);
-    border:1px solid var(--line);
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.075),
-        rgba(255,255,255,.035)
-    );
-    border-radius:19px;
-    padding:20px;
-    cursor:pointer;
-    transition:.25s;
-}
-
-.question::after{
-    content:"→";
-    position:absolute;
-    right:17px;
-    bottom:15px;
-    color:#667b92;
-    transition:.25s;
-}
-
-.question:hover{
-    transform:translateY(-4px);
-    border-color:rgba(77,163,255,.42);
-    background:linear-gradient(
-        145deg,
-        rgba(77,163,255,.12),
-        rgba(139,108,255,.06)
-    );
-    box-shadow:0 15px 40px rgba(0,0,0,.18);
-}
-
-.question:hover::after{
-    color:var(--cyan);
-    transform:translateX(4px);
-}
-
-.question:active{
-    transform:scale(.98);
-}
-
-.question-icon{
-    width:45px;
-    height:45px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:13px;
-    font-size:20px;
-    background:rgba(77,163,255,.1);
-    border:1px solid rgba(77,163,255,.14);
-    margin-bottom:14px;
-}
-
-.question h3{
-    font-size:15px;
-    font-weight:500;
-    margin-bottom:3px;
-}
-
-.question p{
+.hero-desc{
     color:var(--muted);
     font-size:11px;
-}
-
-/* ANSWER */
-
-.answer-wrap{
-    margin-top:18px;
-    border:1px solid var(--line);
-    border-radius:22px;
-    overflow:hidden;
-    background:rgba(255,255,255,.045);
-    backdrop-filter:blur(18px);
-    box-shadow:0 20px 60px rgba(0,0,0,.14);
-}
-
-.answer-head{
-    padding:16px 20px;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    background:rgba(255,255,255,.025);
-}
-
-.answer-head-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.answer-mini{
-    width:30px;
-    height:30px;
-    border-radius:9px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(77,163,255,.12);
-    color:var(--cyan);
-}
-
-.answer-head strong{
-    font-size:13px;
-}
-
-.answer-head span{
-    color:var(--muted);
-    font-size:10px;
-}
-
-.answer{
-    min-height:160px;
-    padding:27px;
-}
-
-.empty{
-    min-height:110px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:var(--muted);
-    font-size:13px;
-}
-
-.empty-icon{
-    font-size:30px;
-    opacity:.5;
-    margin-bottom:7px;
-}
-
-.detail-title{
-    font-size:24px;
-    font-weight:600;
-    margin-bottom:9px;
-}
-
-.detail-text{
-    color:#b6c2d0;
-    font-size:14px;
     line-height:1.9;
-}
-
-.highlight{
-    margin-top:19px;
-    padding:18px;
-    border-radius:15px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(77,163,255,.09),
-            rgba(139,108,255,.06)
-        );
-    border:1px solid rgba(77,163,255,.16);
-}
-
-.highlight-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    padding:9px 0;
-    border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.highlight-row:last-child{
-    border-bottom:none;
-}
-
-.highlight-label{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.highlight-value{
-    color:#eef6ff;
-    font-size:13px;
-    text-align:right;
-}
-
-/* BUTTONS */
-
-.actions{
-    display:flex;
-    gap:9px;
-    flex-wrap:wrap;
+    max-width:650px;
     margin-top:20px;
 }
 
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:24px;
+}
+
 .btn{
-    border:none;
-    text-decoration:none;
-    cursor:pointer;
+    min-height:43px;
+    padding:0 15px;
+    border-radius:11px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
+    color:white;
+    font-size:9px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
-    min-height:43px;
-    padding:0 17px;
-    border-radius:11px;
-    font-size:12px;
-    font-weight:500;
+    gap:7px;
     transition:.2s;
 }
 
-.btn-primary{
-    color:white;
-    background:linear-gradient(135deg,#328de3,#5b73e8);
-    box-shadow:0 8px 25px rgba(77,163,255,.18);
-}
-
-.btn-primary:hover{
+.btn:hover{
     transform:translateY(-2px);
-    box-shadow:0 12px 30px rgba(77,163,255,.28);
 }
 
-.btn-secondary{
-    color:#d9e8f8;
-    background:rgba(255,255,255,.06);
+.btn.primary{
+    border:none;
+    background:linear-gradient(135deg,#3d97e9,#6a60d9);
+    box-shadow:0 12px 30px rgba(73,169,255,.12);
+}
+
+.hero-card{
+    position:absolute;
+    right:0;
+    bottom:110px;
+    width:295px;
+    padding:18px;
+    border-radius:22px;
     border:1px solid var(--line);
+    background:rgba(255,255,255,.045);
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 90px rgba(0,0,0,.3);
 }
 
-.btn-secondary:hover{
-    background:rgba(255,255,255,.1);
-}
-
-.btn-gold{
-    color:#151515;
-    background:linear-gradient(135deg,#e1b55b,#f0ce7b);
-}
-
-.btn-gold:hover{
-    transform:translateY(-2px);
-}
-
-/* FOOTER */
-
-.footer{
-    margin-top:50px;
-    border-top:1px solid var(--line);
-    background:rgba(4,10,19,.65);
-}
-
-.footer-inner{
-    max-width:1200px;
-    margin:auto;
-    padding:27px 22px;
+.hero-card-top{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:20px;
+    align-items:center;
 }
 
-.footer-name{
-    font-size:13px;
-    font-weight:500;
+.hero-card-label{
+    font-size:7px;
+    color:#647388;
+    letter-spacing:1px;
 }
 
-.footer-desc{
+.status-badge{
+    font-size:7px;
+    padding:5px 8px;
+    border-radius:50px;
+    color:#76e2ae;
+    background:rgba(70,220,157,.08);
+    border:1px solid rgba(70,220,157,.14);
+}
+
+.hero-card h3{
+    margin-top:15px;
+    font-size:16px;
+}
+
+.hero-card p{
+    margin-top:4px;
     color:var(--muted);
-    font-size:10px;
+    font-size:8px;
+    line-height:1.8;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-top:14px;
+}
+
+.stat{
+    padding:10px;
+    border-radius:10px;
+    background:rgba(255,255,255,.035);
+}
+
+.stat small{
+    display:block;
+    color:#64748a;
+    font-size:6px;
+}
+
+.stat strong{
+    display:block;
+    margin-top:3px;
+    font-size:9px;
+}
+
+/* HEADING */
+
+.heading{
+    margin-bottom:22px;
+}
+
+.heading-mini{
+    font-size:7px;
+    letter-spacing:1.6px;
+    color:var(--cyan);
+}
+
+.heading h2{
+    font-size:31px;
+    margin-top:4px;
+}
+
+.heading p{
+    font-size:9px;
+    color:var(--muted);
     margin-top:3px;
 }
 
-.footer-phone{
-    color:#bfe4ff;
+/* DASH */
+
+.dash-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+    margin-top:20px;
+}
+
+.dash{
+    padding:16px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:16px;
+}
+
+.dash-icon{
+    font-size:18px;
+}
+
+.dash small{
+    display:block;
+    color:var(--muted);
+    font-size:7px;
+    margin-top:9px;
+}
+
+.dash strong{
+    display:block;
+    font-size:12px;
+    margin-top:2px;
+}
+
+/* CHAT */
+
+.chat{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.032);
+    border-radius:23px;
+    overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.25);
+}
+
+.chat-header{
+    height:67px;
+    padding:0 17px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.ai-profile{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.ai-logo{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#398fe4,#7864dc);
+    box-shadow:0 8px 25px rgba(73,169,255,.15);
+}
+
+.ai-name{
+    font-size:10px;
+    font-weight:600;
+}
+
+.ai-sub{
+    display:block;
+    color:var(--muted);
+    font-size:7px;
+    margin-top:1px;
+}
+
+.ready{
+    color:#72dfac;
+    font-size:7px;
+}
+
+.chat-body{
+    height:500px;
+    overflow-y:auto;
+    padding:18px;
+}
+
+.chat-body::-webkit-scrollbar{
+    width:4px;
+}
+
+.chat-body::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.1);
+    border-radius:20px;
+}
+
+.message{
+    display:flex;
+    margin-bottom:14px;
+    animation:messageIn .25s ease;
+}
+
+.message.user{
+    justify-content:flex-end;
+}
+
+@keyframes messageIn{
+    from{
+        opacity:0;
+        transform:translateY(5px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.bubble{
+    max-width:80%;
+    padding:11px 13px;
+    border-radius:14px;
+    font-size:9px;
+    line-height:1.8;
+}
+
+.message.bot .bubble{
+    background:rgba(255,255,255,.045);
+    border:1px solid var(--line);
+    border-top-left-radius:5px;
+}
+
+.message.user .bubble{
+    background:linear-gradient(135deg,#367fc6,#615dca);
+    border-top-right-radius:5px;
+}
+
+.answer-box{
+    margin-top:9px;
+    padding:10px;
+    border-radius:10px;
+    background:rgba(73,169,255,.05);
+    border:1px solid rgba(73,169,255,.1);
+}
+
+.answer-good{
+    color:#72dfac;
+    font-size:7px;
+    margin-bottom:6px;
+}
+
+.answer-bad{
+    color:#ff8796;
+    font-size:7px;
+    margin-bottom:6px;
+}
+
+.action-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:9px;
+}
+
+.mini-btn{
+    height:29px;
+    padding:0 9px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:rgba(255,255,255,.035);
+    color:white;
+    font-size:7px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.mini-btn.primary{
+    border:0;
+    background:linear-gradient(135deg,#398fdf,#655ed0);
+}
+
+.confidence{
+    margin-top:8px;
+    color:#5f6d81;
+    font-size:6px;
+}
+
+.confidence-bar{
+    height:3px;
+    border-radius:20px;
+    background:rgba(255,255,255,.07);
+    overflow:hidden;
+    margin-top:4px;
+}
+
+.confidence-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--blue),var(--purple));
+}
+
+.chat-input{
+    padding:12px;
+    border-top:1px solid var(--line);
+}
+
+.input-row{
+    display:flex;
+    gap:7px;
+}
+
+.question{
+    flex:1;
+    height:45px;
+    outline:none;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:rgba(255,255,255,.045);
+    color:white;
+    padding:0 12px;
+    font-size:9px;
+}
+
+.question:focus{
+    border-color:rgba(73,169,255,.4);
+}
+
+.send{
+    width:47px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(135deg,#3d97e9,#695fd8);
+    color:white;
+    font-size:16px;
+}
+
+.voice{
+    width:47px;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:rgba(255,255,255,.04);
+    color:white;
+}
+
+.voice.listening{
+    color:#ff7588;
+    border-color:rgba(255,105,126,.4);
+    box-shadow:0 0 20px rgba(255,105,126,.12);
+}
+
+.suggestions{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+    margin-top:7px;
+}
+
+.suggestion{
+    border:1px solid var(--line);
+    border-radius:50px;
+    background:rgba(255,255,255,.025);
+    color:#8491a4;
+    font-size:6px;
+    padding:5px 8px;
+}
+
+.chat-tools{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:8px;
+}
+
+.chat-tools button{
+    border:0;
+    background:none;
+    color:#657388;
+    font-size:7px;
+}
+
+/* CARDS */
+
+.grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px;
+}
+
+.card{
+    padding:20px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:var(--panel);
+}
+
+.big-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:rgba(73,169,255,.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.card h3{
+    font-size:17px;
+    margin-top:14px;
+}
+
+.card p{
+    color:var(--muted);
+    font-size:9px;
+    line-height:1.9;
+    margin-top:5px;
+}
+
+/* MAP */
+
+.map{
+    height:300px;
+    border-radius:16px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:
+        linear-gradient(135deg,
+        rgba(73,169,255,.08),
+        rgba(139,114,255,.08));
+}
+
+.map-lines{
+    position:absolute;
+    inset:-60%;
+    background-image:
+        linear-gradient(
+            30deg,
+            transparent 47%,
+            rgba(255,255,255,.08) 48%,
+            transparent 50%
+        ),
+        linear-gradient(
+            150deg,
+            transparent 47%,
+            rgba(255,255,255,.06) 48%,
+            transparent 50%
+        );
+    background-size:100px 100px;
+    transform:rotate(5deg);
+}
+
+.map-pin{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(73,169,255,.12);
+    border:1px solid rgba(73,169,255,.3);
+    box-shadow:0 0 60px rgba(73,169,255,.3);
+    font-size:22px;
+}
+
+.map-label{
+    position:absolute;
+    left:50%;
+    top:calc(50% + 45px);
+    transform:translateX(-50%);
+    white-space:nowrap;
+    padding:6px 9px;
+    border-radius:8px;
+    background:rgba(5,9,20,.92);
+    border:1px solid var(--line);
+    font-size:7px;
+}
+
+/* CONTACT */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.contact{
+    padding:19px;
+    border:1px solid var(--line);
+    border-radius:17px;
+    background:var(--panel);
+}
+
+.contact-icon{
+    font-size:20px;
+}
+
+.contact small{
+    display:block;
+    color:var(--muted);
+    font-size:7px;
+    margin-top:9px;
+}
+
+.contact strong{
+    display:block;
     font-size:14px;
-    font-weight:500;
+    margin-top:2px;
+}
+
+.contact p{
+    color:var(--muted);
+    font-size:8px;
+    line-height:1.7;
+    margin-top:4px;
 }
 
 /* TOAST */
@@ -617,1125 +867,2310 @@ a{
 .toast{
     position:fixed;
     left:50%;
-    bottom:25px;
-    z-index:999;
+    bottom:22px;
     transform:translate(-50%,100px);
-    padding:12px 18px;
-    border:1px solid var(--line);
-    border-radius:12px;
-    background:rgba(8,18,32,.92);
-    backdrop-filter:blur(20px);
-    color:white;
-    font-size:12px;
     opacity:0;
-    transition:.3s;
-    box-shadow:0 15px 45px rgba(0,0,0,.3);
+    padding:10px 14px;
+    border:1px solid var(--line);
+    background:rgba(5,9,20,.95);
+    border-radius:10px;
+    font-size:8px;
+    z-index:999;
+    transition:.25s;
 }
 
 .toast.show{
-    opacity:1;
     transform:translate(-50%,0);
+    opacity:1;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 
-@media(max-width:900px){
-
-    .quick-info{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .question-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+.mobile-nav{
+    display:none;
 }
 
-@media(max-width:600px){
+@media(max-width:950px){
 
-    .header-inner{
-        padding:12px 15px;
-    }
-
-    .brand h1{
-        font-size:14px;
-    }
-
-    .brand p{
-        font-size:9px;
-    }
-
-    .logo{
-        width:42px;
-        height:42px;
-        border-radius:12px;
-        font-size:18px;
-    }
-
-    .open-status{
+    .hero-card{
         display:none;
     }
 
-    .container{
-        padding:20px 13px 45px;
+}
+
+@media(max-width:700px){
+
+    .header{
+        height:62px;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .content{
+        margin-left:0;
+        padding-top:62px;
+        padding-bottom:70px;
+    }
+
+    .page{
+        padding:28px 13px 45px;
     }
 
     .hero{
-        padding:29px 21px;
-        border-radius:22px;
+        min-height:calc(100vh - 140px);
     }
 
-    .hero h2{
-        font-size:27px;
+    .hero h1{
+        font-size:41px;
+        letter-spacing:-1px;
     }
 
-    .hero-description{
-        font-size:12px;
+    .hero-desc{
+        font-size:9px;
     }
 
-    .quick-info{
-        gap:8px;
+    .actions{
+        display:grid;
+        grid-template-columns:1fr 1fr;
     }
 
-    .quick-card{
-        padding:13px;
-        border-radius:14px;
+    .btn{
+        width:100%;
     }
 
-    .quick-value{
-        font-size:12px;
+    .dash-grid{
+        grid-template-columns:1fr 1fr;
     }
 
-    .question-grid{
+    .grid2,
+    .contact-grid{
         grid-template-columns:1fr;
-        gap:9px;
     }
 
-    .question{
-        min-height:92px;
-        padding:16px;
+    .chat-body{
+        height:470px;
+        padding:13px;
     }
 
-    .question-icon{
-        width:39px;
-        height:39px;
-        margin-bottom:9px;
+    .bubble{
+        max-width:91%;
+        font-size:8px;
     }
 
-    .section{
-        margin-top:30px;
+    .mobile-nav{
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        height:67px;
+        z-index:100;
+        display:flex;
+        background:rgba(5,9,20,.92);
+        backdrop-filter:blur(22px);
+        border-top:1px solid var(--line);
     }
 
-    .section-title{
-        font-size:19px;
+    .mobile-nav button{
+        flex:1;
+        border:0;
+        background:transparent;
+        color:#637187;
+        font-size:6px;
     }
 
-    .answer{
-        padding:20px 17px;
+    .mobile-nav button span{
+        display:block;
+        font-size:17px;
+        margin-bottom:2px;
     }
 
-    .detail-title{
-        font-size:21px;
+    .mobile-nav button.active{
+        color:#7dcfff;
     }
 
-    .detail-text{
-        font-size:13px;
-    }
-
-    .highlight-row{
-        align-items:flex-start;
-        flex-direction:column;
-        gap:2px;
-    }
-
-    .highlight-value{
-        text-align:left;
-    }
-
-    .footer-inner{
-        flex-direction:column;
-        align-items:flex-start;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
+<div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+</div>
 
+<header class="header">
     <div class="header-inner">
 
         <div class="brand">
-
             <div class="logo">ต</div>
 
             <div>
-                <h1>
-                    หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
-                </h1>
+                <div class="brand-name">
+                    ไทเกษตรรุ่งเรืองพานิชย์
+                </div>
+                <div class="brand-sub">
+                    AI SMART STORE • ROI ET
+                </div>
+            </div>
+        </div>
 
-                <p>
-                    ศูนย์ข้อมูลร้านค้าอย่างเป็นทางการ
-                </p>
+        <div class="system-status">
+            <span class="system-dot"></span>
+            <span id="systemStatus">ระบบพร้อมใช้งาน</span>
+        </div>
+
+    </div>
+</header>
+
+
+<aside class="sidebar">
+
+    <div class="nav-title">
+        SMART STORE
+    </div>
+
+    <button class="nav active"
+            data-page="home"
+            onclick="navigate('home')">
+        <span class="nav-icon">⌂</span>
+        หน้าหลัก
+    </button>
+
+    <button class="nav"
+            data-page="ask"
+            onclick="navigate('ask')">
+        <span class="nav-icon">✦</span>
+        AI ผู้ช่วยร้าน
+    </button>
+
+    <button class="nav"
+            data-page="products"
+            onclick="navigate('products')">
+        <span class="nav-icon">▦</span>
+        สินค้า
+    </button>
+
+    <button class="nav"
+            data-page="location"
+            onclick="navigate('location')">
+        <span class="nav-icon">⌖</span>
+        สถานที่
+    </button>
+
+    <button class="nav"
+            data-page="contact"
+            onclick="navigate('contact')">
+        <span class="nav-icon">☎</span>
+        ติดต่อร้าน
+    </button>
+
+</aside>
+
+
+<main class="content">
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <div class="pill">
+                <span class="pill-dot"></span>
+                AI SMART STORE
+            </div>
+
+            <h1>
+                หจก.
+                <span class="gradient">
+                    ไทเกษตรรุ่งเรือง
+                </span>
+                พานิชย์ร้อยเอ็ด
+            </h1>
+
+            <p class="hero-desc">
+                ผู้ช่วยอัจฉริยะสำหรับตอบคำถามเกี่ยวกับร้าน
+                ไม่จำเป็นต้องถามตามประโยคที่กำหนดไว้
+                สามารถถามเรื่องสถานที่ สินค้า เวลาเปิด-ปิด
+                การจัดส่ง การชำระเงิน และข้อมูลร้านได้
+            </p>
+
+            <div class="actions">
+
+                <button class="btn primary"
+                        onclick="navigate('ask')">
+                    ✦ คุยกับ AI
+                </button>
+
+                <button class="btn"
+                        onclick="navigate('location')">
+                    📍 ดูร้าน
+                </button>
+
+                <button class="btn"
+                        onclick="shareStore()">
+                    ↗ แชร์ร้าน
+                </button>
+
+            </div>
+
+            <div class="dash-grid">
+
+                <div class="dash">
+                    <div class="dash-icon">🛒</div>
+                    <small>สินค้า</small>
+                    <strong>ปุ๋ยและอื่น ๆ</strong>
+                </div>
+
+                <div class="dash">
+                    <div class="dash-icon">🕐</div>
+                    <small>เวลาทำการ</small>
+                    <strong>08:00–17:00</strong>
+                </div>
+
+                <div class="dash">
+                    <div class="dash-icon">☎</div>
+                    <small>โทร</small>
+                    <strong>092 362 8796</strong>
+                </div>
+
+                <div class="dash">
+                    <div class="dash-icon">💳</div>
+                    <small>ชำระเงิน</small>
+                    <strong>สด / โอน</strong>
+                </div>
+
             </div>
 
         </div>
 
-        <div class="open-status">
-            <span class="status-dot"></span>
-            เปิด 08:00–17:00
+
+        <div class="hero-card">
+
+            <div class="hero-card-top">
+                <span class="hero-card-label">
+                    LIVE STORE STATUS
+                </span>
+
+                <span class="status-badge"
+                      id="heroStatus">
+                    กำลังตรวจสอบ
+                </span>
+            </div>
+
+            <h3>
+                ร้านไทเกษตรรุ่งเรืองพานิชย์
+            </h3>
+
+            <p>
+                บ้านธวัชดินแดง ข้าง ๆ เซเว่น
+                จังหวัดร้อยเอ็ด
+            </p>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <small>เปิด</small>
+                    <strong>08:00</strong>
+                </div>
+
+                <div class="stat">
+                    <small>ปิด</small>
+                    <strong>17:00</strong>
+                </div>
+
+                <div class="stat">
+                    <small>สถานะ</small>
+                    <strong id="heroTime">
+                        -
+                    </strong>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
-</header>
+</section>
 
 
-<main class="container">
+<!-- AI -->
 
-    <section class="hero">
+<section id="ask" class="page">
 
-        <div class="hero-content">
+    <div class="heading">
+        <div class="heading-mini">
+            AI ASSISTANT
+        </div>
 
-            <div class="hero-tag">
-                <span></span>
-                SHOP INFORMATION CENTER
+        <h2>
+            ผู้ช่วยร้านอัจฉริยะ
+        </h2>
+
+        <p>
+            ถามแบบภาษาคนได้เลย ระบบจะพยายามเข้าใจความหมาย
+        </p>
+    </div>
+
+
+    <div class="chat">
+
+        <div class="chat-header">
+
+            <div class="ai-profile">
+
+                <div class="ai-logo">
+                    ✦
+                </div>
+
+                <div>
+                    <div class="ai-name">
+                        Thai Kaset AI
+                    </div>
+
+                    <span class="ai-sub">
+                        Smart Store Assistant
+                    </span>
+                </div>
+
             </div>
 
-            <h2>
-                ยินดีต้อนรับสู่
-                <em>ศูนย์ข้อมูลร้าน</em>
-            </h2>
+            <div class="ready">
+                ● READY
+            </div>
 
-            <p class="hero-description">
-                หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
-                เลือกหัวข้อด้านล่างเพื่อดูข้อมูลสถานที่
-                สินค้า เวลาเปิดทำการ การติดต่อ
-                การจัดส่ง และช่องทางการชำระเงิน
+        </div>
+
+
+        <div class="chat-body"
+             id="chatBody">
+
+            <div class="message bot">
+
+                <div class="bubble">
+
+                    <div class="answer-good">
+                        ✓ AI พร้อมช่วย
+                    </div>
+
+                    สวัสดี ยินดีต้อนรับสู่
+                    <strong>
+                        หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
+                    </strong>
+
+                    <div class="answer-box">
+                        ลองถามแบบธรรมชาติได้เลย เช่น
+                        <br><br>
+                        “ร้านใกล้เปิดยัง”
+                        <br>
+                        “ถ้าไปตอนบ่ายสามยังทันไหม”
+                        <br>
+                        “ร้านอยู่ตรงเซเว่นไหน”
+                        <br>
+                        “มีอะไรขายบ้าง”
+                        <br>
+                        “ขอเบอร์ร้านหน่อย”
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+            <div class="input-row">
+
+                <input
+                    id="questionInput"
+                    class="question"
+                    autocomplete="off"
+                    placeholder="พิมพ์คำถามเกี่ยวกับร้าน...">
+
+                <button
+                    class="voice"
+                    id="voiceButton"
+                    onclick="startVoice()">
+                    🎙
+                </button>
+
+                <button
+                    class="send"
+                    onclick="sendQuestion()">
+                    ➤
+                </button>
+
+            </div>
+
+
+            <div class="suggestions">
+
+                <button class="suggestion"
+                        onclick="quickAsk('ร้านใกล้เปิดยัง')">
+                    ร้านใกล้เปิดยัง
+                </button>
+
+                <button class="suggestion"
+                        onclick="quickAsk('ตอนนี้ร้านเปิดไหม')">
+                    ตอนนี้เปิดไหม
+                </button>
+
+                <button class="suggestion"
+                        onclick="quickAsk('ร้านอยู่ตรงไหน')">
+                    ร้านอยู่ไหน
+                </button>
+
+                <button class="suggestion"
+                        onclick="quickAsk('ขายอะไรบ้าง')">
+                    ขายอะไร
+                </button>
+
+                <button class="suggestion"
+                        onclick="quickAsk('มีส่งไหม')">
+                    มีส่งไหม
+                </button>
+
+                <button class="suggestion"
+                        onclick="quickAsk('โอนได้ไหม')">
+                    โอนได้ไหม
+                </button>
+
+            </div>
+
+
+            <div class="chat-tools">
+
+                <button onclick="clearChat()">
+                    ล้างบทสนทนา
+                </button>
+
+                <button onclick="shareStore()">
+                    แชร์ข้อมูลร้าน
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section id="products" class="page">
+
+    <div class="heading">
+        <div class="heading-mini">PRODUCTS</div>
+        <h2>สินค้า</h2>
+        <p>ข้อมูลสินค้าเบื้องต้น</p>
+    </div>
+
+    <div class="card">
+
+        <div class="big-icon">
+            🛒
+        </div>
+
+        <h3>
+            ปุ๋ยและสินค้าอื่น ๆ
+        </h3>
+
+        <p>
+            ร้านจำหน่ายปุ๋ยและสินค้าอื่น ๆ
+            สำหรับงานด้านการเกษตร
+        </p>
+
+        <div class="answer-box">
+            ราคาสินค้าขึ้นอยู่กับรายการสินค้า
+            ระบบจะไม่เดาราคาเองหากไม่มีข้อมูลราคาปัจจุบัน
+        </div>
+
+        <div class="actions">
+
+            <a href="tel:0923628796"
+               class="btn primary">
+                ☎ โทรถามราคา
+            </a>
+
+            <button class="btn"
+                    onclick="navigate('ask')">
+                ✦ ถาม AI
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOCATION -->
+
+<section id="location" class="page">
+
+    <div class="heading">
+        <div class="heading-mini">LOCATION</div>
+        <h2>สถานที่ร้าน</h2>
+        <p>เปิด Google Maps เพื่อค้นหาร้าน</p>
+    </div>
+
+    <div class="grid2">
+
+        <div class="card">
+
+            <div class="big-icon">
+                📍
+            </div>
+
+            <h3>
+                ร้านไทเกษตรรุ่งเรืองพานิชย์
+            </h3>
+
+            <p>
+                บ้านธวัชดินแดง
+                ข้าง ๆ เซเว่น
+                จังหวัดร้อยเอ็ด
+            </p>
+
+            <div class="actions">
+
+                <a
+                    href="https://www.google.com/maps/search/?api=1&query=ร้านไทเกษตรรุ่งเรืองพานิชย์"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn primary">
+                    📍 เปิด Google Maps
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="map">
+
+                <div class="map-lines"></div>
+
+                <div class="map-pin">
+                    📍
+                </div>
+
+                <div class="map-label">
+                    ร้านไทเกษตรรุ่งเรืองพานิชย์
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="page">
+
+    <div class="heading">
+        <div class="heading-mini">CONTACT</div>
+        <h2>ติดต่อร้าน</h2>
+        <p>ข้อมูลสำหรับติดต่อร้านโดยตรง</p>
+    </div>
+
+    <div class="contact-grid">
+
+        <div class="contact">
+
+            <div class="contact-icon">
+                ☎
+            </div>
+
+            <small>
+                เบอร์โทร
+            </small>
+
+            <strong>
+                092 362 8796
+            </strong>
+
+            <p>
+                ติดต่อสอบถามสินค้า ราคา
+                และรายละเอียดต่าง ๆ
+            </p>
+
+            <div class="actions">
+
+                <a href="tel:0923628796"
+                   class="btn primary">
+                    โทรหาร้าน
+                </a>
+
+                <button class="btn"
+                        onclick="copyPhone()">
+                    คัดลอก
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact">
+
+            <div class="contact-icon">
+                🕐
+            </div>
+
+            <small>
+                เวลาทำการ
+            </small>
+
+            <strong>
+                08:00 – 17:00 น.
+            </strong>
+
+            <p id="contactStatus">
+                กำลังตรวจสอบสถานะ
             </p>
 
         </div>
 
-    </section>
 
+        <div class="contact">
 
-    <section class="quick-info">
-
-        <div class="quick-card">
-            <div class="quick-icon">◷</div>
-            <div class="quick-label">เวลาทำการ</div>
-            <div class="quick-value">08:00 – 17:00 น.</div>
-        </div>
-
-        <div class="quick-card">
-            <div class="quick-icon">☎</div>
-            <div class="quick-label">โทรศัพท์</div>
-            <div class="quick-value">092 362 8796</div>
-        </div>
-
-        <div class="quick-card">
-            <div class="quick-icon">▣</div>
-            <div class="quick-label">บริการจัดส่ง</div>
-            <div class="quick-value">มีบริการส่ง</div>
-        </div>
-
-        <div class="quick-card">
-            <div class="quick-icon">฿</div>
-            <div class="quick-label">การชำระเงิน</div>
-            <div class="quick-value">เงินสด / โอนเงิน</div>
-        </div>
-
-    </section>
-
-
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-                <div class="section-title">
-                    ต้องการทราบข้อมูลอะไร?
-                </div>
-
-                <div class="section-sub">
-                    เลือกหัวข้อเพื่อรับคำตอบทันที
-                </div>
+            <div class="contact-icon">
+                💳
             </div>
 
-        </div>
+            <small>
+                การชำระเงิน
+            </small>
 
+            <strong>
+                เงินสด / โอนเงิน
+            </strong>
 
-        <div class="question-grid">
-
-            <button class="question"
-                onclick="showAnswer('location')">
-
-                <div class="question-icon">📍</div>
-
-                <h3>ร้านอยู่ที่ไหน?</h3>
-
-                <p>
-                    เปิด Google Maps ค้นหาร้าน
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('products')">
-
-                <div class="question-icon">▦</div>
-
-                <h3>ร้านขายอะไร?</h3>
-
-                <p>
-                    ดูประเภทสินค้าและบริการ
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('phone')">
-
-                <div class="question-icon">☎</div>
-
-                <h3>เบอร์โทรติดต่อ</h3>
-
-                <p>
-                    โทรหรือคัดลอกหมายเลข
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('hours')">
-
-                <div class="question-icon">◷</div>
-
-                <h3>เปิดกี่โมง?</h3>
-
-                <p>
-                    ดูเวลาเปิดและปิดร้าน
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('delivery')">
-
-                <div class="question-icon">▣</div>
-
-                <h3>มีบริการส่งไหม?</h3>
-
-                <p>
-                    ข้อมูลการจัดส่งสินค้า
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('payment')">
-
-                <div class="question-icon">฿</div>
-
-                <h3>ชำระเงินแบบไหน?</h3>
-
-                <p>
-                    ดูช่องทางการชำระเงิน
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('price')">
-
-                <div class="question-icon">◇</div>
-
-                <h3>ราคาสินค้าเท่าไหร่?</h3>
-
-                <p>
-                    สอบถามราคาสินค้ากับร้าน
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('contact')">
-
-                <div class="question-icon">✆</div>
-
-                <h3>ติดต่อร้าน</h3>
-
-                <p>
-                    ช่องทางติดต่อร้านโดยตรง
-                </p>
-
-            </button>
-
-
-            <button class="question"
-                onclick="showAnswer('all')">
-
-                <div class="question-icon">≡</div>
-
-                <h3>ข้อมูลทั้งหมด</h3>
-
-                <p>
-                    ดูข้อมูลร้านทั้งหมด
-                </p>
-
-            </button>
+            <p>
+                รองรับการชำระเงินทั้งเงินสด
+                และการโอนเงิน
+            </p>
 
         </div>
 
-    </section>
 
+        <div class="contact">
 
-    <section class="answer-wrap" id="answerSection">
+            <div class="contact-icon">
+                🚚
+            </div>
 
-        <div class="answer-head">
+            <small>
+                การจัดส่ง
+            </small>
 
-            <div class="answer-head-left">
+            <strong>
+                มีบริการจัดส่ง
+            </strong>
 
-                <div class="answer-mini">
-                    i
-                </div>
+            <p>
+                สอบถามพื้นที่และรายละเอียด
+                การจัดส่งกับร้านโดยตรง
+            </p>
 
-                <strong>
-                    รายละเอียดข้อมูล
-                </strong>
+            <div class="actions">
+
+                <a href="tel:0923628796"
+                   class="btn">
+                    ☎ สอบถาม
+                </a>
 
             </div>
 
-            <span>
-                INFORMATION
-            </span>
-
-        </div>
-
-
-        <div class="answer" id="answer">
-
-            <div class="empty">
-
-                <div>
-
-                    <div class="empty-icon">
-                        ◇
-                    </div>
-
-                    เลือกหัวข้อด้านบน<br>
-                    เพื่อแสดงรายละเอียดข้อมูล
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer class="footer">
-
-    <div class="footer-inner">
-
-        <div>
-
-            <div class="footer-name">
-                หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
-            </div>
-
-            <div class="footer-desc">
-                ศูนย์ข้อมูลร้านค้า
-            </div>
-
-        </div>
-
-        <div class="footer-phone">
-            092 362 8796
         </div>
 
     </div>
 
-</footer>
+</section>
+
+</main>
 
 
-<div class="toast" id="toast"></div>
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+    <button class="active"
+            data-page="home"
+            onclick="navigate('home')">
+        <span>⌂</span>
+        หน้าแรก
+    </button>
+
+    <button data-page="ask"
+            onclick="navigate('ask')">
+        <span>✦</span>
+        AI
+    </button>
+
+    <button data-page="products"
+            onclick="navigate('products')">
+        <span>▦</span>
+        สินค้า
+    </button>
+
+    <button data-page="location"
+            onclick="navigate('location')">
+        <span>⌖</span>
+        แผนที่
+    </button>
+
+    <button data-page="contact"
+            onclick="navigate('contact')">
+        <span>☎</span>
+        ติดต่อ
+    </button>
+
+</nav>
+
+
+<div class="toast"
+     id="toast">
+</div>
 
 
 <script>
 
-const SHOP_NAME =
-"หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด";
+/* =====================================================
+   SHOP DATA
+===================================================== */
 
-const MAP_SEARCH_NAME =
-"ร้านไทเกษตรรุ่งเรืองพานิชย์";
+const SHOP = {
 
-const PHONE =
-"0923628796";
+    name:
+        "หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด",
 
-const PHONE_DISPLAY =
-"092 362 8796";
+    shortName:
+        "ร้านไทเกษตรรุ่งเรืองพานิชย์",
 
-/*
-    Google Maps จะค้นหาชื่อ
-    "ร้านไทเกษตรรุ่งเรืองพานิชย์"
-    โดยตรง
-*/
-const MAP =
-"https://www.google.com/maps/search/?api=1&query=" +
-encodeURIComponent(MAP_SEARCH_NAME);
+    address:
+        "บ้านธวัชดินแดง ข้าง ๆ เซเว่น จังหวัดร้อยเอ็ด",
 
+    phone:
+        "092 362 8796",
 
-const answers = {
+    phoneRaw:
+        "0923628796",
 
-    location:{
+    products:
+        "ปุ๋ยและสินค้าอื่น ๆ",
 
-        title:"ร้านอยู่ที่ไหน?",
+    openHour:
+        8,
 
-        text:`
-            กดปุ่มด้านล่างเพื่อเปิด Google Maps
-            และค้นหา
+    closeHour:
+        17,
 
-            <div class="highlight">
+    payment:
+        "เงินสด และโอนเงิน",
 
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        คำค้นหา
-                    </span>
-
-                    <span class="highlight-value">
-                        ร้านไทเกษตรรุ่งเรืองพานิชย์
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        พื้นที่
-                    </span>
-
-                    <span class="highlight-value">
-                        จังหวัดร้อยเอ็ด
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="${MAP}"
-                    target="_blank"
-                    rel="noopener"
-                    class="btn btn-primary">
-
-                    📍 เปิด Google Maps
-
-                </a>
-
-            </div>
-        `
-    },
-
-
-    products:{
-
-        title:"ร้านขายอะไร?",
-
-        text:`
-            <strong>${SHOP_NAME}</strong>
-            จำหน่ายสินค้าเกี่ยวกับการเกษตร
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        สินค้าหลัก
-                    </span>
-
-                    <span class="highlight-value">
-                        ปุ๋ย
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        สินค้าอื่น ๆ
-                    </span>
-
-                    <span class="highlight-value">
-                        มีสินค้าอื่น ๆ ภายในร้าน
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="tel:${PHONE}"
-                    class="btn btn-primary">
-
-                    ☎ สอบถามสินค้า
-
-                </a>
-
-            </div>
-        `
-    },
-
-
-    phone:{
-
-        title:"เบอร์โทรติดต่อ",
-
-        text:`
-            สามารถติดต่อ
-            <strong>${SHOP_NAME}</strong>
-            ได้โดยตรงที่
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        โทรศัพท์
-                    </span>
-
-                    <span class="highlight-value">
-                        ${PHONE_DISPLAY}
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="tel:${PHONE}"
-                    class="btn btn-primary">
-
-                    ☎ โทรหาร้าน
-
-                </a>
-
-                <button
-                    onclick="copyPhone()"
-                    class="btn btn-secondary">
-
-                    ⧉ คัดลอกหมายเลข
-
-                </button>
-
-            </div>
-        `
-    },
-
-
-    hours:{
-
-        title:"เปิดกี่โมง?",
-
-        text:`
-            เวลาทำการของร้าน
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        เวลาเปิด
-                    </span>
-
-                    <span class="highlight-value">
-                        08:00 น.
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        เวลาปิด
-                    </span>
-
-                    <span class="highlight-value">
-                        17:00 น.
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:""
-    },
-
-
-    delivery:{
-
-        title:"มีบริการส่งไหม?",
-
-        text:`
-            <strong>${SHOP_NAME}</strong>
-            มีบริการจัดส่งสินค้า
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        บริการจัดส่ง
-                    </span>
-
-                    <span class="highlight-value">
-                        มี
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        รายละเอียด
-                    </span>
-
-                    <span class="highlight-value">
-                        กรุณาสอบถามร้านโดยตรง
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="tel:${PHONE}"
-                    class="btn btn-primary">
-
-                    ☎ สอบถามการจัดส่ง
-
-                </a>
-
-            </div>
-        `
-    },
-
-
-    payment:{
-
-        title:"ชำระเงินแบบไหน?",
-
-        text:`
-            ร้านรองรับช่องทางการชำระเงิน
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ช่องทางที่ 1
-                    </span>
-
-                    <span class="highlight-value">
-                        เงินสด
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ช่องทางที่ 2
-                    </span>
-
-                    <span class="highlight-value">
-                        โอนเงิน
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:""
-    },
-
-
-    price:{
-
-        title:"ราคาสินค้าเท่าไหร่?",
-
-        text:`
-            ราคาสินค้า
-            <strong>ขึ้นอยู่กับรายการสินค้า</strong>
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ราคา
-                    </span>
-
-                    <span class="highlight-value">
-                        แล้วแต่สินค้า
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        สอบถามราคา
-                    </span>
-
-                    <span class="highlight-value">
-                        ${PHONE_DISPLAY}
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="tel:${PHONE}"
-                    class="btn btn-primary">
-
-                    ☎ สอบถามราคา
-
-                </a>
-
-            </div>
-        `
-    },
-
-
-    contact:{
-
-        title:"ติดต่อร้าน",
-
-        text:`
-            <strong>${SHOP_NAME}</strong>
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        โทรศัพท์
-                    </span>
-
-                    <span class="highlight-value">
-                        ${PHONE_DISPLAY}
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ชื่อร้านสำหรับค้นหา
-                    </span>
-
-                    <span class="highlight-value">
-                        ร้านไทเกษตรรุ่งเรืองพานิชย์
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="tel:${PHONE}"
-                    class="btn btn-primary">
-
-                    ☎ โทรหาร้าน
-
-                </a>
-
-                <button
-                    onclick="copyPhone()"
-                    class="btn btn-secondary">
-
-                    ⧉ คัดลอกเบอร์
-
-                </button>
-
-                <a
-                    href="${MAP}"
-                    target="_blank"
-                    rel="noopener"
-                    class="btn btn-gold">
-
-                    📍 ดูร้านใน Google Maps
-
-                </a>
-
-            </div>
-        `
-    },
-
-
-    all:{
-
-        title:"ข้อมูลทั้งหมด",
-
-        text:`
-            <strong>${SHOP_NAME}</strong>
-
-            <div class="highlight">
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ชื่อร้านสำหรับค้นหา
-                    </span>
-
-                    <span class="highlight-value">
-                        ร้านไทเกษตรรุ่งเรืองพานิชย์
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ที่ตั้ง
-                    </span>
-
-                    <span class="highlight-value">
-                        บ้านธวัชดินแดง ข้าง ๆ เซเว่น
-                        จังหวัดร้อยเอ็ด
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        สินค้า
-                    </span>
-
-                    <span class="highlight-value">
-                        ปุ๋ยและสินค้าอื่น ๆ
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        โทรศัพท์
-                    </span>
-
-                    <span class="highlight-value">
-                        ${PHONE_DISPLAY}
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        เวลาเปิด
-                    </span>
-
-                    <span class="highlight-value">
-                        08:00 – 17:00 น.
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        บริการจัดส่ง
-                    </span>
-
-                    <span class="highlight-value">
-                        มี
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        การชำระเงิน
-                    </span>
-
-                    <span class="highlight-value">
-                        เงินสด / โอนเงิน
-                    </span>
-
-                </div>
-
-                <div class="highlight-row">
-
-                    <span class="highlight-label">
-                        ราคา
-                    </span>
-
-                    <span class="highlight-value">
-                        แล้วแต่สินค้า
-                    </span>
-
-                </div>
-
-            </div>
-        `,
-
-        buttons:`
-            <div class="actions">
-
-                <a
-                    href="${MAP}"
-                    target="_blank"
-                    rel="noopener"
-                    class="btn btn-gold">
-
-                    📍 ค้นหาร้านใน Google Maps
-
-                </a>
-
-                <a
-                    href="tel:${PHONE}"
-                    class="btn btn-primary">
-
-                    ☎ โทรหาร้าน
-
-                </a>
-
-            </div>
-        `
-    }
+    delivery:
+        true
 
 };
 
 
-function showAnswer(type){
+/* =====================================================
+   KNOWLEDGE BASE
+===================================================== */
 
-    const data = answers[type];
+const KNOWLEDGE = {
 
-    if(!data) return;
+    location:[
+        "อยู่ที่ไหน",
+        "อยู่ตรงไหน",
+        "ร้านอยู่ไหน",
+        "ร้านอยู่ตรงไหน",
+        "ที่อยู่",
+        "สถานที่",
+        "พิกัด",
+        "โลเคชั่น",
+        "โลเคชัน",
+        "location",
+        "map",
+        "maps",
+        "google map",
+        "google maps",
+        "เปิดแผนที่",
+        "เปิดแมพ",
+        "ส่งพิกัด",
+        "ขอพิกัด",
+        "ไปยังไง",
+        "ไปทางไหน",
+        "ร้านอยู่แถวไหน",
+        "ร้านอยู่บริเวณไหน",
+        "ร้านอยู่ใกล้อะไร",
+        "ใกล้เซเว่นไหม",
+        "อยู่ข้างอะไร",
+        "หาร้าน",
+        "หาไม่เจอ",
+        "นำทาง",
+        "ทางไปร้าน",
+        "ร้านอยู่จังหวัดอะไร"
+    ],
 
-    const answer =
-        document.getElementById("answer");
+    products:[
+        "ขายอะไร",
+        "ขายอะไรบ้าง",
+        "มีอะไรขาย",
+        "ขายสินค้าอะไร",
+        "มีสินค้าอะไร",
+        "สินค้า",
+        "สินค้ามีอะไร",
+        "ร้านขายอะไร",
+        "ขายปุ๋ยไหม",
+        "มีปุ๋ยไหม",
+        "มีปุ๋ยหรือเปล่า",
+        "ขายของเกษตรไหม",
+        "สินค้าเกษตร",
+        "ของเกษตร",
+        "มีของอะไรบ้าง",
+        "ซื้ออะไรได้บ้าง",
+        "มาซื้ออะไรได้",
+        "มีอะไรให้ซื้อ",
+        "ร้านนี้ขายอะไร"
+    ],
 
-    answer.innerHTML = `
+    phone:[
+        "เบอร์",
+        "เบอร์โทร",
+        "เบอร์โทรศัพท์",
+        "โทรศัพท์",
+        "เบอร์ร้าน",
+        "ขอเบอร์",
+        "ขอเบอร์ร้าน",
+        "ขอหมายเลข",
+        "หมายเลขโทรศัพท์",
+        "ติดต่อ",
+        "ติดต่อร้าน",
+        "โทรหาร้าน",
+        "โทรร้าน",
+        "โทรได้ไหม",
+        "มีเบอร์ไหม",
+        "ติดต่อยังไง",
+        "ช่องทางติดต่อ"
+    ],
 
-        <div class="detail-title">
-            ${data.title}
+    hours:[
+        "เปิดกี่โมง",
+        "ปิดกี่โมง",
+        "เปิดไหม",
+        "เปิดหรือยัง",
+        "เปิดหรือเปล่า",
+        "ร้านเปิด",
+        "ร้านปิด",
+        "เวลาเปิด",
+        "เวลาปิด",
+        "เวลาทำการ",
+        "ตอนนี้เปิดไหม",
+        "ตอนนี้ร้านเปิดไหม",
+        "เปิดถึงกี่โมง",
+        "ร้านเปิดเวลาไหน",
+        "ร้านปิดเวลาไหน",
+        "ปิดตอนกี่โมง",
+        "เปิดตอนกี่โมง",
+        "ร้านเปิดวันไหน"
+    ],
+
+    nearOpen:[
+        "ใกล้เปิดยัง",
+        "ใกล้เปิดหรือยัง",
+        "จะเปิดยัง",
+        "จะเปิดหรือยัง",
+        "ร้านจะเปิดไหม",
+        "กำลังจะเปิด",
+        "อีกกี่นาทีเปิด",
+        "อีกกี่นาทีร้านเปิด",
+        "อีกกี่โมงเปิด",
+        "อีกกี่โมงร้านเปิด",
+        "เหลือกี่นาทีก่อนเปิด",
+        "อีกนานไหมกว่าจะเปิด",
+        "อีกนานไหมร้านจะเปิด",
+        "ร้านเปิดเมื่อไหร่",
+        "รอร้านเปิด",
+        "ร้านใกล้เปิด"
+    ],
+
+    nearClose:[
+        "ใกล้ปิดยัง",
+        "ใกล้ปิดหรือยัง",
+        "ร้านจะปิดยัง",
+        "ร้านจะปิดหรือยัง",
+        "อีกกี่นาทีปิด",
+        "อีกกี่นาทีร้านปิด",
+        "อีกกี่โมงปิด",
+        "อีกนานไหมกว่าจะปิด",
+        "เหลือเวลากี่ชั่วโมง",
+        "เหลือเวลากี่นาที",
+        "ร้านปิดเมื่อไหร่",
+        "ใกล้ถึงเวลาปิดหรือยัง"
+    ],
+
+    delivery:[
+        "มีส่งไหม",
+        "ส่งไหม",
+        "ส่งของไหม",
+        "ส่งสินค้าไหม",
+        "จัดส่งไหม",
+        "บริการส่ง",
+        "บริการจัดส่ง",
+        "ส่งถึงบ้านไหม",
+        "ส่งถึงบ้านหรือเปล่า",
+        "ส่งปุ๋ยไหม",
+        "ส่งของให้ไหม",
+        "มีรถส่งไหม",
+        "ส่งของได้ไหม",
+        "จัดส่งถึงไหน",
+        "ส่งต่างจังหวัดไหม",
+        "ส่งในจังหวัดไหม"
+    ],
+
+    payment:[
+        "จ่ายเงินยังไง",
+        "จ่ายยังไง",
+        "ชำระเงินยังไง",
+        "รับเงินสดไหม",
+        "เงินสดได้ไหม",
+        "รับเงินสดหรือเปล่า",
+        "โอนได้ไหม",
+        "รับโอนไหม",
+        "รับโอนหรือเปล่า",
+        "โอนเงินได้ไหม",
+        "มีโอนเงินไหม",
+        "จ่ายแบบไหน",
+        "วิธีชำระเงิน",
+        "ช่องทางชำระเงิน"
+    ],
+
+    price:[
+        "ราคา",
+        "ราคาเท่าไหร่",
+        "ราคาเท่าไร",
+        "กี่บาท",
+        "เท่าไหร่",
+        "เท่าไร",
+        "ขอราคา",
+        "เช็กราคา",
+        "สอบถามราคา",
+        "ปุ๋ยราคาเท่าไหร่",
+        "ปุ๋ยกี่บาท",
+        "ขายกี่บาท",
+        "ของราคาเท่าไหร่",
+        "ขอทราบราคา"
+    ],
+
+    name:[
+        "ชื่อร้าน",
+        "ร้านชื่ออะไร",
+        "ชื่ออะไร",
+        "ชื่อร้านอะไร",
+        "ร้านนี้ชื่ออะไร",
+        "ชื่อหจก",
+        "ชื่อบริษัท",
+        "ชื่อร้านเต็ม",
+        "ชื่อเต็มร้าน"
+    ],
+
+    province:[
+        "อยู่จังหวัดอะไร",
+        "จังหวัดอะไร",
+        "ร้านอยู่จังหวัดไหน",
+        "อยู่ร้อยเอ็ดไหม",
+        "ร้านอยู่ร้อยเอ็ดหรือเปล่า",
+        "ร้อยเอ็ดไหม"
+    ],
+
+    tomorrow:[
+        "พรุ่งนี้เปิดไหม",
+        "พรุ่งนี้ร้านเปิดไหม",
+        "พรุ่งนี้ไปซื้อได้ไหม",
+        "พรุ่งนี้เปิดหรือเปล่า",
+        "พรุ่งนี้ร้านหยุดไหม"
+    ],
+
+    greeting:[
+        "สวัสดี",
+        "หวัดดี",
+        "hello",
+        "hi",
+        "ฮัลโหล",
+        "ดี"
+    ],
+
+    thanks:[
+        "ขอบคุณ",
+        "ขอบใจ",
+        "ขอบคุณมาก",
+        "โอเคขอบคุณ",
+        "รับทราบ"
+    ],
+
+    help:[
+        "ช่วยอะไรได้บ้าง",
+        "ถามอะไรได้บ้าง",
+        "ทำอะไรได้บ้าง",
+        "ระบบทำอะไรได้",
+        "ถามได้ไหม",
+        "มีอะไรให้ถาม"
+    ]
+
+};
+
+
+/* =====================================================
+   CONTEXT MEMORY
+===================================================== */
+
+let context = {
+
+    lastIntent:null,
+
+    lastQuestion:null,
+
+    lastAnswer:null
+
+};
+
+
+/* =====================================================
+   NORMALIZE
+===================================================== */
+
+function normalize(text){
+
+    return text
+        .toLowerCase()
+        .replace(/[?？!！.,，。:：;；/]/g," ")
+        .replace(/\s+/g," ")
+        .trim();
+
+}
+
+
+/* =====================================================
+   INTENT DETECTION
+===================================================== */
+
+function detectIntent(text){
+
+    const q = normalize(text);
+
+    let bestIntent = null;
+    let bestScore = 0;
+
+    for(const [intent,words] of Object.entries(KNOWLEDGE)){
+
+        let score = 0;
+
+        for(const word of words){
+
+            const w = normalize(word);
+
+            if(q === w){
+                score += 20;
+            }
+
+            else if(q.includes(w)){
+                score += w.length >= 7 ? 8 :
+                         w.length >= 4 ? 5 : 3;
+            }
+
+        }
+
+        /* semantic hints */
+
+        if(
+            intent === "nearOpen" &&
+            /เปิด|กี่โมง|กี่นาที|เมื่อไหร่|อีกนาน/.test(q)
+        ){
+            score += 5;
+        }
+
+        if(
+            intent === "nearClose" &&
+            /ปิด|กี่โมง|กี่นาที|เหลือ/.test(q)
+        ){
+            score += 5;
+        }
+
+        if(
+            intent === "location" &&
+            /อยู่|ที่ไหน|ตรงไหน|แถว|พิกัด|แผนที่|ทาง/.test(q)
+        ){
+            score += 4;
+        }
+
+        if(
+            intent === "products" &&
+            /ขาย|สินค้า|ปุ๋ย|ของ/.test(q)
+        ){
+            score += 4;
+        }
+
+        if(
+            intent === "phone" &&
+            /เบอร์|โทร|ติดต่อ/.test(q)
+        ){
+            score += 4;
+        }
+
+        if(score > bestScore){
+
+            bestScore = score;
+            bestIntent = intent;
+
+        }
+
+    }
+
+    /*
+        Context:
+        ถ้าผู้ใช้ถามต่อสั้น ๆ เช่น
+        "แล้วเบอร์ล่ะ"
+        "แล้วอยู่ไหน"
+    */
+
+    if(
+        bestScore < 3 &&
+        context.lastIntent
+    ){
+
+        if(/เบอร์|โทร/.test(q)){
+            bestIntent="phone";
+            bestScore=8;
+        }
+
+        else if(/อยู่ไหน|ตรงไหน|พิกัด/.test(q)){
+            bestIntent="location";
+            bestScore=8;
+        }
+
+        else if(/ขายอะไร|มีอะไร/.test(q)){
+            bestIntent="products";
+            bestScore=8;
+        }
+
+        else if(/เปิด|ปิด|กี่โมง/.test(q)){
+            bestIntent="hours";
+            bestScore=8;
+        }
+
+    }
+
+    if(!bestIntent){
+
+        return {
+            intent:null,
+            confidence:0
+        };
+
+    }
+
+    return {
+
+        intent:bestIntent,
+
+        confidence:
+            Math.min(
+                99,
+                Math.max(
+                    70,
+                    60 + bestScore * 2
+                )
+            )
+
+    };
+
+}
+
+
+/* =====================================================
+   TIME
+===================================================== */
+
+function getCurrent(){
+
+    const now = new Date();
+
+    return {
+
+        hour:now.getHours(),
+
+        minute:now.getMinutes(),
+
+        total:
+            now.getHours()*60+
+            now.getMinutes()
+
+    };
+
+}
+
+
+function isStoreOpen(){
+
+    const t = getCurrent().total;
+
+    return t >= 8*60 && t < 17*60;
+
+}
+
+
+function untilOpen(){
+
+    const now=getCurrent().total;
+
+    let target=8*60;
+
+    if(now >= 17*60){
+        target += 24*60;
+    }
+
+    return target-now;
+
+}
+
+
+function untilClose(){
+
+    const now=getCurrent().total;
+
+    return 17*60-now;
+
+}
+
+
+function formatDuration(minutes){
+
+    if(minutes <= 0){
+        return "0 นาที";
+    }
+
+    if(minutes < 60){
+        return minutes+" นาที";
+    }
+
+    const h=Math.floor(minutes/60);
+    const m=minutes%60;
+
+    if(m===0){
+        return h+" ชั่วโมง";
+    }
+
+    return h+" ชั่วโมง "+m+" นาที";
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function updateStoreStatus(){
+
+    const open=isStoreOpen();
+
+    const status=
+        document.getElementById("systemStatus");
+
+    const hero=
+        document.getElementById("heroStatus");
+
+    const heroTime=
+        document.getElementById("heroTime");
+
+    const contact=
+        document.getElementById("contactStatus");
+
+    if(open){
+
+        if(status)
+            status.textContent="ร้านเปิดอยู่";
+
+        if(hero)
+            hero.textContent="● เปิดอยู่";
+
+        if(heroTime)
+            heroTime.textContent="OPEN";
+
+        if(contact)
+            contact.textContent=
+                "ขณะนี้ร้านเปิดให้บริการ";
+
+    }
+
+    else{
+
+        if(status)
+            status.textContent="ร้านปิดอยู่";
+
+        if(hero)
+            hero.textContent="ปิดอยู่";
+
+        if(heroTime)
+            heroTime.textContent="CLOSED";
+
+        if(contact)
+            contact.textContent=
+                "ขณะนี้ร้านปิด • เปิด 08:00 น.";
+
+    }
+
+}
+
+updateStoreStatus();
+
+setInterval(updateStoreStatus,30000);
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function navigate(page){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(p=>{
+            p.classList.remove("active");
+        });
+
+    const target=document.getElementById(page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document
+        .querySelectorAll(".nav,.mobile-nav button")
+        .forEach(btn=>{
+            btn.classList.toggle(
+                "active",
+                btn.dataset.page===page
+            );
+        });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   SEND QUESTION
+===================================================== */
+
+function sendQuestion(){
+
+    const input=
+        document.getElementById("questionInput");
+
+    const text=input.value.trim();
+
+    if(!text){
+
+        showToast("พิมพ์คำถามก่อนนะ");
+
+        return;
+
+    }
+
+    input.value="";
+
+    addUserMessage(text);
+
+    const typing=document.createElement("div");
+
+    typing.className="message bot";
+
+    typing.id="typing";
+
+    typing.innerHTML=`
+        <div class="bubble">
+            ✦ กำลังวิเคราะห์คำถาม...
         </div>
-
-        <div class="detail-text">
-            ${data.text}
-        </div>
-
-        ${data.buttons}
-
     `;
+
+    document
+        .getElementById("chatBody")
+        .appendChild(typing);
+
+    scrollChat();
 
     setTimeout(()=>{
 
-        document
-            .getElementById("answerSection")
-            .scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
+        typing.remove();
 
-    },80);
+        const result=detectIntent(text);
+
+        if(!result.intent){
+
+            addUnknown(text);
+
+            return;
+
+        }
+
+        context.lastQuestion=text;
+        context.lastIntent=result.intent;
+
+        generateAnswer(
+            result.intent,
+            result.confidence
+        );
+
+    },450);
+
 }
 
+
+/* =====================================================
+   QUICK
+===================================================== */
+
+function quickAsk(text){
+
+    const input=
+        document.getElementById("questionInput");
+
+    input.value=text;
+
+    sendQuestion();
+
+}
+
+
+/* =====================================================
+   ANSWER GENERATOR
+===================================================== */
+
+function generateAnswer(intent,confidence){
+
+    let answer="";
+    let actions="";
+
+    const mapURL=
+        "https://www.google.com/maps/search/?api=1&query="+
+        encodeURIComponent(SHOP.shortName);
+
+    if(intent==="greeting"){
+
+        answer=
+        "สวัสดี ยินดีต้อนรับสู่ "+
+        SHOP.name+
+        " มีอะไรให้ช่วยค้นหาข้อมูลร้านได้เลย";
+
+    }
+
+    else if(intent==="thanks"){
+
+        answer=
+        "ยินดีเลย ถ้ามีอะไรอยากถามเกี่ยวกับร้าน ถามต่อได้เลย";
+
+    }
+
+    else if(intent==="help"){
+
+        answer=`
+        ผมช่วยตอบข้อมูลเกี่ยวกับร้านได้หลายเรื่อง เช่น
+
+        <div class="answer-box">
+        📍 สถานที่และ Google Maps
+        <br>
+        🛒 สินค้า
+        <br>
+        🕐 เวลาเปิด-ปิด
+        <br>
+        ☎ เบอร์โทร
+        <br>
+        🚚 การจัดส่ง
+        <br>
+        💳 การชำระเงิน
+        <br>
+        💰 ราคา
+        <br>
+        🏪 ข้อมูลร้าน
+        </div>
+        `;
+
+    }
+
+    else if(intent==="location"){
+
+        answer=`
+        ร้านอยู่ที่
+        <strong>${SHOP.address}</strong>
+        `;
+
+        actions=`
+        <a class="mini-btn primary"
+           href="${mapURL}"
+           target="_blank"
+           rel="noopener">
+            📍 เปิด Google Maps
+        </a>
+        `;
+
+    }
+
+    else if(intent==="products"){
+
+        answer=`
+        ร้านจำหน่าย
+        <strong>${SHOP.products}</strong>
+        `;
+
+        actions=`
+        <a class="mini-btn primary"
+           href="tel:${SHOP.phoneRaw}">
+            ☎ โทรถามสินค้า
+        </a>
+        `;
+
+    }
+
+    else if(intent==="phone"){
+
+        answer=`
+        เบอร์โทรของร้านคือ
+
+        <div class="answer-box">
+            <strong style="font-size:17px">
+                ${SHOP.phone}
+            </strong>
+        </div>
+        `;
+
+        actions=`
+        <a class="mini-btn primary"
+           href="tel:${SHOP.phoneRaw}">
+            ☎ โทรร้าน
+        </a>
+
+        <button class="mini-btn"
+                onclick="copyPhone()">
+            ⧉ คัดลอก
+        </button>
+        `;
+
+    }
+
+    else if(
+        intent==="hours"
+    ){
+
+        if(isStoreOpen()){
+
+            answer=`
+            🟢 <strong>ตอนนี้ร้านเปิดอยู่</strong>
+
+            <div class="answer-box">
+                เวลาทำการ
+                <strong>08:00 – 17:00 น.</strong>
+                <br><br>
+                เหลือประมาณ
+                <strong>
+                    ${formatDuration(untilClose())}
+                </strong>
+                ก่อนร้านปิด
+            </div>
+            `;
+
+        }
+
+        else{
+
+            answer=`
+            🔴 <strong>ตอนนี้ร้านยังไม่เปิด</strong>
+
+            <div class="answer-box">
+                ร้านเปิดเวลา
+                <strong>08:00 น.</strong>
+                <br><br>
+                เหลือประมาณ
+                <strong>
+                    ${formatDuration(untilOpen())}
+                </strong>
+                ก่อนร้านเปิด
+            </div>
+            `;
+
+        }
+
+    }
+
+    else if(intent==="nearOpen"){
+
+        if(isStoreOpen()){
+
+            answer=`
+            🟢 <strong>ร้านเปิดอยู่แล้ว</strong>
+
+            <div class="answer-box">
+                เปิดตั้งแต่ 08:00 น.
+                <br>
+                และปิดเวลา 17:00 น.
+            </div>
+            `;
+
+        }
+
+        else{
+
+            answer=`
+            🕐 <strong>ร้านยังไม่เปิด</strong>
+
+            <div class="answer-box">
+                ร้านจะเปิดเวลา
+                <strong>08:00 น.</strong>
+                <br><br>
+                เหลือประมาณ
+                <strong>
+                    ${formatDuration(untilOpen())}
+                </strong>
+                ก่อนร้านเปิด
+            </div>
+            `;
+
+        }
+
+    }
+
+    else if(intent==="nearClose"){
+
+        if(!isStoreOpen()){
+
+            answer=`
+            🔴 <strong>ตอนนี้ร้านปิดแล้ว</strong>
+
+            <div class="answer-box">
+                ร้านเปิดอีกครั้งเวลา
+                <strong>08:00 น.</strong>
+            </div>
+            `;
+
+        }
+
+        else{
+
+            answer=`
+            🟢 <strong>ร้านยังเปิดอยู่</strong>
+
+            <div class="answer-box">
+                ร้านจะปิดเวลา
+                <strong>17:00 น.</strong>
+                <br><br>
+                เหลือประมาณ
+                <strong>
+                    ${formatDuration(untilClose())}
+                </strong>
+            </div>
+            `;
+
+        }
+
+    }
+
+    else if(intent==="delivery"){
+
+        answer=`
+        ร้านมีบริการจัดส่งสินค้า
+
+        <div class="answer-box">
+            รายละเอียดพื้นที่และค่าจัดส่ง
+            แนะนำสอบถามร้านโดยตรง
+        </div>
+        `;
+
+        actions=`
+        <a class="mini-btn primary"
+           href="tel:${SHOP.phoneRaw}">
+            ☎ สอบถามการจัดส่ง
+        </a>
+        `;
+
+    }
+
+    else if(intent==="payment"){
+
+        answer=`
+        ร้านรองรับการชำระเงิน
+
+        <div class="answer-box">
+            ✓ เงินสด
+            <br>
+            ✓ โอนเงิน
+        </div>
+        `;
+
+    }
+
+    else if(intent==="price"){
+
+        answer=`
+        ราคาขึ้นอยู่กับรายการสินค้า
+
+        <div class="answer-box">
+            ระบบไม่มีราคาสินค้าแบบ Real-time
+            จึงไม่เดาราคาเองเพื่อป้องกันข้อมูลผิดพลาด
+        </div>
+        `;
+
+        actions=`
+        <a class="mini-btn primary"
+           href="tel:${SHOP.phoneRaw}">
+            ☎ โทรเช็กราคา
+        </a>
+        `;
+
+    }
+
+    else if(intent==="name"){
+
+        answer=`
+        ชื่อร้านคือ
+
+        <div class="answer-box">
+            <strong>
+                ${SHOP.name}
+            </strong>
+        </div>
+        `;
+
+    }
+
+    else if(intent==="province"){
+
+        answer=
+            "ร้านตั้งอยู่ที่จังหวัด <strong>ร้อยเอ็ด</strong>";
+
+    }
+
+    else if(intent==="tomorrow"){
+
+        answer=`
+        เวลาทำการปกติคือ
+        <strong>08:00 – 17:00 น.</strong>
+
+        <div class="answer-box">
+            หากมีวันหยุดพิเศษ
+            แนะนำโทรสอบถามร้านโดยตรง
+        </div>
+        `;
+
+    }
+
+    else{
+
+        addUnknown();
+
+        return;
+
+    }
+
+    context.lastAnswer=answer;
+
+    addBotMessage(
+        answer,
+        actions,
+        confidence
+    );
+
+}
+
+
+/* =====================================================
+   MESSAGE UI
+===================================================== */
+
+function addUserMessage(text){
+
+    const div=document.createElement("div");
+
+    div.className="message user";
+
+    div.innerHTML=`
+        <div class="bubble">
+            ${escapeHTML(text)}
+        </div>
+    `;
+
+    document
+        .getElementById("chatBody")
+        .appendChild(div);
+
+    scrollChat();
+
+}
+
+
+function addBotMessage(
+    text,
+    actions="",
+    confidence=90
+){
+
+    const div=document.createElement("div");
+
+    div.className="message bot";
+
+    div.innerHTML=`
+        <div class="bubble">
+
+            <div class="answer-good">
+                ✓ AI ตอบได้
+            </div>
+
+            ${text}
+
+            ${
+                actions
+                ?
+                `<div class="action-row">
+                    ${actions}
+                </div>`
+                :
+                ""
+            }
+
+            <div class="action-row">
+
+                <button
+                    class="mini-btn"
+                    onclick="speakText(this)">
+                    🔊 อ่านคำตอบ
+                </button>
+
+                <button
+                    class="mini-btn"
+                    onclick="copyAnswer(this)">
+                    ⧉ คัดลอก
+                </button>
+
+            </div>
+
+            <div class="confidence">
+                ความมั่นใจ ${confidence}%
+
+                <div class="confidence-bar">
+                    <div
+                        class="confidence-fill"
+                        style="width:${confidence}%">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+
+    document
+        .getElementById("chatBody")
+        .appendChild(div);
+
+    scrollChat();
+
+}
+
+
+function addUnknown(){
+
+    const div=document.createElement("div");
+
+    div.className="message bot";
+
+    div.innerHTML=`
+        <div class="bubble">
+
+            <div class="answer-bad">
+                ⚠ พบปัญหาด้านการตอบ
+            </div>
+
+            ขออภัย ระบบยังไม่เข้าใจคำถามนี้ชัดเจน
+
+            <div class="answer-box">
+
+                ระบบไม่อยากเดาคำตอบขึ้นมาเอง
+                เพราะอาจทำให้ข้อมูลร้านผิด
+
+                <br><br>
+
+                ลองถามเรื่อง
+                <strong>
+                สถานที่ / สินค้า / เวลา /
+                เบอร์โทร / ราคา /
+                การจัดส่ง / การชำระเงิน
+                </strong>
+
+            </div>
+
+            <div class="action-row">
+
+                <a
+                    class="mini-btn primary"
+                    href="tel:${SHOP.phoneRaw}">
+                    ☎ ติดต่อร้าน
+                </a>
+
+            </div>
+
+        </div>
+    `;
+
+    document
+        .getElementById("chatBody")
+        .appendChild(div);
+
+    scrollChat();
+
+}
+
+
+/* =====================================================
+   VOICE INPUT
+===================================================== */
+
+let recognition=null;
+
+function startVoice(){
+
+    const SpeechRecognition=
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if(!SpeechRecognition){
+
+        showToast(
+            "เบราว์เซอร์นี้ไม่รองรับการพูดเป็นข้อความ"
+        );
+
+        return;
+
+    }
+
+    if(recognition){
+
+        recognition.stop();
+        recognition=null;
+
+        return;
+
+    }
+
+    recognition=new SpeechRecognition();
+
+    recognition.lang="th-TH";
+
+    recognition.interimResults=false;
+
+    recognition.continuous=false;
+
+    const btn=
+        document.getElementById("voiceButton");
+
+    btn.classList.add("listening");
+
+    btn.textContent="●";
+
+    recognition.onresult=function(event){
+
+        const text=
+            event.results[0][0].transcript;
+
+        document
+            .getElementById("questionInput")
+            .value=text;
+
+        sendQuestion();
+
+    };
+
+    recognition.onerror=function(){
+
+        showToast(
+            "ไม่สามารถรับเสียงได้"
+        );
+
+    };
+
+    recognition.onend=function(){
+
+        btn.classList.remove("listening");
+
+        btn.textContent="🎙";
+
+        recognition=null;
+
+    };
+
+    recognition.start();
+
+}
+
+
+/* =====================================================
+   TEXT TO SPEECH
+===================================================== */
+
+function speakText(button){
+
+    const bubble=
+        button.closest(".bubble");
+
+    if(!bubble)return;
+
+    const text=
+        bubble.innerText
+        .replace(/✓ AI ตอบได้/g,"")
+        .replace(/ความมั่นใจ.*$/g,"");
+
+    if(!("speechSynthesis" in window)){
+
+        showToast(
+            "อุปกรณ์นี้ไม่รองรับการอ่านออกเสียง"
+        );
+
+        return;
+
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance=
+        new SpeechSynthesisUtterance(text);
+
+    utterance.lang="th-TH";
+
+    utterance.rate=.95;
+
+    speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* =====================================================
+   COPY ANSWER
+===================================================== */
+
+function copyAnswer(button){
+
+    const bubble=
+        button.closest(".bubble");
+
+    if(!bubble)return;
+
+    const text=bubble.innerText;
+
+    if(navigator.clipboard){
+
+        navigator.clipboard
+            .writeText(text)
+            .then(()=>{
+                showToast("คัดลอกคำตอบแล้ว");
+            });
+
+    }
+
+}
+
+
+/* =====================================================
+   COPY PHONE
+===================================================== */
 
 function copyPhone(){
 
-    if(
-        navigator.clipboard &&
-        navigator.clipboard.writeText
-    ){
+    if(navigator.clipboard){
 
         navigator.clipboard
-            .writeText(PHONE_DISPLAY)
+            .writeText(SHOP.phone)
             .then(()=>{
-
-                showToast(
-                    "คัดลอกหมายเลขโทรศัพท์แล้ว"
-                );
-
-            })
-            .catch(()=>{
-
-                showToast(
-                    "เบอร์โทร: " + PHONE_DISPLAY
-                );
-
+                showToast("คัดลอกเบอร์แล้ว");
             });
 
-    }else{
-
-        showToast(
-            "เบอร์โทร: " + PHONE_DISPLAY
-        );
-
     }
+
 }
 
 
-function showToast(message){
+/* =====================================================
+   SHARE
+===================================================== */
 
-    const toast =
+async function shareStore(){
+
+    const text=
+`${SHOP.name}
+📍 ${SHOP.address}
+☎ ${SHOP.phone}
+🕐 08:00 - 17:00 น.
+🛒 ${SHOP.products}`;
+
+    if(navigator.share){
+
+        try{
+
+            await navigator.share({
+                title:SHOP.name,
+                text:text
+            });
+
+        }catch(e){}
+
+    }
+
+    else if(navigator.clipboard){
+
+        navigator.clipboard
+            .writeText(text);
+
+        showToast(
+            "คัดลอกข้อมูลร้านแล้ว"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+function clearChat(){
+
+    document
+        .getElementById("chatBody")
+        .innerHTML=`
+
+        <div class="message bot">
+
+            <div class="bubble">
+
+                <div class="answer-good">
+                    ✓ AI พร้อมช่วย
+                </div>
+
+                เริ่มต้นบทสนทนาใหม่ได้เลย
+
+            </div>
+
+        </div>
+
+        `;
+
+    context={
+        lastIntent:null,
+        lastQuestion:null,
+        lastAnswer:null
+    };
+
+    showToast(
+        "เริ่มบทสนทนาใหม่แล้ว"
+    );
+
+}
+
+
+/* =====================================================
+   ENTER
+===================================================== */
+
+document
+    .getElementById("questionInput")
+    .addEventListener(
+        "keydown",
+        function(e){
+
+            if(e.key==="Enter"){
+
+                e.preventDefault();
+
+                sendQuestion();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function scrollChat(){
+
+    const chat=
+        document.getElementById("chatBody");
+
+    setTimeout(()=>{
+
+        chat.scrollTop=
+            chat.scrollHeight;
+
+    },30);
+
+}
+
+
+function escapeHTML(text){
+
+    const div=
+        document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+
+function showToast(text){
+
+    const toast=
         document.getElementById("toast");
 
-    toast.textContent = message;
+    toast.textContent=text;
 
     toast.classList.add("show");
 
-    clearTimeout(window.toastTimer);
+    clearTimeout(
+        window.toastTimer
+    );
 
-    window.toastTimer =
+    window.toastTimer=
         setTimeout(()=>{
 
             toast.classList.remove("show");
 
-        },2200);
+        },2000);
+
 }
 
 </script>
