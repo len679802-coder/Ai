@@ -2,579 +2,603 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#16834f">
-<title>AI Smart Store | ไทเกษตรรุ่งเรืองพานิชย์</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#087a49">
+<title>AI Smart Store Premium | ไทเกษตรรุ่งเรืองพานิชย์</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap');
-
 :root{
-    --green:#16834f;
-    --green2:#24a968;
-    --green3:#eaf8f0;
-    --green4:#cfeadb;
-    --bg:#f4f8f5;
-    --white:#fff;
-    --text:#17251c;
+    --green:#087a49;
+    --green2:#16a765;
+    --green3:#e9f8f0;
+    --green4:#c8ead8;
+    --green5:#063e28;
+    --bg:#f5f8f6;
+    --card:#ffffff;
+    --text:#13251c;
     --muted:#718078;
-    --line:#dce8e0;
-    --red:#dc5967;
-    --yellow:#c79422;
-    --shadow:0 18px 55px rgba(24,91,53,.09);
+    --line:#dfeae4;
+    --soft:#f7faf8;
+    --red:#df5968;
+    --orange:#d58a27;
+    --shadow:0 18px 55px rgba(12,76,44,.09);
+    --shadow2:0 8px 30px rgba(12,76,44,.07);
+    --radius:22px;
 }
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
-
+html{
+    scroll-behavior:smooth;
+}
 body{
     min-height:100vh;
     font-family:"Prompt","Kanit",sans-serif;
     color:var(--text);
     background:
-        radial-gradient(circle at 5% 0%,rgba(34,165,101,.11),transparent 28%),
-        radial-gradient(circle at 95% 15%,rgba(22,131,79,.08),transparent 25%),
-        linear-gradient(135deg,#f4f8f5,#fff);
+        radial-gradient(circle at 0% 0%,rgba(22,167,101,.13),transparent 28%),
+        radial-gradient(circle at 100% 15%,rgba(8,122,73,.09),transparent 26%),
+        linear-gradient(135deg,#f4f8f5,#ffffff 55%,#f3f8f5);
 }
-
-button,input{
+button,
+input{
     font-family:inherit;
 }
-
 button{
     cursor:pointer;
 }
-
 a{
-    color:inherit;
     text-decoration:none;
+    color:inherit;
 }
-
-/* HEADER */
-
+/* =========================
+   HEADER
+========================= */
 .header{
     position:fixed;
+    z-index:200;
     top:0;
     left:0;
     right:0;
-    height:70px;
-    z-index:100;
-    background:rgba(255,255,255,.91);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid var(--line);
+    height:76px;
+    background:rgba(255,255,255,.84);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border-bottom:1px solid rgba(211,228,219,.8);
 }
-
 .header-inner{
-    max-width:1400px;
+    max-width:1500px;
     height:100%;
     margin:auto;
-    padding:0 22px;
+    padding:0 28px;
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
-
 .brand{
     display:flex;
     align-items:center;
-    gap:11px;
+    gap:13px;
 }
-
 .logo{
-    width:42px;
-    height:42px;
-    border-radius:13px;
+    width:45px;
+    height:45px;
+    border-radius:15px;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:white;
+    color:#fff;
+    font-size:19px;
     font-weight:700;
-    background:linear-gradient(135deg,var(--green2),var(--green));
-    box-shadow:0 9px 25px rgba(22,131,79,.2);
+    background:
+        radial-gradient(circle at 30% 20%,#49cf91,transparent 35%),
+        linear-gradient(135deg,#18b06b,#057244);
+    box-shadow:0 10px 28px rgba(8,122,73,.24);
 }
-
 .brand-title{
-    font-size:12px;
+    font-size:13px;
     font-weight:600;
 }
-
 .brand-sub{
-    color:var(--muted);
-    font-size:7px;
     margin-top:2px;
+    color:#87958d;
+    font-size:8px;
+    letter-spacing:1.2px;
 }
-
-.status-top{
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+.live-pill{
     display:flex;
     align-items:center;
     gap:7px;
+    padding:8px 12px;
+    border:1px solid var(--green4);
+    border-radius:50px;
     color:var(--green);
+    background:var(--green3);
     font-size:8px;
+    font-weight:500;
 }
-
-.status-dot{
+.live-dot{
     width:7px;
     height:7px;
     border-radius:50%;
-    background:#27b875;
-    box-shadow:0 0 12px rgba(39,184,117,.45);
+    background:#25c47a;
+    box-shadow:0 0 0 5px rgba(37,196,122,.11);
+    animation:pulse 1.8s infinite;
 }
-
-/* SIDEBAR */
-
+@keyframes pulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(37,196,122,.10)}
+    50%{box-shadow:0 0 0 8px rgba(37,196,122,.03)}
+}
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar{
     position:fixed;
-    top:70px;
+    z-index:150;
+    top:76px;
     bottom:0;
     left:0;
-    width:235px;
-    padding:22px 14px;
-    background:rgba(255,255,255,.8);
+    width:255px;
+    padding:24px 16px;
+    background:rgba(255,255,255,.76);
+    backdrop-filter:blur(18px);
     border-right:1px solid var(--line);
 }
-
 .nav-label{
-    padding:0 11px 10px;
-    color:#93a198;
-    font-size:7px;
-    letter-spacing:1.5px;
-}
-
-.nav{
-    width:100%;
-    display:flex;
-    align-items:center;
-    gap:9px;
-    padding:10px;
-    margin-bottom:5px;
-    border:1px solid transparent;
-    border-radius:13px;
-    background:transparent;
-    color:#718078;
-    font-size:9px;
-    text-align:left;
-    transition:.2s;
-}
-
-.nav:hover{
-    background:#f2f8f4;
-    color:var(--green);
-}
-
-.nav.active{
-    color:var(--green);
-    background:var(--green3);
-    border-color:var(--green4);
+    padding:0 12px 12px;
+    color:#9aa69f;
+    font-size:8px;
+    letter-spacing:2px;
     font-weight:500;
 }
-
+.nav{
+    width:100%;
+    min-height:49px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:7px 10px;
+    margin-bottom:6px;
+    border:1px solid transparent;
+    border-radius:15px;
+    color:#77857d;
+    background:transparent;
+    font-size:10px;
+    text-align:left;
+    transition:.22s ease;
+}
+.nav:hover{
+    color:var(--green);
+    background:#f2f8f4;
+    transform:translateX(2px);
+}
+.nav.active{
+    color:var(--green);
+    background:linear-gradient(135deg,#effaf4,#e7f7ef);
+    border-color:#d1ecdd;
+    box-shadow:0 7px 22px rgba(8,122,73,.06);
+    font-weight:500;
+}
 .nav-icon{
-    width:30px;
-    height:30px;
-    border-radius:9px;
+    width:34px;
+    height:34px;
+    flex:0 0 34px;
     display:flex;
     align-items:center;
     justify-content:center;
+    border-radius:11px;
     background:#f2f6f3;
-    font-size:14px;
+    font-size:16px;
+    transition:.2s;
 }
-
-/* CONTENT */
-
+.nav.active .nav-icon{
+    color:white;
+    background:linear-gradient(135deg,#19ad69,#087a49);
+    box-shadow:0 6px 15px rgba(8,122,73,.18);
+}
+/* =========================
+   CONTENT
+========================= */
 .content{
-    margin-left:235px;
-    padding-top:70px;
+    margin-left:255px;
+    padding-top:76px;
     min-height:100vh;
 }
-
 .page{
     display:none;
-    max-width:1150px;
+    width:100%;
+    max-width:1240px;
+    min-height:calc(100vh - 76px);
     margin:auto;
-    padding:42px 28px 90px;
+    padding:42px 34px 90px;
     animation:pageIn .3s ease;
 }
-
 .page.active{
     display:block;
 }
-
 @keyframes pageIn{
     from{
         opacity:0;
-        transform:translateY(9px);
+        transform:translateY(10px);
     }
     to{
         opacity:1;
         transform:none;
     }
 }
-
-/* HERO */
-
+/* =========================
+   HERO
+========================= */
 .hero{
-    min-height:650px;
+    position:relative;
+    min-height:680px;
     display:flex;
     align-items:center;
-    position:relative;
 }
-
 .hero-content{
-    max-width:700px;
+    position:relative;
+    z-index:2;
+    max-width:730px;
 }
-
 .eyebrow{
     display:inline-flex;
     align-items:center;
-    gap:7px;
-    padding:7px 11px;
+    gap:8px;
+    padding:8px 13px;
+    border:1px solid var(--green4);
     border-radius:50px;
     color:var(--green);
-    background:var(--green3);
-    border:1px solid var(--green4);
+    background:rgba(233,248,240,.9);
     font-size:8px;
+    letter-spacing:.5px;
 }
-
-.eyebrow span{
+.eyebrow-dot{
     width:6px;
     height:6px;
     border-radius:50%;
-    background:#24aa68;
+    background:#20b572;
 }
-
 .hero h1{
-    margin-top:20px;
-    font-size:clamp(42px,6vw,74px);
-    line-height:1.05;
-    letter-spacing:-2.4px;
+    margin-top:22px;
+    font-size:clamp(45px,6vw,78px);
+    line-height:1.04;
+    letter-spacing:-3px;
+    font-weight:600;
 }
-
 .gradient{
-    background:linear-gradient(90deg,#16834f,#27a968);
+    background:linear-gradient(90deg,#087a49,#1bb46d);
     color:transparent;
     background-clip:text;
     -webkit-background-clip:text;
 }
-
 .hero-description{
     max-width:650px;
-    margin-top:20px;
+    margin-top:22px;
     color:var(--muted);
-    font-size:10px;
-    line-height:1.9;
+    font-size:11px;
+    line-height:2;
 }
-
 .actions{
     display:flex;
     flex-wrap:wrap;
-    gap:8px;
-    margin-top:23px;
+    gap:9px;
+    margin-top:24px;
 }
-
 .btn{
-    min-height:42px;
-    padding:0 15px;
-    border:1px solid var(--line);
-    border-radius:11px;
-    background:white;
-    color:var(--text);
-    font-size:8px;
+    min-height:45px;
+    padding:0 17px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:7px;
-    box-shadow:0 5px 15px rgba(20,70,40,.04);
-    transition:.2s;
+    gap:8px;
+    border:1px solid var(--line);
+    border-radius:13px;
+    background:#fff;
+    color:var(--text);
+    font-size:9px;
+    box-shadow:0 6px 20px rgba(12,76,44,.045);
+    transition:.22s ease;
 }
-
 .btn:hover{
     transform:translateY(-2px);
-    box-shadow:0 10px 25px rgba(20,70,40,.08);
+    box-shadow:0 12px 28px rgba(12,76,44,.09);
 }
-
+.btn:active{
+    transform:scale(.98);
+}
 .btn.primary{
+    color:#fff;
     border-color:transparent;
-    color:white;
-    background:linear-gradient(135deg,#23a867,#137c4a);
-    box-shadow:0 10px 25px rgba(22,131,79,.2);
+    background:linear-gradient(135deg,#1bb16b,#087a49);
+    box-shadow:0 12px 28px rgba(8,122,73,.22);
 }
-
+.btn.primary:hover{
+    box-shadow:0 16px 32px rgba(8,122,73,.28);
+}
 .hero-card{
     position:absolute;
     right:0;
-    bottom:105px;
-    width:290px;
-    padding:18px;
-    border:1px solid var(--line);
-    border-radius:21px;
-    background:rgba(255,255,255,.9);
+    bottom:110px;
+    width:320px;
+    padding:21px;
+    border:1px solid rgba(218,232,224,.95);
+    border-radius:24px;
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(20px);
     box-shadow:var(--shadow);
 }
-
 .card-label{
-    color:#96a39a;
+    color:#96a39b;
     font-size:7px;
-    letter-spacing:1.2px;
+    letter-spacing:1.5px;
 }
-
 .store-status{
     float:right;
-    padding:5px 8px;
+    padding:6px 9px;
     border-radius:50px;
     color:var(--green);
     background:var(--green3);
     font-size:7px;
 }
-
 .hero-card h3{
     clear:both;
-    padding-top:15px;
-    font-size:15px;
+    padding-top:17px;
+    font-size:16px;
 }
-
 .hero-card p{
     margin-top:5px;
     color:var(--muted);
     font-size:8px;
     line-height:1.8;
 }
-
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:6px;
-    margin-top:14px;
+    gap:7px;
+    margin-top:16px;
 }
-
 .stat{
-    padding:9px;
-    border-radius:10px;
-    background:#f7faf8;
+    padding:10px;
+    border:1px solid #edf2ef;
+    border-radius:12px;
+    background:#f8faf9;
 }
-
 .stat small{
     display:block;
     color:#8b988f;
     font-size:6px;
 }
-
 .stat strong{
     display:block;
     margin-top:3px;
-    font-size:9px;
+    font-size:10px;
 }
-
 .dash-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:8px;
-    margin-top:22px;
+    gap:9px;
+    max-width:760px;
+    margin-top:28px;
 }
-
 .dash{
-    padding:14px;
+    padding:15px;
     border:1px solid var(--line);
-    border-radius:15px;
-    background:white;
-    box-shadow:0 7px 25px rgba(20,70,40,.04);
+    border-radius:17px;
+    background:rgba(255,255,255,.8);
+    box-shadow:0 8px 25px rgba(12,76,44,.045);
+    transition:.2s;
 }
-
+.dash:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow2);
+}
 .dash-icon{
-    font-size:17px;
+    font-size:20px;
 }
-
 .dash small{
     display:block;
-    color:#87958c;
-    font-size:6px;
-    margin-top:8px;
+    margin-top:9px;
+    color:#8a9890;
+    font-size:7px;
 }
-
 .dash strong{
     display:block;
+    margin-top:3px;
     font-size:10px;
-    margin-top:2px;
 }
-
-/* HEADINGS */
-
+/* decorative */
+.hero-orb{
+    position:absolute;
+    right:70px;
+    top:85px;
+    width:360px;
+    height:360px;
+    border-radius:50%;
+    background:radial-gradient(circle,#dff7e9 0%,rgba(223,247,233,.4) 45%,transparent 70%);
+    pointer-events:none;
+}
+/* =========================
+   HEADINGS
+========================= */
 .heading{
-    margin-bottom:22px;
+    margin-bottom:25px;
 }
-
 .heading-mini{
     color:var(--green);
-    font-size:7px;
-    letter-spacing:1.5px;
+    font-size:8px;
+    letter-spacing:2px;
+    font-weight:500;
 }
-
 .heading h2{
-    margin-top:4px;
-    font-size:31px;
+    margin-top:5px;
+    font-size:34px;
+    line-height:1.15;
+    letter-spacing:-1px;
 }
-
 .heading p{
-    margin-top:4px;
+    margin-top:6px;
     color:var(--muted);
-    font-size:9px;
+    font-size:10px;
 }
-
-/* CHAT */
-
+/* =========================
+   CHAT
+========================= */
 .chat{
     overflow:hidden;
     border:1px solid var(--line);
-    border-radius:22px;
-    background:white;
+    border-radius:25px;
+    background:#fff;
     box-shadow:var(--shadow);
 }
-
 .chat-head{
-    height:68px;
-    padding:0 17px;
+    min-height:75px;
+    padding:0 19px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     border-bottom:1px solid var(--line);
+    background:linear-gradient(135deg,#fff,#f9fcfa);
 }
-
 .ai-profile{
     display:flex;
     align-items:center;
-    gap:9px;
+    gap:11px;
 }
-
 .ai-logo{
-    width:38px;
-    height:38px;
-    border-radius:11px;
+    width:42px;
+    height:42px;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:white;
-    background:linear-gradient(135deg,#28aa6b,#147d4b);
+    border-radius:13px;
+    color:#fff;
+    font-size:18px;
+    background:linear-gradient(135deg,#20b674,#087a49);
+    box-shadow:0 8px 20px rgba(8,122,73,.2);
 }
-
 .ai-name{
-    font-size:10px;
+    font-size:11px;
     font-weight:600;
 }
-
 .ai-sub{
     display:block;
-    color:var(--muted);
+    margin-top:2px;
+    color:#89968e;
     font-size:7px;
 }
-
 .ai-ready{
+    padding:7px 10px;
+    border-radius:50px;
     color:var(--green);
+    background:var(--green3);
     font-size:7px;
 }
-
 .chat-body{
-    height:500px;
+    height:525px;
     overflow-y:auto;
-    padding:18px;
-    background:#fcfefd;
+    padding:22px;
+    background:
+        radial-gradient(circle at 90% 10%,rgba(22,167,101,.045),transparent 25%),
+        #fbfdfc;
 }
-
+.chat-body::-webkit-scrollbar{
+    width:5px;
+}
+.chat-body::-webkit-scrollbar-thumb{
+    background:#d9e6df;
+    border-radius:20px;
+}
 .message{
     display:flex;
-    margin-bottom:13px;
+    margin-bottom:15px;
     animation:msg .25s ease;
 }
-
 .message.user{
     justify-content:flex-end;
 }
-
 @keyframes msg{
     from{
         opacity:0;
-        transform:translateY(5px);
+        transform:translateY(6px);
     }
     to{
         opacity:1;
         transform:none;
     }
 }
-
 .bubble{
-    max-width:84%;
-    padding:11px 13px;
-    border-radius:14px;
-    font-size:9px;
-    line-height:1.85;
+    max-width:78%;
+    padding:13px 15px;
+    border-radius:17px;
+    font-size:10px;
+    line-height:1.9;
 }
-
 .message.bot .bubble{
     border:1px solid var(--line);
-    background:white;
-    border-top-left-radius:5px;
-    box-shadow:0 5px 18px rgba(20,70,40,.035);
+    border-top-left-radius:6px;
+    background:#fff;
+    box-shadow:0 7px 20px rgba(12,76,44,.04);
 }
-
 .message.user .bubble{
-    color:white;
-    background:linear-gradient(135deg,#27a566,#147d4b);
-    border-top-right-radius:5px;
+    color:#fff;
+    border-top-right-radius:6px;
+    background:linear-gradient(135deg,#19ae6a,#087a49);
+    box-shadow:0 8px 22px rgba(8,122,73,.17);
 }
-
 .good{
+    margin-bottom:6px;
     color:var(--green);
     font-size:7px;
-    margin-bottom:5px;
+    font-weight:500;
 }
-
 .bad{
+    margin-bottom:6px;
     color:var(--red);
     font-size:7px;
-    margin-bottom:5px;
 }
-
 .answer-box{
-    margin-top:9px;
-    padding:10px;
-    border-radius:10px;
-    background:#f0f9f3;
-    border:1px solid #d8eee0;
+    margin-top:10px;
+    padding:11px 12px;
+    border:1px solid #d9eee1;
+    border-radius:12px;
+    background:#f1faf5;
 }
-
 .action-row{
     display:flex;
     flex-wrap:wrap;
-    gap:5px;
-    margin-top:9px;
+    gap:6px;
+    margin-top:10px;
 }
-
 .mini{
-    min-height:29px;
-    padding:0 9px;
-    border:1px solid var(--line);
-    border-radius:8px;
-    background:white;
-    color:var(--text);
-    font-size:7px;
+    min-height:31px;
+    padding:0 10px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
+    gap:5px;
+    border:1px solid var(--line);
+    border-radius:9px;
+    background:#fff;
+    color:var(--text);
+    font-size:7px;
 }
-
 .mini.primary{
-    color:white;
+    color:#fff;
     background:var(--green);
     border-color:var(--green);
 }
-
 .confidence{
-    margin-top:8px;
-    color:#9aa59e;
+    margin-top:9px;
+    color:#9aa69f;
     font-size:6px;
 }
-
 .confidence-bar{
     height:3px;
     margin-top:4px;
@@ -582,528 +606,636 @@ a{
     border-radius:20px;
     background:#edf1ee;
 }
-
 .confidence-fill{
     height:100%;
-    background:linear-gradient(90deg,#32ae70,#167f4d);
+    background:linear-gradient(90deg,#32b678,#087a49);
 }
-
+/* =========================
+   CHAT INPUT
+========================= */
 .chat-input{
-    padding:12px;
+    padding:14px;
     border-top:1px solid var(--line);
-    background:white;
+    background:#fff;
 }
-
 .input-row{
     display:flex;
-    gap:7px;
+    gap:8px;
 }
-
 .question{
     flex:1;
-    height:45px;
-    border:1px solid var(--line);
-    border-radius:11px;
+    min-width:0;
+    height:51px;
+    padding:0 15px;
     outline:none;
-    background:#f9fbfa;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#f8fbf9;
     color:var(--text);
-    padding:0 12px;
-    font-size:9px;
+    font-size:10px;
+    transition:.2s;
 }
-
 .question:focus{
-    border-color:#40ad77;
-    box-shadow:0 0 0 3px rgba(34,165,101,.07);
+    border-color:#40b47c;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(22,167,101,.07);
 }
-
 .voice,
 .send{
-    width:47px;
-    border-radius:11px;
+    width:52px;
+    flex:0 0 52px;
+    border-radius:14px;
 }
-
 .voice{
     border:1px solid var(--line);
-    background:white;
     color:var(--green);
+    background:#fff;
 }
-
+.voice:hover{
+    background:var(--green3);
+}
 .voice.listening{
     color:var(--red);
-    background:#fff7f8;
+    background:#fff5f6;
 }
-
 .send{
     border:0;
-    color:white;
-    background:linear-gradient(135deg,#23a867,#147d4b);
+    color:#fff;
+    background:linear-gradient(135deg,#1bb16b,#087a49);
+    box-shadow:0 7px 18px rgba(8,122,73,.2);
 }
-
 .suggestions{
     display:flex;
     flex-wrap:wrap;
-    gap:5px;
-    margin-top:8px;
+    gap:6px;
+    margin-top:9px;
 }
-
 .suggestion{
-    padding:5px 8px;
+    padding:7px 10px;
     border:1px solid var(--line);
     border-radius:50px;
-    background:white;
-    color:#748078;
-    font-size:6px;
+    background:#fff;
+    color:#718078;
+    font-size:7px;
+    transition:.2s;
 }
-
+.suggestion:hover{
+    color:var(--green);
+    border-color:var(--green4);
+    background:var(--green3);
+}
 .chat-tools{
     display:flex;
     justify-content:space-between;
-    margin-top:8px;
+    margin-top:9px;
 }
-
 .chat-tools button{
     border:0;
     background:none;
-    color:#89968e;
+    color:#8a9890;
     font-size:7px;
 }
-
-/* CARDS */
-
+/* =========================
+   CARDS
+========================= */
 .grid2{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:11px;
+    gap:13px;
 }
-
 .card{
-    padding:20px;
+    padding:23px;
     border:1px solid var(--line);
-    border-radius:19px;
-    background:white;
+    border-radius:21px;
+    background:#fff;
     box-shadow:var(--shadow);
 }
-
 .big-icon{
-    width:45px;
-    height:45px;
-    border-radius:12px;
+    width:49px;
+    height:49px;
     display:flex;
     align-items:center;
     justify-content:center;
+    border-radius:14px;
     background:var(--green3);
-    font-size:20px;
+    font-size:22px;
 }
-
 .card h3{
-    margin-top:14px;
-    font-size:17px;
+    margin-top:15px;
+    font-size:18px;
 }
-
 .card p{
-    margin-top:5px;
+    margin-top:6px;
     color:var(--muted);
     font-size:9px;
     line-height:1.9;
 }
-
-/* PRODUCT LIST */
-
+/* =========================
+   PRODUCTS
+========================= */
 .product-search{
     width:100%;
-    height:45px;
-    padding:0 14px;
-    margin-bottom:12px;
-    border:1px solid var(--line);
-    border-radius:12px;
+    height:51px;
+    padding:0 16px;
+    margin-bottom:13px;
     outline:none;
-    background:white;
-    font-size:9px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#fff;
+    font-size:10px;
+    box-shadow:0 5px 18px rgba(12,76,44,.035);
 }
-
+.product-search:focus{
+    border-color:#45b67f;
+    box-shadow:0 0 0 4px rgba(22,167,101,.06);
+}
 .product-tabs{
     display:flex;
+    flex-wrap:wrap;
     gap:7px;
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
-
 .product-tab{
-    padding:8px 13px;
+    padding:9px 14px;
     border:1px solid var(--line);
     border-radius:50px;
-    background:white;
+    background:#fff;
     color:var(--muted);
-    font-size:7px;
+    font-size:8px;
 }
-
 .product-tab.active{
-    color:white;
-    background:var(--green);
+    color:#fff;
     border-color:var(--green);
+    background:var(--green);
 }
-
 .product-list{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:8px;
+    gap:10px;
 }
-
 .product-item{
-    padding:13px;
+    position:relative;
+    padding:16px;
     border:1px solid var(--line);
-    border-radius:13px;
-    background:white;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 6px 20px rgba(12,76,44,.035);
+    transition:.2s;
 }
-
+.product-item:hover{
+    transform:translateY(-3px);
+    border-color:#cde7d8;
+    box-shadow:var(--shadow2);
+}
 .product-item strong{
     display:block;
-    font-size:9px;
+    padding-right:20px;
+    font-size:10px;
 }
-
 .product-item small{
     display:block;
-    margin-top:3px;
+    margin-top:6px;
     color:var(--muted);
-    font-size:6px;
+    font-size:7px;
 }
-
-/* FEATURES */
-
+/* =========================
+   FEATURES
+========================= */
 .feature-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:10px;
+    gap:12px;
 }
-
 .feature{
-    padding:17px;
+    padding:20px;
     border:1px solid var(--line);
-    border-radius:16px;
-    background:white;
-    box-shadow:0 6px 25px rgba(20,70,40,.035);
+    border-radius:19px;
+    background:#fff;
+    box-shadow:0 7px 25px rgba(12,76,44,.035);
+    transition:.22s;
 }
-
+.feature:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow2);
+}
 .feature-icon{
+    width:43px;
+    height:43px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:var(--green3);
     font-size:20px;
 }
-
 .feature h3{
-    margin-top:9px;
-    font-size:11px;
+    margin-top:12px;
+    font-size:12px;
 }
-
 .feature p{
-    margin-top:3px;
+    margin-top:4px;
     color:var(--muted);
-    font-size:7px;
-    line-height:1.8;
+    font-size:8px;
+    line-height:1.9;
 }
-
-/* MAP */
-
+/* =========================
+   MAP
+========================= */
 .map{
-    height:300px;
     position:relative;
+    height:330px;
     overflow:hidden;
     border:1px solid var(--line);
-    border-radius:17px;
-    background:linear-gradient(135deg,#edf7f0,#f8fbf9);
+    border-radius:20px;
+    background:linear-gradient(135deg,#edf8f1,#f9fcfa);
 }
-
 .map-grid{
     position:absolute;
     inset:-50%;
     transform:rotate(7deg);
     background-image:
-        linear-gradient(30deg,transparent 47%,rgba(22,131,79,.08) 48%,transparent 50%),
-        linear-gradient(150deg,transparent 47%,rgba(22,131,79,.07) 48%,transparent 50%);
+        linear-gradient(30deg,transparent 47%,rgba(8,122,73,.08) 48%,transparent 50%),
+        linear-gradient(150deg,transparent 47%,rgba(8,122,73,.07) 48%,transparent 50%);
     background-size:100px 100px;
 }
-
 .map-pin{
     position:absolute;
     left:50%;
     top:50%;
-    width:62px;
-    height:62px;
+    width:72px;
+    height:72px;
     transform:translate(-50%,-50%);
-    border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(34,165,101,.12);
-    border:1px solid rgba(34,165,101,.28);
-    box-shadow:0 0 50px rgba(34,165,101,.18);
-    font-size:23px;
+    border-radius:50%;
+    background:rgba(22,167,101,.12);
+    border:1px solid rgba(22,167,101,.3);
+    box-shadow:0 0 55px rgba(22,167,101,.2);
+    font-size:26px;
 }
-
 .map-label{
     position:absolute;
     left:50%;
-    top:calc(50% + 45px);
+    top:calc(50% + 53px);
     transform:translateX(-50%);
     white-space:nowrap;
-    padding:6px 9px;
-    border-radius:8px;
-    background:white;
+    padding:8px 11px;
     border:1px solid var(--line);
-    font-size:7px;
-    box-shadow:0 5px 15px rgba(20,70,40,.07);
+    border-radius:10px;
+    background:#fff;
+    box-shadow:0 7px 18px rgba(12,76,44,.08);
+    font-size:8px;
 }
-
-/* CONTACT */
-
+/* =========================
+   CONTACT
+========================= */
 .contact-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:12px;
 }
-
 .contact{
-    padding:19px;
+    padding:21px;
     border:1px solid var(--line);
-    border-radius:17px;
-    background:white;
+    border-radius:19px;
+    background:#fff;
     box-shadow:var(--shadow);
 }
-
 .contact-icon{
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:var(--green3);
     font-size:20px;
 }
-
 .contact small{
     display:block;
-    margin-top:9px;
+    margin-top:12px;
     color:#8c9890;
     font-size:7px;
 }
-
 .contact strong{
     display:block;
-    margin-top:2px;
-    font-size:14px;
+    margin-top:3px;
+    font-size:15px;
 }
-
 .contact p{
-    margin-top:4px;
+    margin-top:5px;
     color:var(--muted);
     font-size:8px;
-    line-height:1.8;
+    line-height:1.9;
 }
-
-/* TOAST */
-
+/* =========================
+   TOAST
+========================= */
 .toast{
     position:fixed;
-    left:50%;
-    bottom:25px;
     z-index:999;
+    left:50%;
+    bottom:30px;
     transform:translate(-50%,100px);
     opacity:0;
-    padding:10px 15px;
+    padding:11px 16px;
     border:1px solid var(--line);
-    border-radius:10px;
-    background:white;
+    border-radius:12px;
+    background:#fff;
     box-shadow:var(--shadow);
     font-size:8px;
     transition:.25s;
 }
-
 .toast.show{
     opacity:1;
     transform:translate(-50%,0);
 }
-
-/* MOBILE */
-
+/* =========================
+   MOBILE NAV
+========================= */
 .mobile-nav{
     display:none;
 }
-
-@media(max-width:950px){
+/* =========================
+   TABLET / IPAD
+========================= */
+@media(max-width:1050px){
     .hero-card{
         display:none;
     }
-}
-
-@media(max-width:700px){
-
-    .header{
-        height:62px;
+    .hero-content{
+        max-width:850px;
     }
-
+    .dash-grid{
+        max-width:none;
+    }
+    .feature-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .bubble{
+        max-width:85%;
+    }
+}
+/* =========================
+   MOBILE
+========================= */
+@media(max-width:700px){
+    .header{
+        height:64px;
+    }
+    .header-inner{
+        padding:0 15px;
+    }
+    .brand-title{
+        font-size:10px;
+    }
+    .brand-sub{
+        font-size:6px;
+    }
+    .logo{
+        width:39px;
+        height:39px;
+        border-radius:13px;
+    }
+    .live-pill{
+        padding:7px 9px;
+        font-size:6px;
+    }
     .sidebar{
         display:none;
     }
-
     .content{
         margin-left:0;
-        padding-top:62px;
-        padding-bottom:70px;
+        padding-top:64px;
+        padding-bottom:76px;
     }
-
     .page{
-        padding:27px 13px 45px;
+        min-height:calc(100vh - 64px);
+        padding:25px 13px 50px;
     }
-
     .hero{
-        min-height:calc(100vh - 130px);
+        min-height:calc(100vh - 150px);
+        align-items:center;
     }
-
+    .hero-orb{
+        right:-100px;
+        top:40px;
+        width:300px;
+        height:300px;
+    }
     .hero h1{
-        font-size:41px;
-        letter-spacing:-1px;
+        font-size:43px;
+        letter-spacing:-1.7px;
     }
-
     .hero-description{
         font-size:9px;
+        line-height:1.9;
     }
-
     .actions{
         display:grid;
         grid-template-columns:1fr 1fr;
     }
-
     .btn{
         width:100%;
+        min-height:44px;
     }
-
     .dash-grid{
         grid-template-columns:1fr 1fr;
+        gap:7px;
     }
-
+    .dash{
+        padding:12px;
+    }
+    .heading h2{
+        font-size:28px;
+    }
     .grid2,
     .contact-grid{
         grid-template-columns:1fr;
     }
-
     .feature-grid{
         grid-template-columns:1fr;
     }
-
     .product-list{
         grid-template-columns:1fr;
     }
-
+    .chat{
+        border-radius:20px;
+    }
+    .chat-head{
+        min-height:68px;
+        padding:0 13px;
+    }
     .chat-body{
-        height:470px;
-        padding:13px;
+        height:calc(100vh - 330px);
+        min-height:390px;
+        padding:14px;
     }
-
     .bubble{
-        max-width:92%;
-        font-size:8px;
+        max-width:94%;
+        font-size:9px;
     }
-
+    .question{
+        height:50px;
+        font-size:10px;
+    }
+    .voice,
+    .send{
+        width:48px;
+        flex-basis:48px;
+    }
+    .suggestion{
+        font-size:6px;
+    }
     .mobile-nav{
         position:fixed;
+        z-index:250;
         left:0;
         right:0;
         bottom:0;
-        height:67px;
-        z-index:100;
+        height:70px;
         display:flex;
+        padding-bottom:env(safe-area-inset-bottom);
         background:rgba(255,255,255,.94);
         backdrop-filter:blur(20px);
+        -webkit-backdrop-filter:blur(20px);
         border-top:1px solid var(--line);
     }
-
     .mobile-nav button{
         flex:1;
         border:0;
         background:transparent;
-        color:#859189;
+        color:#89958e;
         font-size:6px;
     }
-
     .mobile-nav button span{
         display:block;
+        margin-bottom:3px;
         font-size:17px;
-        margin-bottom:2px;
     }
-
     .mobile-nav button.active{
         color:var(--green);
+        font-weight:500;
+    }
+    .map{
+        height:280px;
+    }
+}
+/* =========================
+   SMALL PHONE
+========================= */
+@media(max-width:390px){
+    .brand-title{
+        max-width:170px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    .live-pill{
+        display:none;
+    }
+    .hero h1{
+        font-size:38px;
+    }
+    .chat-body{
+        min-height:370px;
+    }
+}
+/* =========================
+   IPAD PORTRAIT
+========================= */
+@media(min-width:701px) and (max-width:1100px){
+    .sidebar{
+        width:215px;
+    }
+    .content{
+        margin-left:215px;
+    }
+    .page{
+        padding-left:25px;
+        padding-right:25px;
+    }
+    .hero h1{
+        font-size:58px;
+    }
+    .chat-body{
+        height:55vh;
+        min-height:500px;
+    }
+    .question{
+        height:57px;
+        font-size:12px;
+    }
+    .voice,
+    .send{
+        width:57px;
+    }
+    .bubble{
+        font-size:11px;
     }
 }
 </style>
 </head>
-
 <body>
-
 <header class="header">
 <div class="header-inner">
-
 <div class="brand">
 <div class="logo">ต</div>
-
 <div>
 <div class="brand-title">
 หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด
 </div>
-
 <div class="brand-sub">
 AI SMART STORE • AGRICULTURE
 </div>
 </div>
 </div>
-
-<div class="status-top">
-<span class="status-dot"></span>
+<div class="header-right">
+<div class="live-pill">
+<span class="live-dot"></span>
 <span id="topStatus">กำลังตรวจสอบ</span>
 </div>
-
+</div>
 </div>
 </header>
-
-
 <aside class="sidebar">
-
 <div class="nav-label">SMART STORE</div>
-
 <button class="nav active" data-page="home" onclick="navigate('home')">
-<span class="nav-icon">⌂</span> หน้าหลัก
+<span class="nav-icon">⌂</span>
+<span>หน้าหลัก</span>
 </button>
-
 <button class="nav" data-page="ai" onclick="navigate('ai')">
-<span class="nav-icon">✦</span> AI ผู้ช่วยร้าน
+<span class="nav-icon">✦</span>
+<span>AI ผู้ช่วยร้าน</span>
 </button>
-
 <button class="nav" data-page="products" onclick="navigate('products')">
-<span class="nav-icon">▦</span> สินค้า
+<span class="nav-icon">▦</span>
+<span>สินค้า</span>
 </button>
-
 <button class="nav" data-page="features" onclick="navigate('features')">
-<span class="nav-icon">◇</span> ฟังก์ชัน
+<span class="nav-icon">◇</span>
+<span>ฟังก์ชัน</span>
 </button>
-
 <button class="nav" data-page="location" onclick="navigate('location')">
-<span class="nav-icon">⌖</span> สถานที่
+<span class="nav-icon">⌖</span>
+<span>สถานที่</span>
 </button>
-
 <button class="nav" data-page="contact" onclick="navigate('contact')">
-<span class="nav-icon">☎</span> ติดต่อ
+<span class="nav-icon">☎</span>
+<span>ติดต่อ</span>
 </button>
-
 </aside>
-
-
 <main class="content">
-
-
 <!-- HOME -->
-
 <section id="home" class="page active">
-
 <div class="hero">
-
+<div class="hero-orb"></div>
 <div class="hero-content">
-
 <div class="eyebrow">
-<span></span>
+<span class="eyebrow-dot"></span>
 AI SMART STORE
 </div>
-
 <h1>
 หจก.
 <span class="gradient">
@@ -1111,374 +1243,293 @@ AI SMART STORE
 </span>
 พานิชย์ร้อยเอ็ด
 </h1>
-
 <p class="hero-description">
 ผู้ช่วยอัจฉริยะสำหรับร้านปุ๋ยและเมล็ดพันธุ์ข้าว
-ลูกค้าสามารถถามข้อมูลร้านด้วยภาษาธรรมชาติ
-พร้อมระบบตรวจสอบเวลาเปิด-ปิด สินค้า
-สถานที่ การติดต่อ และการชำระเงิน
+ถามข้อมูลร้านด้วยภาษาธรรมชาติได้ทันที
+ค้นหาสินค้า ตรวจสอบเวลาเปิด-ปิด สถานที่
+การชำระเงิน และช่องทางติดต่อได้ในที่เดียว
 </p>
-
 <div class="actions">
-
 <button class="btn primary" onclick="navigate('ai')">
 ✦ ถาม AI
 </button>
-
+<button class="btn" onclick="navigate('products')">
+▦ ดูสินค้า
+</button>
 <button class="btn" onclick="navigate('location')">
 📍 ดูสถานที่
 </button>
-
 <a class="btn" href="tel:0923628796">
 ☎ โทรร้าน
 </a>
-
-<button class="btn" onclick="shareStore()">
-↗ แชร์ร้าน
-</button>
-
 </div>
-
 <div class="dash-grid">
-
 <div class="dash">
 <div class="dash-icon">🌱</div>
 <small>หมวดสินค้า</small>
 <strong>ปุ๋ย</strong>
 </div>
-
 <div class="dash">
 <div class="dash-icon">🌾</div>
 <small>หมวดสินค้า</small>
 <strong>เมล็ดพันธุ์ข้าว</strong>
 </div>
-
 <div class="dash">
 <div class="dash-icon">🕐</div>
 <small>เวลาทำการ</small>
 <strong>08:00–17:00</strong>
 </div>
-
 <div class="dash">
 <div class="dash-icon">💳</div>
 <small>ชำระเงิน</small>
 <strong>สด / โอน</strong>
 </div>
-
 </div>
-
 </div>
-
-
 <div class="hero-card">
-
-<span class="card-label">LIVE STORE STATUS</span>
-
+<span class="card-label">
+LIVE STORE STATUS
+</span>
 <span class="store-status" id="heroStatus">
 ตรวจสอบ
 </span>
-
-<h3>ร้านไทเกษตรรุ่งเรืองพานิชย์</h3>
-
+<h3>
+ร้านไทเกษตรรุ่งเรืองพานิชย์
+</h3>
 <p>
 บ้านธวัชดินแดง ข้าง ๆ เซเว่น
 จังหวัดร้อยเอ็ด
 </p>
-
 <div class="stats">
-
 <div class="stat">
 <small>เปิด</small>
 <strong>08:00</strong>
 </div>
-
 <div class="stat">
 <small>ปิด</small>
 <strong>17:00</strong>
 </div>
-
 <div class="stat">
 <small>สถานะ</small>
 <strong id="heroTime">-</strong>
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </section>
-
-
 <!-- AI -->
-
 <section id="ai" class="page">
-
 <div class="heading">
 <div class="heading-mini">AI ASSISTANT</div>
 <h2>ผู้ช่วยร้านอัจฉริยะ</h2>
 <p>ถามได้ทั้งเรื่องปุ๋ย พันธุ์ข้าว ร้าน และบริการ</p>
 </div>
-
-
 <div class="chat">
-
 <div class="chat-head">
-
 <div class="ai-profile">
-
 <div class="ai-logo">✦</div>
-
 <div>
-<div class="ai-name">Thai Kaset AI</div>
-<span class="ai-sub">Smart Store Assistant</span>
+<div class="ai-name">
+Thai Kaset AI
 </div>
-
+<span class="ai-sub">
+Smart Store Assistant
+</span>
 </div>
-
-<div class="ai-ready">● ONLINE</div>
-
 </div>
-
-
+<div class="ai-ready">
+● ONLINE
+</div>
+</div>
 <div class="chat-body" id="chatBody">
-
 <div class="message bot">
-
 <div class="bubble">
-
-<div class="good">✓ AI พร้อมช่วย</div>
-
+<div class="good">
+✓ AI พร้อมช่วย
+</div>
 สวัสดี ยินดีต้อนรับสู่
 <strong>หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด</strong>
-
 <div class="answer-box">
-
 ถามได้ เช่น
-
 <br>📍 ร้านอยู่ที่ไหน
 <br>🌾 มีพันธุ์ข้าวไหนบ้าง
 <br>🌱 มีปุ๋ยอะไรบ้าง
 <br>🔎 มีกข6ไหม
-<br>🕐 ร้านใกล้เปิดยัง
+<br>🕐 ร้านเปิดหรือยัง
 <br>☎ ขอเบอร์ร้าน
 <br>💳 รับโอนไหม
 <br>🚚 มีส่งไหม
-
 </div>
-
 </div>
-
 </div>
-
 </div>
-
-
 <div class="chat-input">
-
 <div class="input-row">
-
 <input
 id="question"
 class="question"
 autocomplete="off"
-placeholder="ถามข้อมูลร้าน เช่น มีพันธุ์ข้าวไหนบ้าง...">
-
-<button id="voice" class="voice" onclick="voiceInput()">🎙</button>
-
-<button class="send" onclick="sendQuestion()">➤</button>
-
+placeholder="ถาม AI เช่น มีพันธุ์ข้าวอะไรบ้าง...">
+<button
+id="voice"
+class="voice"
+onclick="voiceInput()">
+🎙
+</button>
+<button
+class="send"
+onclick="sendQuestion()">
+➤
+</button>
 </div>
-
-
 <div class="suggestions">
-
-<button class="suggestion" onclick="quick('ร้านอยู่ที่ไหน')">
+<button class="suggestion"
+onclick="quick('ร้านอยู่ที่ไหน')">
 📍 ร้านอยู่ไหน
 </button>
-
-<button class="suggestion" onclick="quick('ขายอะไรบ้าง')">
+<button class="suggestion"
+onclick="quick('ขายอะไรบ้าง')">
 🛒 ขายอะไร
 </button>
-
-<button class="suggestion" onclick="quick('มีพันธุ์ข้าวไหนบ้าง')">
+<button class="suggestion"
+onclick="quick('มีพันธุ์ข้าวไหนบ้าง')">
 🌾 พันธุ์ข้าว
 </button>
-
-<button class="suggestion" onclick="quick('มีปุ๋ยอะไรบ้าง')">
+<button class="suggestion"
+onclick="quick('มีปุ๋ยอะไรบ้าง')">
 🌱 ปุ๋ย
 </button>
-
-<button class="suggestion" onclick="quick('มี กข6 ไหม')">
-🔎 มีกข6ไหม
+<button class="suggestion"
+onclick="quick('มี กข6 ไหม')">
+🔎 กข6
 </button>
-
-<button class="suggestion" onclick="quick('ร้านใกล้เปิดยัง')">
+<button class="suggestion"
+onclick="quick('ร้านใกล้เปิดยัง')">
 🕐 เวลา
 </button>
-
-<button class="suggestion" onclick="quick('ขอเบอร์โทรร้าน')">
+<button class="suggestion"
+onclick="quick('ขอเบอร์โทรร้าน')">
 ☎ เบอร์
 </button>
-
 </div>
-
-
 <div class="chat-tools">
-
-<button onclick="clearChat()">ล้างแชต</button>
-
-<button onclick="shareStore()">แชร์ร้าน</button>
-
+<button onclick="clearChat()">
+ล้างแชต
+</button>
+<button onclick="shareStore()">
+↗ แชร์ร้าน
+</button>
 </div>
-
 </div>
-
 </div>
-
 </section>
-
-
 <!-- PRODUCTS -->
-
 <section id="products" class="page">
-
 <div class="heading">
 <div class="heading-mini">PRODUCTS</div>
 <h2>รายการสินค้า</h2>
-<p>รายการสินค้าที่ระบบรู้จัก โดยไม่มีราคา</p>
+<p>ค้นหาปุ๋ยและพันธุ์ข้าวจากข้อมูลร้าน</p>
 </div>
-
 <input
 class="product-search"
 id="productSearch"
-placeholder="ค้นหาชื่อปุ๋ยหรือพันธุ์ข้าว..."
+placeholder="🔎 ค้นหาชื่อปุ๋ย สูตร หรือพันธุ์ข้าว..."
 oninput="renderProducts()">
-
 <div class="product-tabs">
-
-<button class="product-tab active"
+<button
+class="product-tab active"
 id="tabAll"
 onclick="setProductTab('all')">
 ทั้งหมด
 </button>
-
-<button class="product-tab"
+<button
+class="product-tab"
 id="tabRice"
 onclick="setProductTab('rice')">
 🌾 พันธุ์ข้าว
 </button>
-
-<button class="product-tab"
+<button
+class="product-tab"
 id="tabFert"
 onclick="setProductTab('fert')">
 🌱 ปุ๋ย
 </button>
-
 </div>
-
 <div class="product-list" id="productList"></div>
-
 </section>
-
-
 <!-- FEATURES -->
-
 <section id="features" class="page">
-
 <div class="heading">
 <div class="heading-mini">SMART FEATURES</div>
 <h2>ฟังก์ชันพิเศษ</h2>
-<p>ระบบช่วยลูกค้าค้นหาข้อมูลร้าน</p>
+<p>ระบบช่วยให้ค้นหาข้อมูลร้านได้ง่ายขึ้น</p>
 </div>
-
 <div class="feature-grid">
-
 <div class="feature">
 <div class="feature-icon">✦</div>
-<h3>AI เข้าใจคำถามหลายรูปแบบ</h3>
-<p>ถามแบบภาษาธรรมชาติได้ ไม่จำเป็นต้องพิมพ์ตามประโยคที่กำหนด</p>
+<h3>AI เข้าใจคำถาม</h3>
+<p>ถามด้วยภาษาธรรมชาติได้ ไม่จำเป็นต้องใช้ประโยคตายตัว</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">🌾</div>
 <h3>ค้นหาพันธุ์ข้าว</h3>
-<p>ค้นหาชื่อพันธุ์ข้าวจากรายการที่ร้านให้ข้อมูลไว้</p>
+<p>ค้นหาชื่อพันธุ์ข้าวจากรายการข้อมูลของร้าน</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">🌱</div>
 <h3>ค้นหาปุ๋ย</h3>
-<p>ค้นหาตามชื่อแบรนด์ สูตรปุ๋ย หรือคำที่เกี่ยวข้อง</p>
+<p>ค้นหาตามชื่อแบรนด์และสูตรปุ๋ย</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">🕐</div>
-<h3>ตรวจสอบเวลา</h3>
-<p>บอกว่าตอนนี้ร้านเปิดหรือปิด และคำนวณเวลาที่เหลือ</p>
+<h3>สถานะร้านแบบ Live</h3>
+<p>ตรวจสอบว่าขณะนี้ร้านเปิดหรือปิดตามเวลาที่กำหนด</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">🎙</div>
 <h3>ถามด้วยเสียง</h3>
-<p>รองรับ Speech Recognition บนเบราว์เซอร์ที่รองรับ</p>
+<p>รองรับ Speech Recognition บนอุปกรณ์ที่รองรับ</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">🔊</div>
 <h3>อ่านคำตอบ</h3>
-<p>ให้โทรศัพท์หรือแท็บเล็ตอ่านคำตอบออกเสียง</p>
+<p>ให้ระบบอ่านคำตอบออกเสียงได้</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">📍</div>
 <h3>Google Maps</h3>
-<p>เปิดการค้นหาร้านใน Google Maps ได้โดยตรง</p>
+<p>เปิดการค้นหาร้านผ่าน Google Maps ได้โดยตรง</p>
 </div>
-
 <div class="feature">
-<div class="feature-icon">⚠</div>
-<h3>ไม่เดาราคา</h3>
-<p>ระบบไม่แสดงราคาสินค้า เพราะราคาอาจเปลี่ยนแปลงตลอด</p>
+<div class="feature-icon">💳</div>
+<h3>การชำระเงิน</h3>
+<p>แสดงข้อมูลเงินสดและการโอนเงิน</p>
 </div>
-
 <div class="feature">
 <div class="feature-icon">🛡</div>
-<h3>ระบบตรวจสอบคำตอบ</h3>
-<p>หากไม่มีข้อมูล ระบบจะแจ้งว่าตอบไม่ได้แทนการแต่งข้อมูล</p>
+<h3>ไม่แต่งข้อมูล</h3>
+<p>ถ้าระบบไม่มีข้อมูล จะไม่เดาราคาและข้อมูลขึ้นมาเอง</p>
 </div>
-
 </div>
-
 </section>
-
-
 <!-- LOCATION -->
-
 <section id="location" class="page">
-
 <div class="heading">
 <div class="heading-mini">LOCATION</div>
 <h2>ร้านอยู่ที่ไหน</h2>
-<p>ค้นหาร้านผ่าน Google Maps</p>
+<p>ค้นหาเส้นทางและสถานที่ร้าน</p>
 </div>
-
 <div class="grid2">
-
 <div class="card">
-
 <div class="big-icon">📍</div>
-
-<h3>ร้านไทเกษตรรุ่งเรืองพานิชย์</h3>
-
+<h3>
+ร้านไทเกษตรรุ่งเรืองพานิชย์
+</h3>
 <p>
 บ้านธวัชดินแดง ข้าง ๆ เซเว่น
 จังหวัดร้อยเอ็ด
 </p>
-
 <div class="actions">
-
 <a
 class="btn primary"
 target="_blank"
@@ -1486,162 +1537,140 @@ rel="noopener"
 href="https://www.google.com/maps/search/?api=1&query=ร้านไทเกษตรรุ่งเรืองพานิชย์">
 📍 เปิด Google Maps
 </a>
-
 </div>
-
 </div>
-
-
 <div class="card">
-
 <div class="map">
-
 <div class="map-grid"></div>
-
-<div class="map-pin">📍</div>
-
+<div class="map-pin">
+📍
+</div>
 <div class="map-label">
 ไทเกษตรรุ่งเรืองพานิชย์
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </section>
-
-
 <!-- CONTACT -->
-
 <section id="contact" class="page">
-
 <div class="heading">
 <div class="heading-mini">CONTACT</div>
 <h2>ติดต่อร้าน</h2>
-<p>ช่องทางติดต่อและข้อมูลบริการ</p>
+<p>ช่องทางติดต่อและบริการ</p>
 </div>
-
 <div class="contact-grid">
-
 <div class="contact">
-
-<div class="contact-icon">☎</div>
-
+<div class="contact-icon">
+☎
+</div>
 <small>เบอร์โทร</small>
-
-<strong>092 362 8796</strong>
-
-<p>ติดต่อสอบถามสินค้า พันธุ์ข้าว ปุ๋ย ราคา และข้อมูลเพิ่มเติม</p>
-
+<strong>
+092 362 8796
+</strong>
+<p>
+ติดต่อสอบถามสินค้า พันธุ์ข้าว ปุ๋ย ราคา
+และข้อมูลเพิ่มเติม
+</p>
 <div class="actions">
-
-<a class="btn primary" href="tel:0923628796">
+<a
+class="btn primary"
+href="tel:0923628796">
 โทรร้าน
 </a>
-
-<button class="btn" onclick="copyPhone()">
+<button
+class="btn"
+onclick="copyPhone()">
 คัดลอก
 </button>
-
 </div>
-
 </div>
-
-
 <div class="contact">
-
-<div class="contact-icon">🕐</div>
-
+<div class="contact-icon">
+🕐
+</div>
 <small>เวลาทำการ</small>
-
-<strong>08:00 – 17:00 น.</strong>
-
-<p id="contactStatus">กำลังตรวจสอบ...</p>
-
+<strong>
+08:00 – 17:00 น.
+</strong>
+<p id="contactStatus">
+กำลังตรวจสอบ...
+</p>
 </div>
-
-
 <div class="contact">
-
-<div class="contact-icon">💳</div>
-
+<div class="contact-icon">
+💳
+</div>
 <small>การชำระเงิน</small>
-
-<strong>เงินสด / โอนเงิน</strong>
-
-<p>รองรับการชำระเงินด้วยเงินสดและการโอนเงิน</p>
-
+<strong>
+เงินสด / โอนเงิน
+</strong>
+<p>
+รองรับการชำระเงินด้วยเงินสดและการโอนเงิน
+</p>
 </div>
-
-
 <div class="contact">
-
-<div class="contact-icon">🚚</div>
-
+<div class="contact-icon">
+🚚
+</div>
 <small>การจัดส่ง</small>
-
-<strong>สอบถามร้าน</strong>
-
-<p>หากต้องการทราบรายละเอียดการจัดส่ง กรุณาติดต่อร้านโดยตรง</p>
-
+<strong>
+สอบถามร้าน
+</strong>
+<p>
+หากต้องการทราบรายละเอียดการจัดส่ง
+กรุณาติดต่อร้านโดยตรง
+</p>
 <div class="actions">
-
-<a class="btn" href="tel:0923628796">
+<a
+class="btn"
+href="tel:0923628796">
 ☎ สอบถาม
 </a>
-
 </div>
-
 </div>
-
 </div>
-
 </section>
-
 </main>
-
-
+<!-- MOBILE NAV -->
 <nav class="mobile-nav">
-
-<button class="active" data-page="home" onclick="navigate('home')">
+<button
+class="active"
+data-page="home"
+onclick="navigate('home')">
 <span>⌂</span>
 หน้าแรก
 </button>
-
-<button data-page="ai" onclick="navigate('ai')">
+<button
+data-page="ai"
+onclick="navigate('ai')">
 <span>✦</span>
 AI
 </button>
-
-<button data-page="products" onclick="navigate('products')">
+<button
+data-page="products"
+onclick="navigate('products')">
 <span>🌱</span>
 สินค้า
 </button>
-
-<button data-page="location" onclick="navigate('location')">
+<button
+data-page="location"
+onclick="navigate('location')">
 <span>📍</span>
 แผนที่
 </button>
-
-<button data-page="contact" onclick="navigate('contact')">
+<button
+data-page="contact"
+onclick="navigate('contact')">
 <span>☎</span>
 ติดต่อ
 </button>
-
 </nav>
-
-
 <div class="toast" id="toast"></div>
-
-
 <script>
-
-/* =========================================
-   ข้อมูลร้าน
-========================================= */
-
+/* =========================
+   SHOP DATA
+========================= */
 const SHOP={
     name:"หจก.ไทเกษตรรุ่งเรืองพานิชย์ร้อยเอ็ด",
     shortName:"ร้านไทเกษตรรุ่งเรืองพานิชย์",
@@ -1652,15 +1681,10 @@ const SHOP={
     close:17*60,
     payment:["เงินสด","โอนเงิน"]
 };
-
-
-/* =========================================
-   พันธุ์ข้าว
-   ไม่มีราคา
-========================================= */
-
+/* =========================
+   RICE
+========================= */
 const RICE_SEEDS=[
-
     "กข 61",
     "กข 89",
     "กข15 กรม",
@@ -1671,17 +1695,11 @@ const RICE_SEEDS=[
     "มะลิ105 ชุมชน",
     "มะลิ105 กรม",
     "สันป่าตอง"
-
 ];
-
-
-/* =========================================
-   ปุ๋ย
-   ไม่มีราคา
-========================================= */
-
+/* =========================
+   FERTILIZER
+========================= */
 const FERTILIZERS=[
-
     "กระต่าย 15-15-15",
     "กระต่าย 16-16-8",
     "กระต่าย 16-20-0",
@@ -1703,451 +1721,299 @@ const FERTILIZERS=[
     "หัววัว 16-16-8",
     "หัววัว 16-20-0",
     "เต่าบิน 18-4-5"
-
 ];
-
-
-/* =========================================
-   AI MEMORY
-========================================= */
-
+/* =========================
+   MEMORY
+========================= */
 let memory={
     lastIntent:null,
     lastQuestion:null
 };
-
-
-/* =========================================
+/* =========================
    INTENTS
-========================================= */
-
+========================= */
 const INTENTS={
-
-    location:[
-        "อยู่ที่ไหน","อยู่ตรงไหน","ร้านอยู่ไหน",
-        "ร้านอยู่ตรงไหน","ที่อยู่","สถานที่",
-        "พิกัด","โลเคชั่น","โลเคชัน","แผนที่",
-        "google maps","เปิดแมพ","เปิดแผนที่",
-        "ใกล้เซเว่น","ข้างอะไร","อยู่แถวไหน",
-        "อยู่บริเวณไหน","ทางไปร้าน","หาร้าน"
-    ],
-
-    products:[
-        "ขายอะไร","ขายอะไรบ้าง","มีอะไรขาย",
-        "สินค้า","สินค้ามีอะไร","ร้านขายอะไร",
-        "ขายของเกษตร","ซื้ออะไรได้บ้าง",
-        "มีอะไรให้ซื้อ"
-    ],
-
-    riceList:[
-        "มีพันธุ์ข้าวไหนบ้าง",
-        "มีพันธุ์ข้าวอะไรบ้าง",
-        "มีข้าวพันธุ์อะไร",
-        "พันธุ์ข้าวมีอะไรบ้าง",
-        "มีพันธุ์อะไรขาย",
-        "มีเมล็ดพันธุ์ข้าวอะไร",
-        "ข้าวพันธุ์ไหนมีขาย",
-        "ขอรายชื่อพันธุ์ข้าว",
-        "มีพันธุ์ข้าวอะไรขายบ้าง",
-        "เมล็ดพันธุ์ข้าวมีอะไรบ้าง",
-        "พันธุ์ข้าวทั้งหมด"
-    ],
-
-    fertilizerList:[
-        "มีปุ๋ยอะไรบ้าง",
-        "ปุ๋ยมีอะไรบ้าง",
-        "ขายปุ๋ยอะไร",
-        "มีปุ๋ยอะไรขาย",
-        "ปุ๋ยอะไรมีขาย",
-        "ขอรายชื่อปุ๋ย",
-        "มีสูตรปุ๋ยอะไร",
-        "ปุ๋ยทั้งหมด",
-        "รายการปุ๋ย"
-    ],
-
-    phone:[
-        "เบอร์","เบอร์โทร","เบอร์โทรศัพท์",
-        "โทรศัพท์","เบอร์ร้าน","ขอเบอร์",
-        "ขอเบอร์ร้าน","หมายเลข","โทรร้าน",
-        "ติดต่อร้าน"
-    ],
-
-    hours:[
-        "เปิดกี่โมง","ปิดกี่โมง","เปิดไหม",
-        "เปิดหรือยัง","เปิดหรือเปล่า",
-        "ร้านเปิด","ร้านปิด","เวลาเปิด",
-        "เวลาปิด","เวลาทำการ","ตอนนี้เปิดไหม",
-        "เปิดถึงกี่โมง","ร้านเปิดเวลาไหน",
-        "ร้านปิดเวลาไหน","ตอนนี้ร้านเปิดไหม"
-    ],
-
-    nearOpen:[
-        "ใกล้เปิดยัง","ใกล้เปิดหรือยัง",
-        "จะเปิดยัง","จะเปิดหรือยัง",
-        "อีกกี่นาทีเปิด","อีกกี่โมงเปิด",
-        "ร้านจะเปิดเมื่อไหร่","ร้านใกล้เปิด"
-    ],
-
-    nearClose:[
-        "ใกล้ปิดยัง","ใกล้ปิดหรือยัง",
-        "ร้านจะปิดยัง","ร้านจะปิดหรือยัง",
-        "อีกกี่นาทีปิด","อีกกี่โมงปิด",
-        "เหลือกี่นาที","ร้านใกล้ปิด"
-    ],
-
-    payment:[
-        "จ่ายยังไง","ชำระเงินยังไง",
-        "รับเงินสดไหม","เงินสดได้ไหม",
-        "โอนได้ไหม","รับโอนไหม",
-        "โอนเงินได้ไหม","มีโอนเงินไหม",
-        "จ่ายแบบไหน","วิธีชำระเงิน"
-    ],
-
-    delivery:[
-        "มีส่งไหม","ส่งไหม","ส่งของไหม",
-        "ส่งสินค้าไหม","จัดส่งไหม",
-        "บริการส่ง","บริการจัดส่ง",
-        "ส่งถึงบ้านไหม","ส่งของได้ไหม"
-    ],
-
-    price:[
-        "ราคา","ราคาเท่าไหร่","ราคาเท่าไร",
-        "กี่บาท","เท่าไหร่","เท่าไร",
-        "ขอราคา","เช็กราคา","สอบถามราคา",
-        "ปุ๋ยราคา","เมล็ดพันธุ์ราคา"
-    ],
-
-    name:[
-        "ชื่อร้าน","ร้านชื่ออะไร",
-        "ชื่ออะไร","ชื่อร้านอะไร",
-        "ชื่อเต็มร้าน","ชื่อหจก."
-    ],
-
-    province:[
-        "จังหวัดอะไร","อยู่จังหวัดไหน",
-        "อยู่ร้อยเอ็ดไหม","ร้อยเอ็ดไหม"
-    ],
-
-    greeting:[
-        "สวัสดี","หวัดดี","hello","hi","ฮัลโหล"
-    ],
-
-    thanks:[
-        "ขอบคุณ","ขอบใจ","ขอบคุณมาก"
-    ],
-
-    help:[
-        "ช่วยอะไรได้บ้าง","ถามอะไรได้บ้าง",
-        "ทำอะไรได้บ้าง","ระบบทำอะไรได้",
-        "มีอะไรให้ถาม"
-    ]
-
+location:[
+"อยู่ที่ไหน","อยู่ตรงไหน","ร้านอยู่ไหน","ร้านอยู่ตรงไหน",
+"ที่อยู่","สถานที่","พิกัด","โลเคชั่น","โลเคชัน",
+"แผนที่","google maps","เปิดแมพ","เปิดแผนที่",
+"ใกล้เซเว่น","ข้างอะไร","อยู่แถวไหน","อยู่บริเวณไหน",
+"ทางไปร้าน","หาร้าน"
+],
+products:[
+"ขายอะไร","ขายอะไรบ้าง","มีอะไรขาย","สินค้า",
+"สินค้ามีอะไร","ร้านขายอะไร","ขายของเกษตร",
+"ซื้ออะไรได้บ้าง","มีอะไรให้ซื้อ"
+],
+riceList:[
+"มีพันธุ์ข้าวไหนบ้าง",
+"มีพันธุ์ข้าวอะไรบ้าง",
+"มีข้าวพันธุ์อะไร",
+"พันธุ์ข้าวมีอะไรบ้าง",
+"มีพันธุ์อะไรขาย",
+"มีเมล็ดพันธุ์ข้าวอะไร",
+"ข้าวพันธุ์ไหนมีขาย",
+"ขอรายชื่อพันธุ์ข้าว",
+"มีพันธุ์ข้าวอะไรขายบ้าง",
+"เมล็ดพันธุ์ข้าวมีอะไรบ้าง",
+"พันธุ์ข้าวทั้งหมด",
+"รายการพันธุ์ข้าว",
+"ขอรายการข้าว",
+"มีข้าวอะไรบ้าง",
+"ข้าวมีอะไรบ้าง"
+],
+fertilizerList:[
+"มีปุ๋ยอะไรบ้าง",
+"ปุ๋ยมีอะไรบ้าง",
+"ขายปุ๋ยอะไร",
+"มีปุ๋ยอะไรขาย",
+"ปุ๋ยอะไรมีขาย",
+"ขอรายชื่อปุ๋ย",
+"มีสูตรปุ๋ยอะไร",
+"ปุ๋ยทั้งหมด",
+"รายการปุ๋ย",
+"ขอรายการปุ๋ย"
+],
+phone:[
+"เบอร์","เบอร์โทร","เบอร์โทรศัพท์","โทรศัพท์",
+"เบอร์ร้าน","ขอเบอร์","ขอเบอร์ร้าน","หมายเลข",
+"โทรร้าน","ติดต่อร้าน"
+],
+hours:[
+"เปิดกี่โมง","ปิดกี่โมง","เปิดไหม","เปิดหรือยัง",
+"เปิดหรือเปล่า","ร้านเปิด","ร้านปิด","เวลาเปิด",
+"เวลาปิด","เวลาทำการ","ตอนนี้เปิดไหม",
+"เปิดถึงกี่โมง","ร้านเปิดเวลาไหน","ร้านปิดเวลาไหน",
+"ตอนนี้ร้านเปิดไหม"
+],
+nearOpen:[
+"ใกล้เปิดยัง","ใกล้เปิดหรือยัง","จะเปิดยัง",
+"จะเปิดหรือยัง","อีกกี่นาทีเปิด","อีกกี่โมงเปิด",
+"ร้านจะเปิดเมื่อไหร่","ร้านใกล้เปิด"
+],
+nearClose:[
+"ใกล้ปิดยัง","ใกล้ปิดหรือยัง","ร้านจะปิดยัง",
+"ร้านจะปิดหรือยัง","อีกกี่นาทีปิด","อีกกี่โมงปิด",
+"เหลือกี่นาที","ร้านใกล้ปิด"
+],
+payment:[
+"จ่ายยังไง","ชำระเงินยังไง","รับเงินสดไหม",
+"เงินสดได้ไหม","โอนได้ไหม","รับโอนไหม",
+"โอนเงินได้ไหม","มีโอนเงินไหม","จ่ายแบบไหน",
+"วิธีชำระเงิน"
+],
+delivery:[
+"มีส่งไหม","ส่งไหม","ส่งของไหม","ส่งสินค้าไหม",
+"จัดส่งไหม","บริการส่ง","บริการจัดส่ง",
+"ส่งถึงบ้านไหม","ส่งของได้ไหม"
+],
+price:[
+"ราคา","ราคาเท่าไหร่","ราคาเท่าไร","กี่บาท",
+"เท่าไหร่","เท่าไร","ขอราคา","เช็กราคา",
+"สอบถามราคา","ปุ๋ยราคา","เมล็ดพันธุ์ราคา"
+],
+name:[
+"ชื่อร้าน","ร้านชื่ออะไร","ชื่ออะไร","ชื่อร้านอะไร",
+"ชื่อเต็มร้าน","ชื่อหจก."
+],
+province:[
+"จังหวัดอะไร","อยู่จังหวัดไหน","อยู่ร้อยเอ็ดไหม","ร้อยเอ็ดไหม"
+],
+greeting:[
+"สวัสดี","หวัดดี","hello","hi","ฮัลโหล"
+],
+thanks:[
+"ขอบคุณ","ขอบใจ","ขอบคุณมาก"
+],
+help:[
+"ช่วยอะไรได้บ้าง","ถามอะไรได้บ้าง","ทำอะไรได้บ้าง",
+"ระบบทำอะไรได้","มีอะไรให้ถาม"
+]
 };
-
-
-/* =========================================
+/* =========================
    NORMALIZE
-========================================= */
-
+========================= */
 function clean(text){
-
     return text
         .toLowerCase()
         .replace(/[?？!！.,，。:：;；]/g," ")
         .replace(/\s+/g," ")
         .trim();
-
 }
-
-
-/* =========================================
-   SEARCH PRODUCT
-========================================= */
-
+/* =========================
+   PRODUCT SEARCH
+========================= */
 function findRice(query){
-
     const q=clean(query);
-
     return RICE_SEEDS.filter(item=>{
-
         const normalized=clean(item);
-
         const parts=normalized
             .replace(/[()]/g," ")
             .split(/\s+/)
             .filter(x=>x.length>1);
-
         return q.includes(normalized) ||
                parts.some(part=>q.includes(part));
-
     });
-
 }
-
-
 function findFertilizer(query){
-
     const q=clean(query);
-
     return FERTILIZERS.filter(item=>{
-
         const normalized=clean(item);
-
         const parts=normalized
             .replace(/[()]/g," ")
             .split(/\s+/)
             .filter(x=>x.length>1);
-
         return q.includes(normalized) ||
                parts.some(part=>q.includes(part));
-
     });
-
 }
-
-
-/* =========================================
-   DETECT INTENT
-========================================= */
-
+/* =========================
+   INTENT DETECTION
+========================= */
 function detect(text){
-
     const q=clean(text);
-
-    /* เช็กชื่อสินค้าก่อน */
-
     const riceFound=findRice(q);
     const fertFound=findFertilizer(q);
-
     if(riceFound.length){
-
-        return {
+        return{
             intent:"specificRice",
             confidence:97,
             products:riceFound
         };
-
     }
-
     if(fertFound.length){
-
-        return {
+        return{
             intent:"specificFertilizer",
             confidence:97,
             products:fertFound
         };
-
     }
-
-
     let best=null;
     let score=0;
-
     for(const [intent,words] of Object.entries(INTENTS)){
-
         let s=0;
-
         for(const word of words){
-
             const w=clean(word);
-
             if(q===w)
                 s+=15;
-
             else if(q.includes(w))
                 s+=Math.min(9,w.length);
-
         }
-
         if(intent==="riceList" &&
            /พันธุ์ข้าว|เมล็ดพันธุ์|ข้าว/.test(q))
             s+=8;
-
         if(intent==="fertilizerList" &&
            /ปุ๋ย|ยูเรีย|สูตร/.test(q))
             s+=8;
-
         if(intent==="location" &&
            /อยู่|ตรงไหน|ที่ไหน|แผนที่|พิกัด/.test(q))
             s+=5;
-
         if(intent==="hours" &&
            /เปิด|ปิด|เวลา|กี่โมง/.test(q))
             s+=5;
-
         if(intent==="phone" &&
            /เบอร์|โทร|ติดต่อ/.test(q))
             s+=5;
-
         if(s>score){
             score=s;
             best=intent;
         }
-
     }
-
-
-    /* ถ้าพิมพ์ประมาณว่า "มี กข6 ไหม" */
-
     if(
         /กข\s*6|กข\s*61|กข\s*89|กข\s*15|กข\s*24|มะลิ\s*105|สันป่าตอง/.test(q)
     ){
-
-        return {
+        return{
             intent:"specificRice",
             confidence:98,
             products:findRice(q)
         };
-
     }
-
-
-    /* คำถามต่อเนื่อง */
-
     if(score<3 && memory.lastIntent){
-
         if(/เบอร์|โทร/.test(q))
             best="phone";
-
         else if(/อยู่ไหน|ตรงไหน|พิกัด/.test(q))
             best="location";
-
         else if(/เปิด|ปิด|กี่โมง/.test(q))
             best="hours";
-
         else if(/พันธุ์|ข้าว/.test(q))
             best="riceList";
-
         else if(/ปุ๋ย|ยูเรีย/.test(q))
             best="fertilizerList";
-
     }
-
-
-    return {
+    return{
         intent:best,
         confidence:best
             ? Math.min(99,Math.max(75,65+score*2))
             : 0
     };
-
 }
-
-
-/* =========================================
+/* =========================
    TIME
-========================================= */
-
+========================= */
 function nowMinutes(){
-
     const d=new Date();
-
     return d.getHours()*60+d.getMinutes();
-
 }
-
-
 function isOpen(){
-
     const n=nowMinutes();
-
     return n>=SHOP.open && n<SHOP.close;
-
 }
-
-
 function duration(min){
-
     if(min<=0)
         return "0 นาที";
-
     const h=Math.floor(min/60);
     const m=min%60;
-
     if(h===0)
         return m+" นาที";
-
     if(m===0)
         return h+" ชั่วโมง";
-
     return h+" ชั่วโมง "+m+" นาที";
-
 }
-
-
 function untilOpen(){
-
     let now=nowMinutes();
     let target=SHOP.open;
-
     if(now>=SHOP.close)
         target+=1440;
-
     return target-now;
-
 }
-
-
 function untilClose(){
-
     return SHOP.close-nowMinutes();
-
 }
-
-
-/* =========================================
+/* =========================
    STATUS
-========================================= */
-
+========================= */
 function updateStatus(){
-
     const open=isOpen();
-
     const top=document.getElementById("topStatus");
     const hero=document.getElementById("heroStatus");
     const heroTime=document.getElementById("heroTime");
     const contact=document.getElementById("contactStatus");
-
     if(open){
-
         top.textContent="ร้านเปิดอยู่";
         hero.textContent="● เปิดอยู่";
         heroTime.textContent="OPEN";
-
         contact.textContent=
             "ขณะนี้ร้านเปิดให้บริการ";
-
     }else{
-
         top.textContent="ร้านปิดอยู่";
         hero.textContent="ปิดอยู่";
         heroTime.textContent="CLOSED";
-
         contact.textContent=
             "ขณะนี้ร้านปิด • เวลาเปิด 08:00 น.";
-
     }
-
 }
-
 updateStatus();
 setInterval(updateStatus,30000);
-
-
-/* =========================================
+/* =========================
    NAVIGATION
-========================================= */
-
+========================= */
 function navigate(page){
-
     document
         .querySelectorAll(".page")
         .forEach(p=>p.classList.remove("active"));
-
-    document
-        .getElementById(page)
-        .classList.add("active");
-
+    const target=document.getElementById(page);
+    if(target)
+        target.classList.add("active");
     document
         .querySelectorAll(".nav,.mobile-nav button")
         .forEach(b=>{
@@ -2156,170 +2022,101 @@ function navigate(page){
                 b.dataset.page===page
             );
         });
-
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
-
 }
-
-
-/* =========================================
-   ASK
-========================================= */
-
+/* =========================
+   QUICK
+========================= */
 function quick(text){
-
     document.getElementById("question").value=text;
-
     navigate("ai");
-
     sendQuestion();
-
 }
-
-
+/* =========================
+   SEND
+========================= */
 function sendQuestion(){
-
     const input=document.getElementById("question");
     const text=input.value.trim();
-
     if(!text){
-
         toast("พิมพ์คำถามก่อนนะ");
-
         return;
-
     }
-
     input.value="";
-
     addUser(text);
-
     const typing=document.createElement("div");
-
     typing.className="message bot";
     typing.id="typing";
-
     typing.innerHTML=`
         <div class="bubble">
             ✦ กำลังค้นข้อมูล...
         </div>
     `;
-
     document
         .getElementById("chatBody")
         .appendChild(typing);
-
     scrollChat();
-
-
     setTimeout(()=>{
-
         typing.remove();
-
         const result=detect(text);
-
         memory.lastQuestion=text;
         memory.lastIntent=result.intent;
-
         if(!result.intent){
-
             unknown();
-
             return;
-
         }
-
         answer(
             result.intent,
             result.confidence,
             result.products||[]
         );
-
     },350);
-
 }
-
-
-/* =========================================
+/* =========================
    ANSWER
-========================================= */
-
+========================= */
 function answer(intent,confidence,products){
-
     let text="";
     let actions="";
-
     const maps=
         "https://www.google.com/maps/search/?api=1&query="+
         encodeURIComponent(SHOP.shortName);
-
-
     if(intent==="greeting"){
-
         text=
             "สวัสดี ยินดีต้อนรับสู่ "+
             SHOP.name+
             " มีอะไรให้ช่วยได้เลย";
-
     }
-
-
     else if(intent==="thanks"){
-
         text=
             "ยินดีเลย ถ้ามีอะไรอยากรู้เกี่ยวกับร้านถามต่อได้เลย";
-
     }
-
-
     else if(intent==="help"){
-
         text=`
-
         ผมช่วยเรื่องข้อมูลร้านได้หลายอย่าง
-
         <div class="answer-box">
-
         📍 สถานที่และ Google Maps
-        <br>
-        🌾 รายชื่อพันธุ์ข้าว
-        <br>
-        🌱 รายการปุ๋ย
-        <br>
-        🔎 เช็กว่ามีสินค้าชื่อที่ถามหรือไม่
-        <br>
-        🕐 เวลาเปิด-ปิด
-        <br>
-        ☎ เบอร์โทร
-        <br>
-        💳 การชำระเงิน
-        <br>
-        🚚 การจัดส่ง
-
+        <br>🌾 รายชื่อพันธุ์ข้าว
+        <br>🌱 รายการปุ๋ย
+        <br>🔎 เช็กสินค้าที่ถาม
+        <br>🕐 เวลาเปิด-ปิด
+        <br>☎ เบอร์โทร
+        <br>💳 การชำระเงิน
+        <br>🚚 การจัดส่ง
         </div>
-
         `;
-
     }
-
-
     else if(intent==="location"){
-
         text=`
-
         ร้านอยู่ที่
-
         <div class="answer-box">
         📍 <strong>${SHOP.address}</strong>
         </div>
-
         `;
-
         actions=`
-
         <a
         class="mini primary"
         target="_blank"
@@ -2327,515 +2124,292 @@ function answer(intent,confidence,products){
         href="${maps}">
         📍 เปิด Google Maps
         </a>
-
         `;
-
     }
-
-
     else if(intent==="products"){
-
         text=`
-
         ร้านจำหน่าย
-
         <div class="answer-box">
-
         🌱 <strong>ปุ๋ย</strong>
         <br>
         🌾 <strong>เมล็ดพันธุ์ข้าว</strong>
-
         </div>
-
         `;
-
         actions=`
-
         <button
         class="mini primary"
         onclick="quick('มีพันธุ์ข้าวไหนบ้าง')">
         🌾 ดูพันธุ์ข้าว
         </button>
-
         <button
         class="mini"
         onclick="quick('มีปุ๋ยอะไรบ้าง')">
         🌱 ดูปุ๋ย
         </button>
-
         `;
-
     }
-
-
     else if(intent==="riceList"){
-
         text=`
-
         🌾 <strong>พันธุ์ข้าวที่มีข้อมูลในระบบ</strong>
-
         <div class="answer-box">
-
         ${RICE_SEEDS.map((x,i)=>
             `${i+1}. ${x}`
         ).join("<br>")}
-
         </div>
-
         <small style="color:#89968e">
-        หมายเหตุ: รายการนี้เป็นข้อมูลสินค้าที่ร้านแจ้งไว้
-        ไม่ใช่ข้อมูลสต็อกแบบเรียลไทม์
+        รายการนี้เป็นข้อมูลสินค้าที่ร้านแจ้งไว้
+        ไม่ใช่สต็อกแบบเรียลไทม์
         </small>
-
         `;
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
         ☎ เช็กของกับร้าน
         </a>
-
         `;
-
     }
-
-
     else if(intent==="fertilizerList"){
-
         text=`
-
         🌱 <strong>รายการปุ๋ยที่มีข้อมูลในระบบ</strong>
-
         <div class="answer-box">
-
         ${FERTILIZERS.map((x,i)=>
             `${i+1}. ${x}`
         ).join("<br>")}
-
         </div>
-
         <small style="color:#89968e">
         ไม่มีการแสดงราคา เนื่องจากราคาอาจเปลี่ยนแปลง
         </small>
-
         `;
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
         ☎ เช็กสินค้ากับร้าน
         </a>
-
         `;
-
     }
-
-
     else if(intent==="specificRice"){
-
         if(products.length){
-
             text=`
-
             🌾 พบข้อมูลพันธุ์ข้าวที่ตรงกับคำถาม
-
             <div class="answer-box">
-
             ${products.map(x=>
                 `✓ <strong>${x}</strong>`
             ).join("<br>")}
-
             </div>
-
             `;
-
         }else{
-
             text=`
-
             ยังไม่พบชื่อพันธุ์ข้าวนี้ในรายการข้อมูลร้าน
-
             <div class="answer-box">
-            ถ้าต้องการเช็กว่าสินค้ามีเข้าร้านเพิ่มเติมหรือไม่
+            หากต้องการเช็กสินค้าเพิ่มเติม
             โทรสอบถามที่ <strong>${SHOP.phone}</strong>
             </div>
-
             `;
-
         }
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
         ☎ เช็กกับร้าน
         </a>
-
         `;
-
     }
-
-
     else if(intent==="specificFertilizer"){
-
         if(products.length){
-
             text=`
-
             🌱 พบข้อมูลปุ๋ยที่ตรงกับคำถาม
-
             <div class="answer-box">
-
             ${products.map(x=>
                 `✓ <strong>${x}</strong>`
             ).join("<br>")}
-
             </div>
-
             `;
-
         }else{
-
             text=`
-
             ยังไม่พบชื่อปุ๋ยนี้ในรายการข้อมูลร้าน
-
-            <div class="answer-box">
-            สามารถโทรสอบถามร้านเพื่อเช็กสินค้าเพิ่มเติมได้
-            </div>
-
             `;
-
         }
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
         ☎ เช็กกับร้าน
         </a>
-
         `;
-
     }
-
-
     else if(intent==="phone"){
-
         text=`
-
         เบอร์โทรร้านคือ
-
         <div class="answer-box">
-
-        <strong style="font-size:17px">
+        <strong style="font-size:18px">
         ${SHOP.phone}
         </strong>
-
         </div>
-
         `;
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
         ☎ โทรร้าน
         </a>
-
         <button
         class="mini"
         onclick="copyPhone()">
         ⧉ คัดลอก
         </button>
-
         `;
-
     }
-
-
     else if(intent==="hours"){
-
         if(isOpen()){
-
             text=`
-
             🟢 <strong>ตอนนี้ร้านเปิดอยู่</strong>
-
             <div class="answer-box">
-
             เวลาทำการ
             <strong>08:00 – 17:00 น.</strong>
-
             <br><br>
-
             เหลือประมาณ
             <strong>${duration(untilClose())}</strong>
             ก่อนร้านปิด
-
             </div>
-
             `;
-
         }else{
-
             text=`
-
             🔴 <strong>ตอนนี้ร้านปิดอยู่</strong>
-
             <div class="answer-box">
-
             ร้านเปิดเวลา
             <strong>08:00 น.</strong>
-
             <br><br>
-
             เหลือประมาณ
             <strong>${duration(untilOpen())}</strong>
             ก่อนร้านเปิด
-
             </div>
-
             `;
-
         }
-
     }
-
-
     else if(intent==="nearOpen"){
-
         if(isOpen()){
-
             text=`
-
             🟢 <strong>ร้านเปิดอยู่แล้ว</strong>
-
             <div class="answer-box">
             ตอนนี้สามารถเข้าไปติดต่อร้านได้
             <br>
             ร้านปิดเวลา <strong>17:00 น.</strong>
             </div>
-
             `;
-
         }else{
-
             text=`
-
             🕐 <strong>ร้านยังไม่เปิด</strong>
-
             <div class="answer-box">
-
             เปิดเวลา <strong>08:00 น.</strong>
-
             <br><br>
-
             เหลือประมาณ
             <strong>${duration(untilOpen())}</strong>
-
             </div>
-
             `;
-
         }
-
     }
-
-
     else if(intent==="nearClose"){
-
         if(isOpen()){
-
             text=`
-
             🟢 <strong>ร้านยังเปิดอยู่</strong>
-
             <div class="answer-box">
-
             จะปิดเวลา <strong>17:00 น.</strong>
-
             <br><br>
-
             เหลือประมาณ
             <strong>${duration(untilClose())}</strong>
-
             </div>
-
             `;
-
         }else{
-
             text=`
-
             🔴 <strong>ตอนนี้ร้านปิดแล้ว</strong>
-
             <div class="answer-box">
-
             เปิดอีกครั้งเวลา
             <strong>08:00 น.</strong>
-
             </div>
-
             `;
-
         }
-
     }
-
-
     else if(intent==="payment"){
-
         text=`
-
         ร้านรองรับการชำระเงิน
-
         <div class="answer-box">
-
         ✓ เงินสด
         <br>
         ✓ โอนเงิน
-
         </div>
-
         `;
-
     }
-
-
     else if(intent==="delivery"){
-
         text=`
-
         เรื่องการจัดส่งสามารถสอบถามร้านโดยตรงได้
-
         <div class="answer-box">
         ☎ ${SHOP.phone}
         </div>
-
         `;
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
         ☎ สอบถามการจัดส่ง
         </a>
-
         `;
-
     }
-
-
     else if(intent==="price"){
-
         text=`
-
         ระบบไม่มีราคาสินค้าแบบถาวร
-
         <div class="answer-box">
-
         เพื่อป้องกันข้อมูลผิดพลาด
         ระบบจะ <strong>ไม่เดาราคา</strong>
-        และไม่แสดงราคาที่อาจหมดอายุ
-
         <br><br>
-
-        สามารถโทรสอบถามราคาปัจจุบันได้ที่
+        โทรสอบถามราคาปัจจุบันได้ที่
         <strong>${SHOP.phone}</strong>
-
         </div>
-
         `;
-
         actions=`
-
         <a
         class="mini primary"
         href="tel:${SHOP.phoneRaw}">
-        ☎ เช็กราคาปัจจุบัน
+        ☎ เช็กราคา
         </a>
-
         `;
-
     }
-
-
     else if(intent==="name"){
-
         text=`
-
         ชื่อร้านคือ
-
         <div class="answer-box">
-
         <strong>${SHOP.name}</strong>
-
         </div>
-
         `;
-
     }
-
-
     else if(intent==="province"){
-
         text=
             "ร้านตั้งอยู่ที่จังหวัด <strong>ร้อยเอ็ด</strong>";
-
     }
-
-
     else{
-
         unknown();
         return;
-
     }
-
-
     addBot(text,actions,confidence);
-
 }
-
-
-/* =========================================
+/* =========================
    UNKNOWN
-========================================= */
-
+========================= */
 function unknown(){
-
     const div=document.createElement("div");
-
     div.className="message bot";
-
     div.innerHTML=`
-
     <div class="bubble">
-
     <div class="bad">
-    ⚠ พบปัญหาด้านการตอบ
+    ⚠ ยังไม่เข้าใจคำถาม
     </div>
-
     ระบบยังไม่เข้าใจคำถามนี้ชัดเจน
-
     <div class="answer-box">
-
     ผมไม่อยากเดาข้อมูลขึ้นมาเอง
     เพราะอาจทำให้ข้อมูลร้านผิด
-
     <br><br>
-
     ลองถามเกี่ยวกับ
-
     <strong>
     ร้านอยู่ไหน,
     พันธุ์ข้าว,
@@ -2844,507 +2418,317 @@ function unknown(){
     เบอร์โทร,
     การชำระเงิน
     </strong>
-
     </div>
-
     <div class="action-row">
-
     <a
     class="mini primary"
     href="tel:${SHOP.phoneRaw}">
     ☎ ติดต่อร้าน
     </a>
-
     </div>
-
     </div>
-
     `;
-
     document
         .getElementById("chatBody")
         .appendChild(div);
-
     scrollChat();
-
 }
-
-
-/* =========================================
+/* =========================
    MESSAGE
-========================================= */
-
+========================= */
 function addUser(text){
-
     const div=document.createElement("div");
-
     div.className="message user";
-
     div.innerHTML=`
-
     <div class="bubble">
     ${escapeHTML(text)}
     </div>
-
     `;
-
     document
         .getElementById("chatBody")
         .appendChild(div);
-
     scrollChat();
-
 }
-
-
 function addBot(text,actions,confidence){
-
     const div=document.createElement("div");
-
     div.className="message bot";
-
     div.innerHTML=`
-
     <div class="bubble">
-
     <div class="good">
     ✓ AI ตอบได้
     </div>
-
     ${text}
-
     ${
         actions
         ?
-        `<div class="action-row">
-        ${actions}
-        </div>`
+        `<div class="action-row">${actions}</div>`
         :
         ""
     }
-
     <div class="action-row">
-
     <button
     class="mini"
     onclick="speak(this)">
     🔊 อ่านคำตอบ
     </button>
-
     <button
     class="mini"
     onclick="copyAnswer(this)">
     ⧉ คัดลอก
     </button>
-
     </div>
-
     <div class="confidence">
-
     ความมั่นใจ ${confidence}%
-
     <div class="confidence-bar">
-
     <div
     class="confidence-fill"
     style="width:${confidence}%">
     </div>
-
     </div>
-
     </div>
-
     </div>
-
     `;
-
     document
         .getElementById("chatBody")
         .appendChild(div);
-
     scrollChat();
-
 }
-
-
-/* =========================================
+/* =========================
    VOICE
-========================================= */
-
+========================= */
 let recognition=null;
-
 function voiceInput(){
-
     const SR=
         window.SpeechRecognition ||
         window.webkitSpeechRecognition;
-
     if(!SR){
-
         toast("เบราว์เซอร์นี้ไม่รองรับการพูด");
-
         return;
-
     }
-
     if(recognition){
-
         recognition.stop();
         recognition=null;
-
         return;
-
     }
-
     recognition=new SR();
-
     recognition.lang="th-TH";
     recognition.interimResults=false;
     recognition.continuous=false;
-
     const button=document.getElementById("voice");
-
     button.classList.add("listening");
     button.textContent="●";
-
     recognition.onresult=e=>{
-
         document
             .getElementById("question")
             .value=
             e.results[0][0].transcript;
-
         sendQuestion();
-
     };
-
     recognition.onerror=()=>{
-
         toast("ไม่สามารถรับเสียงได้");
-
     };
-
     recognition.onend=()=>{
-
         button.classList.remove("listening");
         button.textContent="🎙";
         recognition=null;
-
     };
-
     recognition.start();
-
 }
-
-
-/* =========================================
+/* =========================
    SPEECH
-========================================= */
-
+========================= */
 function speak(button){
-
     if(!("speechSynthesis" in window)){
-
         toast("อุปกรณ์ไม่รองรับการอ่านเสียง");
-
         return;
-
     }
-
     const bubble=button.closest(".bubble");
-
     if(!bubble)return;
-
     speechSynthesis.cancel();
-
     const utterance=
         new SpeechSynthesisUtterance(
             bubble.innerText
         );
-
     utterance.lang="th-TH";
     utterance.rate=.95;
-
     speechSynthesis.speak(utterance);
-
 }
-
-
-/* =========================================
+/* =========================
    COPY
-========================================= */
-
+========================= */
 function copyPhone(){
-
+    if(!navigator.clipboard){
+        toast("อุปกรณ์ไม่รองรับการคัดลอก");
+        return;
+    }
     navigator.clipboard
         .writeText(SHOP.phone)
         .then(()=>{
             toast("คัดลอกเบอร์แล้ว");
         });
-
 }
-
-
 function copyAnswer(button){
-
     const bubble=
         button.closest(".bubble");
-
+    if(!navigator.clipboard)return;
     navigator.clipboard
         .writeText(bubble.innerText)
         .then(()=>{
             toast("คัดลอกคำตอบแล้ว");
         });
-
 }
-
-
-/* =========================================
+/* =========================
    SHARE
-========================================= */
-
+========================= */
 async function shareStore(){
-
     const text=`
-
 ${SHOP.name}
-
 📍 ${SHOP.address}
-
 ☎ ${SHOP.phone}
-
 🕐 08:00 - 17:00 น.
-
 🌱 ปุ๋ย
 🌾 เมล็ดพันธุ์ข้าว
-
-    `;
-
+`;
     if(navigator.share){
-
         try{
-
             await navigator.share({
                 title:SHOP.name,
                 text:text
             });
-
         }catch(e){}
-
     }else{
-
-        navigator.clipboard.writeText(text);
-
+        if(navigator.clipboard)
+            navigator.clipboard.writeText(text);
         toast("คัดลอกข้อมูลร้านแล้ว");
-
     }
-
 }
-
-
-/* =========================================
-   PRODUCT PAGE
-========================================= */
-
+/* =========================
+   PRODUCTS
+========================= */
 let productTab="all";
-
-
 function setProductTab(tab){
-
     productTab=tab;
-
     document
         .querySelectorAll(".product-tab")
         .forEach(x=>x.classList.remove("active"));
-
     if(tab==="all")
-        document.getElementById("tabAll").classList.add("active");
-
+        document.getElementById("tabAll")
+            .classList.add("active");
     if(tab==="rice")
-        document.getElementById("tabRice").classList.add("active");
-
+        document.getElementById("tabRice")
+            .classList.add("active");
     if(tab==="fert")
-        document.getElementById("tabFert").classList.add("active");
-
+        document.getElementById("tabFert")
+            .classList.add("active");
     renderProducts();
-
 }
-
-
 function renderProducts(){
-
     const search=
         clean(
             document.getElementById("productSearch").value
         );
-
     let list=[];
-
     if(productTab==="all" || productTab==="rice"){
-
         RICE_SEEDS.forEach(x=>{
-            if(!search || clean(x).includes(search))
+            if(!search || clean(x).includes(search)){
                 list.push({
                     name:x,
                     type:"🌾 พันธุ์ข้าว"
                 });
+            }
         });
-
     }
-
     if(productTab==="all" || productTab==="fert"){
-
         FERTILIZERS.forEach(x=>{
-            if(!search || clean(x).includes(search))
+            if(!search || clean(x).includes(search)){
                 list.push({
                     name:x,
                     type:"🌱 ปุ๋ย"
                 });
+            }
         });
-
     }
-
     const container=
         document.getElementById("productList");
-
     if(!list.length){
-
         container.innerHTML=`
-
         <div class="card" style="grid-column:1/-1">
-
         ไม่พบสินค้าที่ค้นหา
-
         </div>
-
         `;
-
         return;
-
     }
-
     container.innerHTML=
         list.map(x=>`
-
         <div class="product-item">
-
-        <strong>${escapeHTML(x.name)}</strong>
-
-        <small>${x.type}</small>
-
+        <strong>
+        ${escapeHTML(x.name)}
+        </strong>
+        <small>
+        ${x.type}
+        </small>
         </div>
-
         `).join("");
-
 }
-
 renderProducts();
-
-
-/* =========================================
-   CLEAR CHAT
-========================================= */
-
+/* =========================
+   CLEAR
+========================= */
 function clearChat(){
-
     document.getElementById("chatBody").innerHTML=`
-
     <div class="message bot">
-
     <div class="bubble">
-
     <div class="good">
     ✓ AI พร้อมช่วย
     </div>
-
     เริ่มบทสนทนาใหม่ได้เลย
-
     </div>
-
     </div>
-
     `;
-
     memory={
         lastIntent:null,
         lastQuestion:null
     };
-
     toast("ล้างบทสนทนาแล้ว");
-
 }
-
-
-/* =========================================
+/* =========================
    ENTER
-========================================= */
-
+========================= */
 document
     .getElementById("question")
     .addEventListener("keydown",e=>{
-
         if(e.key==="Enter"){
-
             e.preventDefault();
-
             sendQuestion();
-
         }
-
     });
-
-
-/* =========================================
+/* =========================
    HELPERS
-========================================= */
-
+========================= */
 function scrollChat(){
-
     const chat=
         document.getElementById("chatBody");
-
     setTimeout(()=>{
-
         chat.scrollTop=chat.scrollHeight;
-
     },30);
-
 }
-
-
 function escapeHTML(text){
-
     const div=
         document.createElement("div");
-
     div.textContent=text;
-
     return div.innerHTML;
-
 }
-
-
 function toast(text){
-
     const t=
         document.getElementById("toast");
-
     t.textContent=text;
-
     t.classList.add("show");
-
     clearTimeout(window.toastTimer);
-
     window.toastTimer=
         setTimeout(()=>{
-
             t.classList.remove("show");
-
         },2000);
-
 }
-
 </script>
-
 </body>
 </html>
